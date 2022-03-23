@@ -1,0 +1,57 @@
+{
+  "name": "gh-stats",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Find the download count of GitHub releases",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zwwuu/gh-stats"
+  },
+  "license": "MIT",
+  "author": "zwwuu",
+  "scripts": {
+    "analyze": "npm run build && source-map-explorer 'build/static/js/*.js'",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject",
+    "format": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,json,md}\"",
+    "prepare": "husky install",
+    "start": "react-scripts start"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,md}": "prettier --write"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not op_mini all"
+  ],
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "dependencies": {
+    "@chakra-ui/react": "^1.8.6",
+    "@emotion/react": "^11.8.2",
+    "@emotion/styled": "^11.8.1",
+    "axios": "^0.26.1",
+    "filesize": "^8.0.7",
+    "framer-motion": "^6.2.8",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-helmet": "^6.1.0",
+    "react-icons": "^4.3.1",
+    "react-markdown": "^8.0.1",
+    "react-query": "^3.34.16",
+    "react-router-dom": "^6.2.2",
+    "react-scripts": "5.0.0",
+    "remark-breaks": "^3.0.2",
+    "remark-gfm": "^3.0.1"
+  },
+  "devDependencies": {
+    "husky": "^7.0.4",
+    "prettier": "^2.6.0",
+    "source-map-explorer": "^2.5.2"
+  }
+}
