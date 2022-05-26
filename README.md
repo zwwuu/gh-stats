@@ -2,7 +2,7 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/9d025c98-8d02-4fdd-9150-7bc54649c38d/deploy-status)](https://app.netlify.com/sites/ghstats/deploys)
 
 Find the download count of GitHub releases.
-[https://ghstats.netlify.app](https://ghstats.netlify.app)
+[https://ghstats.zwwuu.dev/](https://ghstats.zwwuu.dev/)
 
 ## Available Scripts
 
