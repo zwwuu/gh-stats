@@ -1,24 +1,25 @@
 import {
-  Alert,
-  AlertIcon,
-  Box,
-  Card,
-  CardBody,
-  Container,
-  Flex,
-  Heading,
-  Link,
-  Spinner,
-  Stack,
-  Stat,
-  StatGroup,
-  StatLabel,
-  StatNumber,
-  Tag,
-  TagLabel,
-  TagLeftIcon,
-  Text,
-  VStack
+    Alert,
+    AlertIcon,
+    Box,
+    Card,
+    CardBody,
+    Container,
+    Flex,
+    Heading,
+    Link,
+    Spinner,
+    Stack,
+    Stat,
+    StatGroup,
+    StatLabel,
+    StatNumber,
+    Tag,
+    TagLabel,
+    TagLeftIcon,
+    Text,
+    useColorModeValue,
+    VStack
 } from "@chakra-ui/react";
 import SearchBar from "../../components/SearchBar";
 import {useRouter} from "next/router";
@@ -56,9 +57,13 @@ const calculateTotalDownloads = (releases: any[]) => {
 };
 
 export default function RepoPage() {
-  const router = useRouter();
-  const { owner, repo } = router.query;
-  const { data, error } = useSWRImmutable({ owner, repo }, fetcher);
+    const router = useRouter();
+    const {isReady} = router;
+    const {owner, repo} = router.query;
+    const {data, error} = useSWRImmutable(isReady ? {owner, repo} : null, fetcher);
+    const bg = useColorModeValue("gray.100", "gray.600");
+    const statBg = useColorModeValue("gray.50", "gray.900");
+    const separatorColor = useColorModeValue("gray.600", "gray.200");
 
     const downloadCount = useMemo(() => {
         if (data && data.releaseData.length) {
