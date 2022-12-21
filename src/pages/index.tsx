@@ -7,8 +7,8 @@ export default function HomePage() {
     <>
       <Container maxWidth={"container.xl"} py={6}>
         <VStack align={"start"} spacing={4}>
-          <Heading as={"h1"}>GH Stats</Heading>
-          <Text>Find the download count of GitHub releases</Text>
+          <Heading as={"h1"}>{process.env.NEXT_PUBLIC_APP_TITLE}</Heading>
+          <Text>{process.env.NEXT_PUBLIC_APP_DESCRIPTION}</Text>
           <SearchBar />
         </VStack>
       </Container>
