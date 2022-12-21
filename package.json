@@ -12,6 +12,7 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
+    "fix": "next lint --fix",
     "format": "prettier --write src/**/*.{css,tsx,ts}",
     "lint": "next lint",
     "start": "next start"
@@ -22,6 +23,7 @@
     "@emotion/styled": "^11.10.5",
     "@octokit/rest": "^19.0.5",
     "@primer/octicons-react": "^17.10.0",
+    "core-js": "^3.26.1",
     "next": "13.0.7",
     "next-seo": "^5.15.0",
     "pretty-bytes": "^6.0.0",
@@ -31,6 +33,7 @@
     "react-virtuoso": "^3.1.5",
     "remark-breaks": "^3.0.2",
     "remark-gfm": "^3.0.1",
+    "sharp": "^0.31.2",
     "swr": "^2.0.0"
   },
   "devDependencies": {
