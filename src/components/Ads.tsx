@@ -1,3 +1,3 @@
 export default function Ads() {
-  return <div id="container-0f7b88f1771782a7a2c673c9356299f1"></div>;
+  return <div id="amzn-assoc-ad-3c840bcf-9804-47a2-8e16-5d33412c7b10"></div>;
 }

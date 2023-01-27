@@ -26,8 +26,7 @@ export default function App({ Component, pageProps }: AppProps) {
         strategy="afterInteractive"
       />
       <Script
-        data-cfasync="false"
-        src="//pl18153705.highcpmrevenuenetwork.com/0f7b88f1771782a7a2c673c9356299f1/invoke.js"
+        src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=3c840bcf-9804-47a2-8e16-5d33412c7b10"
         async
       />
       <ChakraProvider>
