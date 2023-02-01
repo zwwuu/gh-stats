@@ -10,7 +10,7 @@ import {
   useColorModeValue,
   VStack,
 } from "@chakra-ui/react";
-import { getTrending, TRENDING_PER_PAGE } from "../lib/github";
+import { getTrending, TRENDING_PER_PAGE } from "@/lib/github";
 import SkeletonCard from "./SkeletonCard";
 import RepoCard from "./RepoCard";
 import useSWR from "swr";

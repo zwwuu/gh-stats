@@ -1,6 +1,6 @@
 import { Container, Heading, Text, VStack } from "@chakra-ui/react";
-import SearchBar from "../components/SearchBar";
-import Trending from "../components/Trending";
+import SearchBar from "@/components/SearchBar";
+import Trending from "@/components/Trending";
 
 export default function HomePage() {
   return (

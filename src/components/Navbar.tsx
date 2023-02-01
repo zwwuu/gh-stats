@@ -1,5 +1,5 @@
 import { Box, Container, Flex, Icon, IconButton, Image, Link, Text, useColorMode } from "@chakra-ui/react";
-import logo from "../../public/images/logo.png";
+import logo from "@public/images/logo.png";
 import { MarkGithubIcon, MoonIcon, SunIcon } from "@primer/octicons-react";
 import NextLink from "next/link";
 

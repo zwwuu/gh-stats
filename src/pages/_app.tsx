@@ -1,8 +1,8 @@
 import type { AppProps } from "next/app";
-import Layout from "../components/Layout";
+import Layout from "@/components/Layout";
 import { ChakraProvider } from "@chakra-ui/react";
 import { DefaultSeo } from "next-seo";
-import SEO from "../lib/seo";
+import SEO from "@/lib/seo";
 import Script from "next/script";
 
 export default function App({ Component, pageProps }: AppProps) {

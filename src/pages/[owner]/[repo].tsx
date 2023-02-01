@@ -21,13 +21,13 @@ import {
   useColorModeValue,
   VStack,
 } from "@chakra-ui/react";
-import SearchBar from "../../components/SearchBar";
+import SearchBar from "@/components/SearchBar";
 import { useRouter } from "next/router";
-import { getRepo } from "../../lib/github";
+import { getRepo } from "@/lib/github";
 import { EyeIcon, GitBranchIcon, StarFillIcon } from "@primer/octicons-react";
 import { NextSeo } from "next-seo";
 import { useMemo } from "react";
-import ReleaseList from "../../components/ReleaseList";
+import ReleaseList from "@/components/ReleaseList";
 import useSWRImmutable from "swr/immutable";
 
 const fetcher = (params: { owner: string; repo: string; page: number }) => {
