@@ -26,7 +26,7 @@ export default function App({ Component, pageProps }: AppProps) {
         strategy="afterInteractive"
       />
       <Script
-        src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=3c840bcf-9804-47a2-8e16-5d33412c7b10"
+        src={`//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=${process.env.NEXT_PUBLIC_AMAZON_AD_ID}`}
         async
       />
       <ChakraProvider>

@@ -4,7 +4,7 @@ import theme from "@/lib/theme";
 
 export default function Document() {
   return (
-    <Html lang="en">
+    <Html>
       <Head>
         <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
         <link href="/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png" />
@@ -13,6 +13,11 @@ export default function Document() {
         <link color="#228be6" href="/safari-pinned-tab.svg" rel="mask-icon" />
         <meta content="#228be6" name="msapplication-TileColor" />
         <meta content="#ffffff" name="theme-color" />
+        <script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID}`}
+          crossOrigin="anonymous"
+        />
       </Head>
       <body>
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
