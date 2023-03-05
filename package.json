@@ -24,6 +24,7 @@
     "@octokit/rest": "^19.0.7",
     "@primer/octicons-react": "^18.0.0",
     "next": "^13.2.3",
+    "nextjs-google-analytics": "^2.3.3",
     "next-seo": "^5.15.0",
     "pretty-bytes": "^6.1.0",
     "react": "^18.2.0",
