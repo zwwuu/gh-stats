@@ -1,4 +1,4 @@
-import { Box, Container, Flex, Icon, IconButton, Image, Link, Text, useColorMode } from "@chakra-ui/react";
+import { Box, Container, Flex, Icon, IconButton, Image, Link, useColorMode } from "@chakra-ui/react";
 import logo from "@public/images/logo.png";
 import { MarkGithubIcon, MoonIcon, SunIcon } from "@primer/octicons-react";
 import NextLink from "next/link";
@@ -19,9 +19,6 @@ export default function Navbar() {
                 htmlWidth={logo.width}
                 src={"/images/logo.png"}
               />
-              <Text as={"span"} ml={2}>
-                GH Stats
-              </Text>
             </Link>
           </NextLink>
           <Flex alignItems={"center"} gap={4}>
