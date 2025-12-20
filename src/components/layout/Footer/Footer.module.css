@@ -1,0 +1,4 @@
+.text {
+  text-align: right;
+  font: var(--text-body-shorthand-medium);
+}

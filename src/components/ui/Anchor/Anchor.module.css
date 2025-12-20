@@ -1,0 +1,9 @@
+.anchor {
+  display: inline-flex;
+  align-items: center;
+
+  .leadingIcon {
+    margin-right: var(--controlStack-small-gap-auto);
+    flex-shrink: 0;
+  }
+}

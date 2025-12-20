@@ -1,0 +1,12 @@
+.figure {
+  margin: 0;
+}
+
+.caption {
+  font: var(--text-caption-shorthand);
+}
+
+.blankImg {
+  border: var(--borderWidth-default) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-default);
+}

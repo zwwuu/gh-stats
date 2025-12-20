@@ -1,0 +1,42 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.tableTh {
+  text-align: left;
+  padding: 8px;
+}
+.tableTd {
+  padding: 8px;
+}
+.tableTdRight {
+  text-align: right;
+}
+
+.markdown {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.blockquote {
+  border-left: 4px solid #e5e7eb;
+  padding-left: 1rem;
+  color: #374151;
+}
+.codeInline {
+  background: #f3f4f6;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+}
+.codeBlock {
+  background: #111827;
+  color: #f3f4f6;
+  padding: 1rem;
+  border-radius: 6px;
+}
+.imgWrapper {
+  max-width: 100%;
+  position: relative;
+  width: 100%;
+  height: auto;
+}
