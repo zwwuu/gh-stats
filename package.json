@@ -15,7 +15,8 @@
     "fix": "next lint --fix",
     "format": "prettier --write src/**/*.{css,tsx,ts}",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "bench": "vitest bench"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.5.1",
@@ -24,8 +25,8 @@
     "@octokit/rest": "^19.0.7",
     "@primer/octicons-react": "^18.0.0",
     "next": "^13.2.3",
-    "nextjs-google-analytics": "^2.3.3",
     "next-seo": "^5.15.0",
+    "nextjs-google-analytics": "^2.3.3",
     "pretty-bytes": "^6.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -37,13 +38,15 @@
     "swr": "^2.0.4"
   },
   "devDependencies": {
-    "@types/node": "^18.14.6",
+    "@codspeed/vitest-plugin": "^5.0.1",
+    "@types/node": "^20.19.27",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "eslint": "^8.35.0",
     "eslint-config-next": "^13.2.3",
     "eslint-config-prettier": "^8.6.0",
     "prettier": "^2.8.4",
-    "typescript": "^4.9.5"
+    "typescript": "^4.9.5",
+    "vitest": "^4.0.16"
   }
 }
