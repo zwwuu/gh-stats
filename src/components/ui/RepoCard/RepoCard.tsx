@@ -1,0 +1,75 @@
+import { GitBranchIcon, StarFillIcon } from "@primer/octicons-react";
+import { Avatar, Stack, Text } from "@primer/react";
+import { SkeletonText } from "@primer/react/experimental";
+import clsx from "clsx";
+
+import { Anchor, BookmarkButton, Card, CardBody, CardHeader, StatLabel } from "@/components";
+import commonStyles from "@/components/Common.module.css";
+import { prettyNumber } from "@/lib/pretty-format";
+import blankImg from "@/public/images/blank.png";
+
+type RepoCardProps = {
+  fullName: string;
+  avatarUrl?: string | null;
+  htmlUrl: string;
+  description?: string | null;
+  stargazersCount: number;
+  language?: string | null;
+  forksCount: number;
+};
+
+type ConditionalRepoCardProps = { isLoading: true } | ({ isLoading?: false } & RepoCardProps);
+
+export default function RepoCard({ isLoading = false, ...props }: ConditionalRepoCardProps) {
+  if (isLoading) {
+    return (
+      <Card>
+        <CardHeader>
+          <SkeletonText size="titleLarge" />
+        </CardHeader>
+        <CardBody>
+          <SkeletonText size="bodyMedium" lines={3} />
+          <Stack direction="horizontal" align="center" gap={"condensed"} wrap="wrap">
+            <SkeletonText size="bodyMedium" maxWidth={"8ch"} />
+            <SkeletonText size="bodyMedium" maxWidth={"8ch"} />
+            <SkeletonText size="bodyMedium" maxWidth={"8ch"} />
+            <SkeletonText size="bodyMedium" maxWidth={"8ch"} />
+          </Stack>
+        </CardBody>
+      </Card>
+    );
+  }
+
+  const { fullName, avatarUrl, htmlUrl, description, stargazersCount, language, forksCount } = props as RepoCardProps;
+  return (
+    <Card as="article">
+      <CardHeader>
+        <BookmarkButton className={clsx(commonStyles.floatRight)} bookmark={{ fullName, avatarUrl }} />
+        <Anchor
+          className={clsx(commonStyles.breakWord)}
+          href={`/${fullName}`}
+          leadingIcon={<Avatar src={avatarUrl ?? blankImg.src} alt={`${fullName} avatar`} />}
+        >
+          {fullName}
+        </Anchor>
+      </CardHeader>
+      <CardBody>
+        {description && <Text as="p">{description}</Text>}
+        <Stack direction="horizontal" align="center" gap={"condensed"} wrap="wrap">
+          {language && <StatLabel size="large"> {language} </StatLabel>}
+          <StatLabel size="large" icon={StarFillIcon}>
+            {prettyNumber(stargazersCount)}
+          </StatLabel>
+          <StatLabel size="large" icon={GitBranchIcon}>
+            {prettyNumber(forksCount)}
+          </StatLabel>
+          <StatLabel size="large">
+            <Anchor isExternal href={htmlUrl}>
+              Open in GitHub
+            </Anchor>
+          </StatLabel>
+        </Stack>
+      </CardBody>
+    </Card>
+  );
+}

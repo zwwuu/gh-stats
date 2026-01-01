@@ -1,0 +1,29 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--stack-gap-condensed);
+
+  @media screen and (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (min-width: 1012px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.filters {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.item {
+  margin-block-end: var(--stack-gap-spacious);
+}
+
+.deleted {
+  font-style: italic;
+  color: var(--fgColor-muted);
+  display: inline-flex;
+  align-items: center;
+}

@@ -1,0 +1,62 @@
+.rounded {
+  border-radius: var(--borderRadius-default);
+}
+
+.border {
+  border: var(--borderWidth-default) solid var(--borderColor-default);
+}
+
+.leadingIcon {
+  margin-inline-end: var(--controlStack-medium-gap-auto);
+  flex-shrink: 0;
+  vertical-align: baseline;
+}
+
+.trailingIcon {
+  margin-inline-start: var(--controlStack-medium-gap-auto);
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+.breakWord {
+  word-break: break-all;
+}
+
+.floatRight {
+  float: right;
+  margin-inline-start: var(--controlStack-medium-gap-auto);
+  margin-block-end: var(--controlStack-medium-gap-auto);
+
+  &:after {
+    clear: both;
+    content: "";
+  }
+}
+
+.m0 {
+  margin: 0;
+}
+
+.image {
+  max-width: 100%;
+  height: auto;
+}
+
+.inlineFlex {
+  display: inline-flex;
+}
+
+.alignCenter {
+  align-items: center;
+}
+
+.textMuted {
+  color: var(--fgColor-muted);
+}
+.textSevere {
+  color: var(--fgColor-severe);
+}
+
+.textAttention {
+  color: var(--fgColor-attention);
+}

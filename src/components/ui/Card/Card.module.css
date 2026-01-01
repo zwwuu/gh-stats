@@ -1,0 +1,21 @@
+.card {
+  > :first-child {
+    border-top-right-radius: var(--borderRadius-default);
+    border-top-left-radius: var(--borderRadius-default);
+  }
+
+  > :last-child {
+    border-bottom-right-radius: var(--borderRadius-default);
+    border-bottom-left-radius: var(--borderRadius-default);
+  }
+}
+
+.cardHeader {
+  border-block-end: var(--borderWidth-default) solid var(--borderColor-default);
+  padding: var(--stack-padding-normal);
+}
+
+.cardBody {
+  padding: var(--stack-padding-normal);
+  width: 100%;
+}
