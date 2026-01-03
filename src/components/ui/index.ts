@@ -14,3 +14,4 @@ export { default as StatTileCaption } from "./StatTile/StatTileCaption";
 export { default as ReleaseList } from "./ReleaseList/ReleaseList";
 export { default as TrendingGrid } from "./TrendingGrid/TrendingGrid";
 export { default as FloatingButton } from "./FloatingButton/FloatingButton";
+export { default as RepoGrid } from "./RepoGrid/RepoGrid";

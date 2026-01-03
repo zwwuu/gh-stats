@@ -1,0 +1,4 @@
+.caption {
+  font: var(--text-caption-shorthand);
+  color: var(--fgColor-neutral);
+}

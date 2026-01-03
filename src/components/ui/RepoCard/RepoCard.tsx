@@ -1,5 +1,5 @@
 import { GitBranchIcon, StarFillIcon } from "@primer/octicons-react";
-import { Avatar, Stack, Text } from "@primer/react";
+import { Avatar, RelativeTime, Stack, Text } from "@primer/react";
 import { SkeletonText } from "@primer/react/experimental";
 import clsx from "clsx";
 
@@ -7,6 +7,7 @@ import { Anchor, BookmarkButton, Card, CardBody, CardHeader, StatLabel } from "@
 import commonStyles from "@/components/Common.module.css";
 import { prettyNumber } from "@/lib/pretty-format";
 import blankImg from "@/public/images/blank.png";
+import styles from "./RepoCard.module.css";
 
 type RepoCardProps = {
   fullName: string;
@@ -16,6 +17,7 @@ type RepoCardProps = {
   stargazersCount: number;
   language?: string | null;
   forksCount: number;
+  updatedAt?: string | null;
 };
 
 type ConditionalRepoCardProps = { isLoading: true } | ({ isLoading?: false } & RepoCardProps);
@@ -40,7 +42,8 @@ export default function RepoCard({ isLoading = false, ...props }: ConditionalRep
     );
   }
 
-  const { fullName, avatarUrl, htmlUrl, description, stargazersCount, language, forksCount } = props as RepoCardProps;
+  const { fullName, avatarUrl, htmlUrl, description, stargazersCount, forksCount, language, updatedAt } =
+    props as RepoCardProps;
   return (
     <Card as="article">
       <CardHeader>
@@ -52,6 +55,11 @@ export default function RepoCard({ isLoading = false, ...props }: ConditionalRep
         >
           {fullName}
         </Anchor>
+        {updatedAt && (
+          <Text as={"p"} className={clsx(commonStyles.mb0, styles.caption)}>
+            Last update <RelativeTime second="numeric" minute="numeric" hour="numeric" date={new Date(updatedAt)} />
+          </Text>
+        )}
       </CardHeader>
       <CardBody>
         {description && <Text as="p">{description}</Text>}

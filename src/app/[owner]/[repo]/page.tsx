@@ -11,7 +11,6 @@ import {
   BookmarkButton,
   BookmarkList,
   Content,
-  FloatingButton,
   ReleaseList,
   SearchBar,
   Sidebar,
@@ -23,16 +22,12 @@ import { prettyNumber } from "@/lib/pretty-format";
 
 const fetchRepo = async (params: { key: string; owner: string; repo: string }) => {
   const { owner, repo } = params;
-  const res = await getRepo(owner, repo);
-
-  return res.data;
+  return await getRepo(owner, repo);
 };
 
 const fetchReleases = async (params: { key: string; owner: string; repo: string }) => {
   const { owner, repo } = params;
-  const res = await getReleases(owner, repo);
-
-  return res;
+  return await getReleases(owner, repo);
 };
 
 export default function RepoPage() {
@@ -108,8 +103,7 @@ export default function RepoPage() {
               />
               <Heading as={"h2"} className={commonStyles.breakWord}>
                 <Anchor
-                  href={repoData.owner.html_url}
-                  isExternal
+                  href={`/${owner}`}
                   leadingIcon={
                     <Avatar size={32} alt={`${repoData.owner.login} avatar`} src={repoData.owner.avatar_url} />
                   }
@@ -163,7 +157,6 @@ export default function RepoPage() {
               variant="warning"
             />
           ))}
-        <FloatingButton />
       </Content>
       <Sidebar>
         <SearchBar />

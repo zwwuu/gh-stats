@@ -4,9 +4,10 @@ import { Octokit } from "@octokit/rest";
 import mockReleases from "../mock/releases.json";
 import mockRepo from "../mock/repo.json";
 import mockTrending from "../mock/trending.json";
+import mockUserRepos from "../mock/userRepos.json";
 
 const useMock = process.env.NEXT_PUBLIC_USE_MOCK === "true";
-export const TRENDING_PER_PAGE = 10;
+export const TRENDING_PER_PAGE = 16;
 
 const MyOctokit = Octokit.plugin(throttling);
 const octokit = new MyOctokit({
@@ -23,23 +24,40 @@ const octokit = new MyOctokit({
 
 export async function getTrending(date: string) {
   if (useMock) {
-    return Promise.resolve({ data: mockTrending });
+    return Promise.resolve(mockTrending.items);
   }
 
-  return await octokit.rest.search.repos({
-    q: `created:>${date}`,
-    sort: "stars",
-    order: "desc",
-    per_page: TRENDING_PER_PAGE,
-  });
+  return await octokit.rest.search
+    .repos({
+      q: `created:>${date}`,
+      sort: "stars",
+      order: "desc",
+      per_page: TRENDING_PER_PAGE,
+    })
+    .then((res) => {
+      return res.data.items;
+    });
 }
 
 export async function getRepo(owner: string, repo: string) {
   if (useMock) {
-    return Promise.resolve({ data: mockRepo });
+    return Promise.resolve(mockRepo);
   }
 
-  return await octokit.rest.repos.get({ owner, repo });
+  return await octokit.rest.repos.get({ owner, repo }).then((res) => {
+    return res.data;
+  });
+}
+
+export async function getUserRepos(username: string) {
+  if (useMock) {
+    return Promise.resolve(mockUserRepos);
+  }
+
+  return await octokit.paginate(octokit.rest.repos.listForUser, {
+    username,
+    sort: "updated",
+  });
 }
 
 export async function getReleases(owner: string, repo: string) {

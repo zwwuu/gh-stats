@@ -5,15 +5,12 @@ import { Banner } from "@primer/react";
 import { Blankslate } from "@primer/react/experimental";
 import useSWRImmutable from "swr";
 
-import { RepoCard } from "@/components";
-import { getTrending, TRENDING_PER_PAGE } from "@/lib/github";
-import styles from "./TrendingGrid.module.css";
+import { RepoGrid } from "@/components";
+import { getTrending } from "@/lib/github";
 
 const fetchTrending = async (params: { key: string; isoDate: string }) => {
   const { isoDate } = params;
-  const res = await getTrending(isoDate);
-
-  return res.data;
+  return await getTrending(isoDate);
 };
 
 const isoDate = (() => {
@@ -46,33 +43,7 @@ export default function TrendingGrid() {
           variant="critical"
         />
       )}
-
-      <div className={styles.grid}>
-        {isLoading && (
-          <>
-            {Array.from({ length: TRENDING_PER_PAGE }, (_, i) => (
-              <RepoCard key={i} isLoading />
-            ))}
-          </>
-        )}
-
-        {data && (
-          <>
-            {data.items.map((item) => (
-              <RepoCard
-                avatarUrl={item.owner?.avatar_url}
-                description={item.description}
-                forksCount={item.forks_count}
-                fullName={item.full_name}
-                htmlUrl={item.html_url}
-                key={item.id}
-                language={item.language}
-                stargazersCount={item.stargazers_count}
-              />
-            ))}
-          </>
-        )}
-      </div>
+      <RepoGrid isLoading={isLoading} data={data} />
     </>
   );
 }
