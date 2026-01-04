@@ -1,7 +1,6 @@
-import { cloneElement, ReactElement } from "react";
+import { cloneElement, ReactElement, ReactNode } from "react";
 import Link, { type LinkProps } from "next/link";
 import { LinkExternalIcon } from "@primer/octicons-react";
-import { Link as PrimerLink, type LinkProps as PrimerLinkProps } from "@primer/react";
 import clsx from "clsx";
 
 import commonStyles from "@/components/Common.module.css";
@@ -11,8 +10,8 @@ type AnchorProps = {
   showExternalIcon?: boolean;
   leadingIcon?: ReactElement<{ className?: string }>;
   className?: string;
-} & PrimerLinkProps &
-  LinkProps;
+  children?: ReactNode;
+} & LinkProps;
 
 export default function Anchor({
   children,
@@ -23,8 +22,7 @@ export default function Anchor({
   ...props
 }: AnchorProps) {
   return (
-    <PrimerLink
-      as={Link}
+    <Link
       prefetch={!isExternal}
       rel={isExternal ? "noopener noreferrer" : undefined}
       target={isExternal ? "_blank" : undefined}
@@ -39,6 +37,6 @@ export default function Anchor({
       {isExternal && showExternalIcon && (
         <LinkExternalIcon verticalAlign={"middle"} className={commonStyles.trailingIcon} />
       )}
-    </PrimerLink>
+    </Link>
   );
 }

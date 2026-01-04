@@ -8,8 +8,12 @@ export default function HomePage() {
       <Content>
         <Card>
           <CardBody>
-            <Heading as="h2">{process.env.NEXT_PUBLIC_APP_TITLE}</Heading>
+            <Heading as="h1">{process.env.NEXT_PUBLIC_APP_TITLE}</Heading>
             <Text as={"p"}>{process.env.NEXT_PUBLIC_APP_DESCRIPTION}</Text>
+            <Text as="p">
+              Enter a GitHub repository URL or owner/repo name below to get instant insights into any public project.
+              Monitor analyze releases, and stay updated with your favorite project.
+            </Text>
             <SearchBar />
           </CardBody>
         </Card>

@@ -19,7 +19,7 @@ export default function OwnerPage() {
   return (
     <>
       <Content>
-        <Heading as="h2">{`${owner} Repositories`}</Heading>
+        <Heading as="h1">{owner}</Heading>
         {error && (
           <Banner
             aria-label="No respositories found"

@@ -101,7 +101,7 @@ export default function RepoPage() {
                   avatarUrl: repoData.owner.avatar_url,
                 }}
               />
-              <Heading as={"h2"} className={commonStyles.breakWord}>
+              <Heading as={"h1"} className={commonStyles.breakWord}>
                 <Anchor
                   href={`/${owner}`}
                   leadingIcon={

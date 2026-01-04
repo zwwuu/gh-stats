@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Heading, Text } from "@primer/react";
+import { Heading, Stack, Text } from "@primer/react";
 import clsx from "clsx";
 
 import { Ads, BookmarkList, Content, SearchBar, Sidebar } from "@/components";
@@ -20,14 +20,14 @@ export default function NotFoundPage() {
       <Content>
         <Heading as="h2">Page Not Found</Heading>
         <Text as="p">You just hit a route that does not exist... the sadness.</Text>
-        <figure className={commonStyles.m0}>
+        <Stack as={"figure"} gap={"condensed"} className={commonStyles.m0}>
           <Image
             className={clsx(commonStyles.rounded, commonStyles.border, commonStyles.image)}
             src={blankImg}
             alt={"image of nothing"}
           />
           <Text as={"figcaption"}>An image of nothing</Text>
-        </figure>
+        </Stack>
         <Ads />
       </Content>
       <Sidebar>

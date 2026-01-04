@@ -18,7 +18,7 @@ export default function Navbar() {
     <PageLayout.Header padding="condensed" divider="line">
       <PageHeader role="banner" aria-label="Title">
         <PageHeader.TitleArea>
-          <PageHeader.Title as={"h1"}>
+          <PageHeader.Title as={"h2"}>
             <Anchor
               href="/"
               className={clsx(styles.title, commonStyles.inlineFlex, commonStyles.alignCenter)}

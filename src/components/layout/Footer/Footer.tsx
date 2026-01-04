@@ -1,15 +1,27 @@
 "use client";
 
-import { Text } from "@primer/react";
+import { Stack, Text } from "@primer/react";
 
+import { Anchor } from "@/components";
 import styles from "./Footer.module.css";
 
 export default function Footer() {
   return (
-    <footer>
-      <Text as={"p"} className={styles.text}>
-        {`© ${new Date().getFullYear()} ${process.env.NEXT_PUBLIC_APP_TITLE}`}
-      </Text>
-    </footer>
+    <Stack
+      as={"footer"}
+      width={"xlarge"}
+      direction={"vertical"}
+      align={"center"}
+      padding={"normal"}
+      className={styles.footer}
+    >
+      <Stack direction={"horizontal"} justify={"center"} wrap={"wrap"}>
+        <Anchor href="/about">About</Anchor>
+        <Anchor href="/contact">Contact</Anchor>
+        <Anchor href="/privacy">Privacy Policy</Anchor>
+        <Anchor href="/terms">Terms of Service</Anchor>
+      </Stack>
+      <Text as={"p"}>{`© ${new Date().getFullYear()} ${process.env.NEXT_PUBLIC_APP_TITLE}. All rights reserved.`}</Text>
+    </Stack>
   );
 }

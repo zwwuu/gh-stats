@@ -1,4 +1,5 @@
-.text {
-  text-align: right;
-  font: var(--text-body-shorthand-medium);
+.footer {
+  border-block-start: var(--borderWidth-default) solid var(--borderColor-default);
+  font: var(--text-body-shorthand-small);
+  color: var(--fgColor-muted);
 }

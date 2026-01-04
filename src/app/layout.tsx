@@ -4,7 +4,7 @@ import Script from "next/script";
 import { GoogleTagManager } from "@next/third-parties/google";
 import { BaseStyles, PageLayout, ThemeProvider } from "@primer/react";
 
-import { FloatingButton, Navbar } from "@/components";
+import { FloatingButton, Footer, Navbar } from "@/components";
 import { colors } from "@/constants/colors";
 import { BookmarkProvider, SettingProvider } from "@/contexts";
 
@@ -66,6 +66,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
                   {children}
                   <FloatingButton />
                 </PageLayout>
+                <Footer />
               </BookmarkProvider>
             </SettingProvider>
           </BaseStyles>
