@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: RepoLayoutProps): Promise<Met
   const url = `/${owner}/${repo}`;
 
   return {
-    title: `${owner}/${repo}`,
+    title: `${owner}/${repo} | ${process.env.NEXT_PUBLIC_APP_TITLE}`,
     description: description,
     alternates: {
       canonical: url,
