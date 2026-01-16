@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
 import { Metadata, Viewport } from "next";
-import Script from "next/script";
 import { GoogleTagManager } from "@next/third-parties/google";
 import { BaseStyles, PageLayout, ThemeProvider } from "@primer/react";
 
@@ -48,12 +47,6 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <Script
-          async
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID}`}
-          strategy="afterInteractive"
-          crossOrigin="anonymous"
-        />
         <link rel={"preconnect"} href={"avatars.githubusercontent.com"} />
       </head>
       <body>

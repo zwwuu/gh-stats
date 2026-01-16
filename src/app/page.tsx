@@ -17,6 +17,7 @@ export default function HomePage() {
             <SearchBar />
           </CardBody>
         </Card>
+        <Ads />
         <TrendingGrid />
         <Ads />
       </Content>
