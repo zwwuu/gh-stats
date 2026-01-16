@@ -13,10 +13,8 @@ export default function SearchBar() {
   const handleSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
 
-    const match = input.trim().match(/^(http(s)?(:\/\/))?(www\.)?(github\.com\/.*)/i);
-    if (match) {
-      setHasError(false);
-      const data = input.replace(/^(http(s)?(:\/\/))?(www\.)?(github\.com\/)/i, "").split("/");
+    const data = input.replace(/^(http(s)?(:\/\/))?(www\.)?(github\.com\/)/i, "").split("/");
+    if (data.length == 2) {
       const [owner, repo] = data;
       router.push(`/${owner}/${repo}`);
     } else {
