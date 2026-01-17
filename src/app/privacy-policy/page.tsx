@@ -79,24 +79,6 @@ export default function PrivacyPage() {
           cookie management with specific web browsers can be found at the browsers' respective websites.
         </Text>
 
-        <Heading as="h2">Google AdSense</Heading>
-        <Text as="p">
-          We use Google AdSense to display advertisements on our website. Google AdSense uses cookies to serve ads based
-          on your prior visits to our website or other websites. Google's use of advertising cookies enables it and its
-          partners to serve ads to you based on your visit to our site and/or other sites on the Internet.
-        </Text>
-        <Text as="p">
-          You may opt out of personalized advertising by visiting{" "}
-          <Anchor href="https://www.google.com/settings/ads" isExternal>
-            Ads Settings
-          </Anchor>
-          . Alternatively, you can opt out of third-party vendors' use of cookies by visiting the{" "}
-          <Anchor href="https://www.networkadvertisinginitiative.org/managing/opt_out.asp" isExternal>
-            Network Advertising Initiative Opt-Out page
-          </Anchor>
-          .
-        </Text>
-
         <Heading as="h2">Third-Party Services</Heading>
         <Text as="p">
           Our service may contain links to third-party websites or services that are not owned or controlled by{" "}
@@ -108,9 +90,6 @@ export default function PrivacyPage() {
         <ul>
           <li>
             <strong>GitHub API:</strong> To fetch public repository data
-          </li>
-          <li>
-            <strong>Google AdSense:</strong> For displaying advertisements
           </li>
           <li>
             <strong>Google Tag Manager:</strong> For analytics and tracking
