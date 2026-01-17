@@ -6,7 +6,6 @@ import { Avatar, Banner, Heading, Label, Spinner, Stack, Text } from "@primer/re
 import useSWRImmutable from "swr/immutable";
 
 import {
-  Ads,
   Anchor,
   BookmarkButton,
   BookmarkList,
@@ -61,7 +60,6 @@ export default function RepoPage() {
         <Sidebar>
           <SearchBar />
           <BookmarkList />
-          <Ads />
         </Sidebar>
       </>
     );
@@ -82,7 +80,6 @@ export default function RepoPage() {
         <Sidebar>
           <SearchBar />
           <BookmarkList />
-          <Ads />
         </Sidebar>
       </>
     );
@@ -161,7 +158,6 @@ export default function RepoPage() {
       <Sidebar>
         <SearchBar />
         <BookmarkList />
-        <Ads />
       </Sidebar>
     </>
   );

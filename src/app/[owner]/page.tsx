@@ -4,7 +4,7 @@ import { useParams } from "next/navigation";
 import { Banner, Heading } from "@primer/react";
 import useSWRImmutable from "swr/immutable";
 
-import { Ads, BookmarkList, Content, RepoGrid, SearchBar, Sidebar } from "@/components";
+import { BookmarkList, Content, RepoGrid, SearchBar, Sidebar } from "@/components";
 import { getUserRepos } from "@/lib/github";
 
 const fetchRepos = async (params: { key: string; username: string; repo: string }) => {
@@ -34,7 +34,6 @@ export default function OwnerPage() {
       <Sidebar>
         <SearchBar />
         <BookmarkList />
-        <Ads />
       </Sidebar>
     </>
   );

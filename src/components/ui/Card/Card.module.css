@@ -18,4 +18,8 @@
 .cardBody {
   padding: var(--stack-padding-normal);
   width: 100%;
+
+  > * {
+    margin-block: 0;
+  }
 }
