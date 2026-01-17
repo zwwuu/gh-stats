@@ -29,7 +29,7 @@ export default function TermsPage() {
     <>
       <Content>
         <Heading as="h1">Terms of Service</Heading>
-        <Text as="p">Last updated: {new Date().toLocaleDateString()}</Text>
+        <Text as="p">Last updated: {new Date().toUTCString()}</Text>
 
         <Heading as="h2">1. Agreement to Terms</Heading>
         <Text as="p">
@@ -127,7 +127,7 @@ export default function TermsPage() {
         <Heading as="h2">Contact Information</Heading>
         <Text as="p">
           If you have any questions about these Terms of Service, please contact us through our{" "}
-          <Anchor href="/contact">Contact page</Anchor> or via our{" "}
+          <Anchor href="/contact-us">Contact page</Anchor> or via our{" "}
           <Anchor isExternal href={`${process.env.NEXT_PUBLIC_GITHUB_URL}`}>
             GitHub repository
           </Anchor>

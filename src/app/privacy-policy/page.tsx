@@ -29,7 +29,7 @@ export default function PrivacyPage() {
     <>
       <Content>
         <Heading as="h1">Privacy Policy</Heading>
-        <Text as="p">Last updated: {new Date().toLocaleDateString()}</Text>
+        <Text as="p">Last updated: {new Date().toUTCString()}</Text>
         <Text as="p">
           At {siteName}, accessible from {siteUrl}, one of our main priorities is the privacy of our visitors. This
           Privacy Policy document contains types of information that is collected and recorded by {siteName} and how we
@@ -69,14 +69,14 @@ export default function PrivacyPage() {
 
         <Heading as="h2">Cookies and Web Beacons</Heading>
         <Text as="p">
-          Like any other website, {siteName} uses 'cookies'. These cookies are used to store information including
-          visitors' preferences, and the pages on the website that the visitor accessed or visited. The information is
-          used to optimize the users' experience by customizing our web page content based on visitors' browser type
-          and/or other information.
+          Like any other website, {siteName} uses &lsquo;cookies&rsquo;. These cookies are used to store information
+          including visitors&apos; preferences, and the pages on the website that the visitor accessed or visited. The
+          information is used to optimize the users&apos; experience by customizing our web page content based on
+          visitors&apos; browser type and/or other information.
         </Text>
         <Text as="p">
           You can choose to disable cookies through your individual browser options. More detailed information about
-          cookie management with specific web browsers can be found at the browsers' respective websites.
+          cookie management with specific web browsers can be found at the browsers&apos; respective websites.
         </Text>
 
         <Heading as="h2">Third-Party Services</Heading>
@@ -99,8 +99,8 @@ export default function PrivacyPage() {
         <Heading as="h2">Data Retention</Heading>
         <Text as="p">
           We do not store personal data on our servers. All user preferences and bookmarks are stored locally in your
-          browser's local storage. GitHub repository data is fetched in real-time from the GitHub API and may be cached
-          temporarily for performance purposes.
+          browser&apos;s local storage. GitHub repository data is fetched in real-time from the GitHub API and may be
+          cached temporarily for performance purposes.
         </Text>
 
         <Heading as="h2">Your Rights (GDPR)</Heading>
@@ -118,7 +118,7 @@ export default function PrivacyPage() {
           <li>Withdraw consent</li>
         </ul>
 
-        <Heading as="h2">Children's Privacy</Heading>
+        <Heading as="h2">Children&apos;s Privacy</Heading>
         <Text as="p">
           Our service does not address anyone under the age of 13. We do not knowingly collect personally identifiable
           information from anyone under the age of 13. If you are a parent or guardian and you are aware that your child
@@ -128,7 +128,7 @@ export default function PrivacyPage() {
         <Heading as="h2">Changes to This Privacy Policy</Heading>
         <Text as="p">
           We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new
-          Privacy Policy on this page and updating the "Last updated" date at the top of this Privacy Policy.
+          Privacy Policy on this page and updating the &quot;Last updated&quot; date at the top of this Privacy Policy.
         </Text>
         <Text as="p">
           You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are
@@ -138,7 +138,7 @@ export default function PrivacyPage() {
         <Heading as="h2">Contact Us</Heading>
         <Text as="p">
           If you have any questions about this Privacy Policy, please contact us through our{" "}
-          <Anchor href="/contact">Contact page</Anchor> or via our{" "}
+          <Anchor href="/contact-us">Contact page</Anchor> or via our{" "}
           <Anchor href={`${process.env.NEXT_PUBLIC_GITHUB_URL}`} isExternal>
             GitHub repository
           </Anchor>

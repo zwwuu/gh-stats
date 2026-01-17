@@ -17,9 +17,9 @@ export default function Footer() {
     >
       <Stack direction={"horizontal"} justify={"center"} wrap={"wrap"}>
         <Anchor href="/about">About</Anchor>
-        <Anchor href="/contact">Contact</Anchor>
-        <Anchor href="/privacy">Privacy Policy</Anchor>
-        <Anchor href="/terms">Terms of Service</Anchor>
+        <Anchor href="/contact-us">Contact</Anchor>
+        <Anchor href="/privacy-policy">Privacy Policy</Anchor>
+        <Anchor href="/terms-of-service">Terms of Service</Anchor>
       </Stack>
       <Text as={"p"}>{`© ${new Date().getFullYear()} ${process.env.NEXT_PUBLIC_APP_TITLE}. All rights reserved.`}</Text>
     </Stack>

@@ -26,7 +26,7 @@ export default function ContactPage() {
     <>
       <Content>
         <Heading as="h1">Contact Us</Heading>
-        <Text as="p">Have questions, suggestions, or need support? We'd love to hear from you!</Text>
+        <Text as="p">Have questions, suggestions, or need support? We&apos;d love to hear from you!</Text>
 
         <Heading as="h2">Get in Touch</Heading>
         <Text as="p">
@@ -50,8 +50,8 @@ export default function ContactPage() {
 
         <Heading as="h2">Feature Requests</Heading>
         <Text as="p">
-          We welcome feature requests! Please open an issue on our GitHub repository with the "enhancement" label.
-          Describe the feature you'd like to see and explain how it would benefit users.
+          We welcome feature requests! Please open an issue on our GitHub repository with the &quot;enhancement&quot;
+          label. Describe the feature you&apos;d like to see and explain how it would benefit users.
         </Text>
       </Content>
       <Sidebar>

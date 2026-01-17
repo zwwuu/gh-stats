@@ -37,7 +37,7 @@ export default function AboutPage() {
         <Heading as="h2">What We Do</Heading>
         <Text as="p">
           We provide real-time statistics, release tracking, and comprehensive insights into any public GitHub
-          repository. Whether you're monitoring your own projects, evaluating dependencies, or exploring new tools,{" "}
+          repository. Whether you&apos;re monitoring your own projects, evaluating dependencies, or exploring new tools,{" "}
           {process.env.NEXT_PUBLIC_APP_TITLE} gives you the data you need at a glance.
         </Text>
 
@@ -81,7 +81,7 @@ export default function AboutPage() {
         <Heading as="h2">How It Works</Heading>
         <Text as="p">
           {process.env.NEXT_PUBLIC_APP_TITLE} leverages the GitHub API to fetch public repository data in real-time.
-          Simply enter any GitHub repository URL or owner/repo name, and we'll instantly display comprehensive
+          Simply enter any GitHub repository URL or owner/repo name, and we&apos;ll instantly display comprehensive
           statistics and insights. No authentication required for public repositories.
         </Text>
 
@@ -99,7 +99,7 @@ export default function AboutPage() {
         <Text as="p">
           We respect your privacy. {process.env.NEXT_PUBLIC_APP_TITLE} does not collect or store personal information.
           All repository data is fetched directly from the GitHub API, and your preferences are stored locally in your
-          browser. Read our <Anchor href="/privacy">Privacy Policy</Anchor> for more details.
+          browser. Read our <Anchor href="/privacy-policy">Privacy Policy</Anchor> for more details.
         </Text>
       </Content>
       <Sidebar>
