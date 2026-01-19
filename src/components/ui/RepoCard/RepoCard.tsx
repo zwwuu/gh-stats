@@ -17,7 +17,7 @@ type RepoCardProps = {
   stargazersCount: number;
   language?: string | null;
   forksCount: number;
-  updatedAt?: string | null;
+  pushedAt?: string | null;
 };
 
 type ConditionalRepoCardProps = { isLoading: true } | ({ isLoading?: false } & RepoCardProps);
@@ -42,7 +42,7 @@ export default function RepoCard({ isLoading = false, ...props }: ConditionalRep
     );
   }
 
-  const { fullName, avatarUrl, htmlUrl, description, stargazersCount, forksCount, language, updatedAt } =
+  const { fullName, avatarUrl, htmlUrl, description, stargazersCount, forksCount, language, pushedAt } =
     props as RepoCardProps;
   return (
     <Card as="article">
@@ -55,9 +55,9 @@ export default function RepoCard({ isLoading = false, ...props }: ConditionalRep
         >
           {fullName}
         </Anchor>
-        {updatedAt && (
+        {pushedAt && (
           <Text as={"p"} className={clsx(commonStyles.mb0, styles.caption)}>
-            Last update <RelativeTime second="numeric" minute="numeric" hour="numeric" date={new Date(updatedAt)} />
+            Last update <RelativeTime second="numeric" minute="numeric" hour="numeric" date={new Date(pushedAt)} />
           </Text>
         )}
       </CardHeader>

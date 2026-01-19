@@ -30,7 +30,7 @@ export default function RepoGrid({ isLoading, data }: RepoGridProps) {
               key={item.id}
               language={item.language}
               stargazersCount={item.stargazers_count ?? 0}
-              updatedAt={item.updated_at}
+              pushedAt={item.pushed_at}
             />
           ))}
         </>

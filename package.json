@@ -20,6 +20,8 @@
     "@primer/primitives": "^11.3.2",
     "@primer/react": "^38.7.1",
     "clsx": "^2.1.1",
+    "echarts": "^6.0.0",
+    "echarts-for-react": "^3.0.5",
     "next": "^16.1.3",
     "pretty-bytes": "^7.1.0",
     "react": "^19.2.3",
