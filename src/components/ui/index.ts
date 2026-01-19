@@ -15,3 +15,4 @@ export { default as ReleaseList } from "./ReleaseList/ReleaseList";
 export { default as TrendingGrid } from "./TrendingGrid/TrendingGrid";
 export { default as FloatingButton } from "./FloatingButton/FloatingButton";
 export { default as RepoGrid } from "./RepoGrid/RepoGrid";
+export { default as StatChart } from "./StatChart/StatChart";

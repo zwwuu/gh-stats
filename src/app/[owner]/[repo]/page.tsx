@@ -13,6 +13,7 @@ import {
   ReleaseList,
   SearchBar,
   Sidebar,
+  StatChart,
   StatLabel,
 } from "@/components";
 import commonStyles from "@/components/Common.module.css";
@@ -144,7 +145,10 @@ export default function RepoPage() {
 
         {releasesData &&
           (releasesData.length > 0 ? (
-            <ReleaseList releases={releasesData} />
+            <>
+              <StatChart releases={releasesData} />
+              <ReleaseList releases={releasesData} />
+            </>
           ) : (
             <Banner
               aria-label="No releases found"

@@ -1,0 +1,22 @@
+.tile {
+  padding: var(--stack-padding-normal);
+  background: var(--bgColor-inset);
+}
+
+.heading {
+  font: var(--text-body-shorthand-small);
+  color: var(--fgColor-neutral);
+  margin: 0;
+}
+
+.body {
+  margin: 0;
+  color: var(--fgColor-default);
+  font: var(--text-title-shorthand-large);
+}
+
+.caption {
+  margin: 0;
+  font: var(--text-title-shorthand-small);
+  color: var(--fgColor-neutral);
+}
