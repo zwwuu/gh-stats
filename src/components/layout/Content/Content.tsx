@@ -3,7 +3,7 @@
 import { ReactNode } from "react";
 import { PageLayout, Stack } from "@primer/react";
 
-import { Disclosure } from "@/components";
+import { Ads, Disclosure } from "@/components";
 
 type ContentProps = {
   children: ReactNode;
@@ -16,6 +16,7 @@ export default function Content({ children, className }: ContentProps) {
       <Stack as={"main"}>
         <Disclosure />
         {children}
+        <Ads variant={"rectangle"} />
       </Stack>
     </PageLayout.Content>
   );

@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Heading, Stack, Text } from "@primer/react";
 import clsx from "clsx";
 
-import { Ads, BookmarkList, Content, SearchBar, Sidebar } from "@/components";
+import { BookmarkList, Content, SearchBar, Sidebar } from "@/components";
 import commonStyles from "@/components/Common.module.css";
 import blankImg from "@/public/images/blank.png";
 
@@ -28,12 +28,10 @@ export default function NotFoundPage() {
           />
           <Text as={"figcaption"}>An image of nothing</Text>
         </Stack>
-        <Ads />
       </Content>
       <Sidebar>
         <SearchBar />
         <BookmarkList />
-        <Ads />
       </Sidebar>
     </>
   );

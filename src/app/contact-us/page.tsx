@@ -1,6 +1,6 @@
 import { Heading, Text } from "@primer/react";
 
-import { Ads, Anchor, BookmarkList, Content, SearchBar, Sidebar } from "@/components";
+import { Anchor, BookmarkList, Content, SearchBar, Sidebar } from "@/components";
 
 export async function generateMetadata() {
   const title = "Contact Us";
@@ -57,7 +57,6 @@ export default function ContactPage() {
       <Sidebar>
         <SearchBar />
         <BookmarkList />
-        <Ads />
       </Sidebar>
     </>
   );

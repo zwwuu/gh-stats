@@ -13,8 +13,8 @@ export default function HomePage() {
             <SearchBar />
           </CardBody>
         </Card>
+        <Ads variant={"rectangle"} />
         <TrendingGrid />
-        <Ads />
       </Content>
       <Sidebar>
         <BookmarkList />

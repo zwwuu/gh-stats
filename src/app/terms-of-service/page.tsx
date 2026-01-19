@@ -1,6 +1,6 @@
 import { Heading, Text } from "@primer/react";
 
-import { Ads, Anchor, BookmarkList, Content, SearchBar, Sidebar } from "@/components";
+import { Anchor, BookmarkList, Content, SearchBar, Sidebar } from "@/components";
 
 export async function generateMetadata() {
   const title = "Terms of Service";
@@ -137,7 +137,6 @@ export default function TermsPage() {
       <Sidebar>
         <SearchBar />
         <BookmarkList />
-        <Ads />
       </Sidebar>
     </>
   );
