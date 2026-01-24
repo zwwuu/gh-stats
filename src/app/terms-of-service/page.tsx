@@ -10,7 +10,6 @@ export function generateMetadata(): Metadata {
   return {
     title: title,
     description: description,
-
     openGraph: {
       title: `${title} | ${process.env.NEXT_PUBLIC_APP_TITLE}`,
       description: description,
