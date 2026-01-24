@@ -1,22 +1,18 @@
+import { Metadata } from "next";
 import { Heading, Text } from "@primer/react";
 
 import { Anchor, BookmarkList, Content, SearchBar, Sidebar } from "@/components";
 
-export async function generateMetadata() {
+export function generateMetadata(): Metadata {
   const title = "About";
   const description = `Learn more about ${process.env.NEXT_PUBLIC_APP_TITLE}.`;
-  const url = `/about`;
 
   return {
     title: title,
     description: description,
-    alternates: {
-      canonical: url,
-    },
     openGraph: {
       title: `${title} | ${process.env.NEXT_PUBLIC_APP_TITLE}`,
       description: description,
-      url: url,
     },
   };
 }

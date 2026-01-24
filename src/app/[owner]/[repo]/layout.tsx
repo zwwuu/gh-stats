@@ -9,18 +9,13 @@ type RepoLayoutProps = {
 export async function generateMetadata({ params }: RepoLayoutProps): Promise<Metadata> {
   const { owner, repo } = await params;
   const description = `View detailed download statistics for ${owner}/${repo}.`;
-  const url = `/${owner}/${repo}`;
 
   return {
     title: `${owner}/${repo} | ${process.env.NEXT_PUBLIC_APP_TITLE}`,
     description: description,
-    alternates: {
-      canonical: url,
-    },
     openGraph: {
       title: `${owner}/${repo} | ${process.env.NEXT_PUBLIC_APP_TITLE}`,
       description: description,
-      url: url,
     },
   };
 }

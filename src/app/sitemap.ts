@@ -1,12 +1,24 @@
+import fs from "node:fs";
 import type { MetadataRoute } from "next";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = ["", "/about", "/contact-us", "/privacy-policy", "/terms-of-service"];
+const appFolders = fs.readdirSync("src/app", { withFileTypes: true });
+const pages = appFolders
+  .filter((file) => file.isDirectory())
+  .filter((folder) => !folder.name.startsWith("_"))
+  .filter((folder) => !folder.name.startsWith("("))
+  .filter((folder) => !folder.name.startsWith("["))
+  .map((folder) => folder.name);
+const BASE_URL = new URL(`${process.env.NEXT_PUBLIC_APP_URL}`).href;
 
-  return routes.map((route) => ({
-    url: new URL(`${process.env.NEXT_PUBLIC_APP_URL}${route}`).toString(),
+const sitemap = async (): Promise<MetadataRoute.Sitemap> => [
+  {
+    url: new URL("/", BASE_URL).href,
     lastModified: new Date(),
-    changeFrequency: "daily" as const,
-    priority: 1,
-  }));
-}
+  },
+  ...pages.map((page) => ({
+    url: new URL(page, BASE_URL).href,
+    lastModified: new Date(),
+  })),
+];
+
+export default sitemap;
