@@ -18,12 +18,17 @@ type RepoCardProps = {
   language?: string | null;
   forksCount: number;
   pushedAt?: string | null;
+  isLoading?: false;
 };
 
-type ConditionalRepoCardProps = { isLoading: true } | ({ isLoading?: false } & RepoCardProps);
+type LoadingRepoCardProps = {
+  isLoading: true;
+};
 
-export default function RepoCard({ isLoading = false, ...props }: ConditionalRepoCardProps) {
-  if (isLoading) {
+type ConditionalRepoCardProps = LoadingRepoCardProps | RepoCardProps;
+
+export default function RepoCard(props: ConditionalRepoCardProps) {
+  if (props.isLoading) {
     return (
       <Card>
         <CardHeader>
@@ -42,8 +47,7 @@ export default function RepoCard({ isLoading = false, ...props }: ConditionalRep
     );
   }
 
-  const { fullName, avatarUrl, htmlUrl, description, stargazersCount, forksCount, language, pushedAt } =
-    props as RepoCardProps;
+  const { fullName, avatarUrl, htmlUrl, description, stargazersCount, forksCount, language, pushedAt } = props;
   return (
     <Card as="article">
       <CardHeader>

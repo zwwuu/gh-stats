@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useRef } from "react";
-import { FilterIcon, GitCommitIcon } from "@primer/octicons-react";
+import { FilterIcon, FilterRemoveIcon, GitCommitIcon } from "@primer/octicons-react";
 import { ActionList, ActionMenu, Avatar, Heading, Stack, Text, Timeline } from "@primer/react";
 import { DataTable, Table } from "@primer/react/experimental";
 import clsx from "clsx";
@@ -21,6 +21,8 @@ type ReleaseListProps = {
 
 export default function ReleaseList({ releases }: ReleaseListProps) {
   const { settings, saveSettings } = useSettings();
+
+  const isFiltered = !settings.filter.showDraft || !settings.filter.showPrerelease || !settings.filter.showEmpty;
 
   const filteredReleases = useMemo(() => {
     return releases.filter((release) => {
@@ -76,7 +78,7 @@ export default function ReleaseList({ releases }: ReleaseListProps) {
     <>
       <div className={styles.filters}>
         <ActionMenu>
-          <ActionMenu.Button leadingVisual={FilterIcon}>Filters</ActionMenu.Button>
+          <ActionMenu.Button leadingVisual={isFiltered ? FilterRemoveIcon : FilterIcon}>Filters</ActionMenu.Button>
           <ActionMenu.Overlay>
             <ActionList selectionVariant="multiple" role="menu" aria-label="Filter">
               <ActionList.Item
