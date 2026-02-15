@@ -5,27 +5,14 @@ import ReactECharts from "echarts-for-react";
 
 import { getReleases } from "@/lib/github";
 import { prettyDate, prettyNumber } from "@/lib/pretty-format";
+import { useStatChartData } from "./useStatChartData";
 
 type StatChartProps = {
   releases: Awaited<ReturnType<typeof getReleases>>;
 };
 
 export default function StatChart({ releases }: StatChartProps) {
-  const sortedReleases = [...releases]
-    .filter((r) => r.published_at)
-    .sort((a, b) => new Date(a.published_at!).getTime() - new Date(b.published_at!).getTime());
-
-  const startValue =
-    sortedReleases.length > 10 ? (sortedReleases[sortedReleases.length - 10].published_at as string) : undefined;
-
-  const maxRelease = sortedReleases.reduce(
-    (max, r) => (r.total_download_count > max.total_download_count ? r : max),
-    sortedReleases[0],
-  );
-  const minRelease = sortedReleases.reduce(
-    (min, r) => (r.total_download_count < min.total_download_count ? r : min),
-    sortedReleases[0],
-  );
+  const { sortedReleases, startValue, maxRelease, minRelease } = useStatChartData(releases);
 
   const option: EChartsOption = {
     tooltip: {
@@ -47,7 +34,6 @@ export default function StatChart({ releases }: StatChartProps) {
     toolbox: {
       feature: {
         dataZoom: { show: true },
-        dataView: { show: true, readOnly: false },
         restore: { show: true },
         saveAsImage: { show: true },
       },
