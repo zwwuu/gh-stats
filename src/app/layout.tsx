@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { GoogleTagManager } from "@next/third-parties/google";
 import { BaseStyles, PageLayout, ThemeProvider } from "@primer/react";
 
@@ -51,6 +52,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel={"preconnect"} href={"avatars.githubusercontent.com"} />
+        <Script data-cfasync="false" src={`${process.env.NEXT_PUBLIC_AD_MAVEN_SCRIPT}`} />
       </head>
       <body>
         <ThemeProvider preventSSRMismatch>
