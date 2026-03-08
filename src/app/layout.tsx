@@ -37,6 +37,9 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
   },
+  other: {
+    "admaven-placement": `${process.env.NEXT_PUBLIC_AD_MAVEN}`,
+  },
 };
 
 export const viewport: Viewport = {
