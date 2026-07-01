@@ -1,10 +1,10 @@
 import { throttling } from "@octokit/plugin-throttling";
 import { Octokit } from "@octokit/rest";
 
-import mockReleases from "../mock/releases.json";
-import mockRepo from "../mock/repo.json";
-import mockTrending from "../mock/trending.json";
-import mockUserRepos from "../mock/userRepos.json";
+import mockReleases from "../../mock/releases.json";
+import mockRepo from "../../mock/repo.json";
+import mockTrending from "../../mock/trending.json";
+import mockUserRepos from "../../mock/userRepos.json";
 
 const useMock = process.env.NEXT_PUBLIC_USE_MOCK === "true";
 export const TRENDING_PER_PAGE = 16;
@@ -12,12 +12,14 @@ export const TRENDING_PER_PAGE = 16;
 const MyOctokit = Octokit.plugin(throttling);
 const octokit = new MyOctokit({
   throttle: {
-    onRateLimit: (retryAfter, options, octokit, retryCount) => {
-      return retryCount < 1;
+    onRateLimit: (_retryAfter, _options, _octokit, _retryCount) => {
+      return _retryCount < 1;
     },
-    onSecondaryRateLimit: (retryAfter, options, octokit) => {
+    onSecondaryRateLimit: (_retryAfter, options, octokit) => {
       // does not retry, only logs a warning
-      octokit.log.warn(`SecondaryRateLimit detected for request ${options.method} ${options.url}`);
+      octokit.log.warn(
+        `SecondaryRateLimit detected for request ${options.method} ${options.url}`,
+      );
     },
   },
 });
@@ -88,7 +90,11 @@ export async function getReleases(owner: string, repo: string) {
             download_count: asset.download_count,
             browser_download_url: asset.browser_download_url,
           })),
-          total_download_count: assets.reduce((total, asset) => total + asset.download_count, 0),
+          total_download_count: assets.reduce(
+            (total: number, asset: { download_count: number }) =>
+              total + asset.download_count,
+            0,
+          ),
         };
       }),
     );
@@ -126,7 +132,11 @@ export async function getReleases(owner: string, repo: string) {
             download_count: asset.download_count,
             browser_download_url: asset.browser_download_url,
           })),
-          total_download_count: assets.reduce((total, asset) => total + asset.download_count, 0),
+          total_download_count: assets.reduce(
+            (total: number, asset: { download_count: number }) =>
+              total + asset.download_count,
+            0,
+          ),
         };
       }),
   );

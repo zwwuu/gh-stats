@@ -1,7 +1,7 @@
-import { cloneElement, ReactElement, ReactNode } from "react";
-import Link, { type LinkProps } from "next/link";
 import { LinkExternalIcon } from "@primer/octicons-react";
 import clsx from "clsx";
+import Link, { type LinkProps } from "next/link";
+import { cloneElement, type ReactElement, type ReactNode } from "react";
 
 import commonStyles from "@/components/Common.module.css";
 
@@ -31,11 +31,17 @@ export default function Anchor({
     >
       {leadingIcon &&
         cloneElement(leadingIcon, {
-          className: clsx(commonStyles.leadingIcon, leadingIcon.props.className),
+          className: clsx(
+            commonStyles.leadingIcon,
+            leadingIcon.props.className,
+          ),
         })}
       {children}
       {isExternal && showExternalIcon && (
-        <LinkExternalIcon verticalAlign={"middle"} className={commonStyles.trailingIcon} />
+        <LinkExternalIcon
+          verticalAlign={"middle"}
+          className={commonStyles.trailingIcon}
+        />
       )}
     </Link>
   );

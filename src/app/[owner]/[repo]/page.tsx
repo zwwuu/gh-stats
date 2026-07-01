@@ -1,17 +1,29 @@
 "use client";
 
+import {
+  EyeIcon,
+  GitBranchIcon,
+  StarFillIcon,
+  TagIcon,
+} from "@primer/octicons-react";
+import {
+  Avatar,
+  Banner,
+  Heading,
+  Label,
+  Spinner,
+  Stack,
+  Text,
+} from "@primer/react";
 import { useParams } from "next/navigation";
-import { EyeIcon, GitBranchIcon, StarFillIcon, TagIcon } from "@primer/octicons-react";
-import { Avatar, Banner, Heading, Label, Spinner, Stack, Text } from "@primer/react";
 import useSWRImmutable from "swr/immutable";
 
 import {
   Anchor,
   BookmarkButton,
-  BookmarkList,
   Content,
   ReleaseList,
-  SearchBar,
+  RepoSidebar,
   Sidebar,
   StatChart,
   StatLabel,
@@ -20,12 +32,20 @@ import commonStyles from "@/components/Common.module.css";
 import { getReleases, getRepo } from "@/lib/github";
 import { prettyNumber } from "@/lib/pretty-format";
 
-const fetchRepo = async (params: { key: string; owner: string; repo: string }) => {
+const fetchRepo = async (params: {
+  key: string;
+  owner: string;
+  repo: string;
+}) => {
   const { owner, repo } = params;
   return await getRepo(owner, repo);
 };
 
-const fetchReleases = async (params: { key: string; owner: string; repo: string }) => {
+const fetchReleases = async (params: {
+  key: string;
+  owner: string;
+  repo: string;
+}) => {
   const { owner, repo } = params;
   return await getReleases(owner, repo);
 };
@@ -59,8 +79,7 @@ export default function RepoPage() {
           </Stack>
         </Content>
         <Sidebar>
-          <SearchBar />
-          <BookmarkList />
+          <RepoSidebar />
         </Sidebar>
       </>
     );
@@ -79,8 +98,7 @@ export default function RepoPage() {
           />
         </Content>
         <Sidebar>
-          <SearchBar />
-          <BookmarkList />
+          <RepoSidebar />
         </Sidebar>
       </>
     );
@@ -103,7 +121,11 @@ export default function RepoPage() {
                 <Anchor
                   href={`/${owner}`}
                   leadingIcon={
-                    <Avatar size={32} alt={`${repoData.owner.login} avatar`} src={repoData.owner.avatar_url} />
+                    <Avatar
+                      size={32}
+                      alt={`${repoData.owner.login} avatar`}
+                      src={repoData.owner.avatar_url}
+                    />
                   }
                 >
                   {repoData.owner.login}
@@ -114,9 +136,18 @@ export default function RepoPage() {
                 </Anchor>
               </Heading>
             </div>
-            {repoData.description && <Text as={"p"}>{repoData.description}</Text>}
-            <Stack wrap="wrap" direction="horizontal" gap="condensed" align="center">
-              {repoData.language && <Label size="large">{repoData.language}</Label>}
+            {repoData.description && (
+              <Text as={"p"}>{repoData.description}</Text>
+            )}
+            <Stack
+              wrap="wrap"
+              direction="horizontal"
+              gap="condensed"
+              align="center"
+            >
+              {repoData.language && (
+                <Label size="large">{repoData.language}</Label>
+              )}
               <StatLabel size="large" icon={StarFillIcon}>
                 {prettyNumber(repoData.stargazers_count)} stars
               </StatLabel>
@@ -160,8 +191,7 @@ export default function RepoPage() {
           ))}
       </Content>
       <Sidebar>
-        <SearchBar />
-        <BookmarkList />
+        <RepoSidebar />
       </Sidebar>
     </>
   );

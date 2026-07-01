@@ -1,6 +1,14 @@
 import { Heading, Text } from "@primer/react";
 
-import { Ads, BookmarkList, Card, CardBody, Content, SearchBar, Sidebar, TrendingGrid } from "@/components";
+import {
+  Card,
+  CardBody,
+  Content,
+  RepoSidebar,
+  SearchBar,
+  Sidebar,
+  TrendingGrid,
+} from "@/components";
 
 export default function HomePage() {
   return (
@@ -13,11 +21,10 @@ export default function HomePage() {
             <SearchBar />
           </CardBody>
         </Card>
-        <Ads variant={"rectangle"} />
         <TrendingGrid />
       </Content>
       <Sidebar>
-        <BookmarkList />
+        <RepoSidebar showSearch={false} />
       </Sidebar>
     </>
   );

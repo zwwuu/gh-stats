@@ -1,7 +1,14 @@
 "use client";
 
-import { createContext, ReactNode, useCallback, useContext, useEffect, useState } from "react";
-import { useTheme, type ThemeProviderProps } from "@primer/react";
+import { type ThemeProviderProps, useTheme } from "@primer/react";
+import {
+  createContext,
+  type ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 export type Setting = {
   colorMode: ThemeProviderProps["colorMode"];
@@ -49,7 +56,7 @@ export function SettingProvider({ children }: { children: ReactNode }) {
     } finally {
       setIsLoaded(true);
     }
-  }, []);
+  }, [setColorMode]);
 
   useEffect(() => {
     if (!isLoaded) return;
@@ -88,12 +95,16 @@ export function SettingProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const toggleTheme = () => {
-    const nextMode = resolvedColorMode == "day" ? "night" : "day";
+    const nextMode = resolvedColorMode === "day" ? "night" : "day";
     setSettings((prev) => ({ ...prev, colorMode: nextMode }));
     setColorMode(nextMode);
   };
 
-  return <SettingContext.Provider value={{ settings, toggleTheme, saveSettings }}>{children}</SettingContext.Provider>;
+  return (
+    <SettingContext.Provider value={{ settings, toggleTheme, saveSettings }}>
+      {children}
+    </SettingContext.Provider>
+  );
 }
 
 export function useSettings() {

@@ -21,7 +21,9 @@ export default function Footer() {
         <Anchor href="/privacy-policy">Privacy Policy</Anchor>
         <Anchor href="/terms-of-service">Terms of Service</Anchor>
       </Stack>
-      <Text as={"p"}>{`© ${new Date().getFullYear()} ${process.env.NEXT_PUBLIC_APP_TITLE}. All rights reserved.`}</Text>
+      <Text
+        as={"p"}
+      >{`© ${new Date().getFullYear()} ${process.env.NEXT_PUBLIC_APP_TITLE}. All rights reserved.`}</Text>
     </Stack>
   );
 }

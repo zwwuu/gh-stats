@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { MoveToTopIcon } from "@primer/octicons-react";
 import { IconButton } from "@primer/react";
 import clsx from "clsx";
+import { useEffect, useState } from "react";
 
 import styles from "./FloatingButton.module.css";
 

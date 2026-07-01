@@ -22,7 +22,10 @@ const isoDate = (() => {
 })();
 
 export default function TrendingGrid() {
-  const { data, error, isLoading } = useSWRImmutable({ key: "trending", isoDate }, fetchTrending);
+  const { data, error, isLoading } = useSWRImmutable(
+    { key: "trending", isoDate },
+    fetchTrending,
+  );
 
   return (
     <>
@@ -31,7 +34,9 @@ export default function TrendingGrid() {
           <GraphIcon />
         </Blankslate.Visual>
         <Blankslate.Heading>Trending</Blankslate.Heading>
-        <Blankslate.Description>Here is what is popular on GitHub today...</Blankslate.Description>
+        <Blankslate.Description>
+          Here is what is popular on GitHub today...
+        </Blankslate.Description>
       </Blankslate>
 
       {error && (

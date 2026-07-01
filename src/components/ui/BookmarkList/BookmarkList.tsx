@@ -9,7 +9,7 @@ import { useBookmarks } from "@/contexts";
 import blankImg from "@/public/images/blank.png";
 
 export default function BookmarkList() {
-  const { bookmarks } = useBookmarks();
+  const { bookmarks, removeBookmark } = useBookmarks();
 
   if (bookmarks.length === 0) {
     return (
@@ -18,7 +18,8 @@ export default function BookmarkList() {
           <BookmarkFilledIcon />
         </Blankslate.Visual>
         <Blankslate.Description>
-          You have no bookmarks yet. Start exploring and bookmark your favorite repository!
+          You have no bookmarks yet. Start exploring and bookmark your favorite
+          repository!
         </Blankslate.Description>
       </Blankslate>
     );
@@ -28,12 +29,21 @@ export default function BookmarkList() {
     <ActionList showDividers variant="full">
       <ActionList.Heading as="h2">Bookmarks</ActionList.Heading>
       {bookmarks.map((bookmark) => (
-        <ActionList.LinkItem size={"large"} key={bookmark.fullName} as={Anchor} href={`/${bookmark.fullName}`}>
+        <ActionList.LinkItem
+          size={"large"}
+          key={bookmark.fullName}
+          as={Anchor}
+          href={`/${bookmark.fullName}`}
+        >
           <ActionList.LeadingVisual>
             <Avatar src={bookmark.avatarUrl ?? blankImg.src} />
           </ActionList.LeadingVisual>
           {bookmark.fullName}
-          <ActionList.TrailingAction label="Remove bookmark" icon={BookmarkFilledIcon} />
+          <ActionList.TrailingAction
+            label="Remove bookmark"
+            icon={BookmarkFilledIcon}
+            onClick={() => removeBookmark(bookmark.fullName)}
+          />
         </ActionList.LinkItem>
       ))}
     </ActionList>

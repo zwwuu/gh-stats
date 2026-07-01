@@ -1,16 +1,35 @@
 "use client";
 
-import { useMemo, useRef } from "react";
-import { FilterIcon, FilterRemoveIcon, GitCommitIcon } from "@primer/octicons-react";
-import { ActionList, ActionMenu, Avatar, Heading, Stack, Text, Timeline } from "@primer/react";
+import {
+  FilterIcon,
+  FilterRemoveIcon,
+  GitCommitIcon,
+} from "@primer/octicons-react";
+import {
+  ActionList,
+  ActionMenu,
+  Avatar,
+  Heading,
+  Stack,
+  Text,
+  Timeline,
+} from "@primer/react";
 import { DataTable, Table } from "@primer/react/experimental";
 import clsx from "clsx";
-import { Virtuoso, VirtuosoHandle } from "react-virtuoso";
+import { useMemo, useRef } from "react";
+import { Virtuoso, type VirtuosoHandle } from "react-virtuoso";
 
-import { Anchor, StatLabel, StatTile, StatTileBody, StatTileCaption, StatTileHeading } from "@/components";
+import {
+  Anchor,
+  StatLabel,
+  StatTile,
+  StatTileBody,
+  StatTileCaption,
+  StatTileHeading,
+} from "@/components";
 import commonStyles from "@/components/Common.module.css";
 import { useSettings } from "@/contexts";
-import { getReleases } from "@/lib/github";
+import type { getReleases } from "@/lib/github";
 import { prettyDate, prettyNumber, prettySize } from "@/lib/pretty-format";
 import blankImage from "@/public/images/blank.png";
 import styles from "./ReleaseList.module.css";
@@ -22,13 +41,17 @@ type ReleaseListProps = {
 export default function ReleaseList({ releases }: ReleaseListProps) {
   const { settings, saveSettings } = useSettings();
 
-  const isFiltered = !settings.filter.showDraft || !settings.filter.showPrerelease || !settings.filter.showEmpty;
+  const isFiltered =
+    !settings.filter.showDraft ||
+    !settings.filter.showPrerelease ||
+    !settings.filter.showEmpty;
 
   const filteredReleases = useMemo(() => {
     return releases.filter((release) => {
       if (!settings.filter.showDraft && release.draft) return false;
       if (!settings.filter.showPrerelease && release.prerelease) return false;
-      if (!settings.filter.showEmpty && release.assets.length === 0) return false;
+      if (!settings.filter.showEmpty && release.assets.length === 0)
+        return false;
       return true;
     });
   }, [releases, settings.filter]);
@@ -45,16 +68,23 @@ export default function ReleaseList({ releases }: ReleaseListProps) {
       };
     }
 
-    const total = filteredReleases.reduce((acc, release) => acc + release.total_download_count, 0);
+    const total = filteredReleases.reduce(
+      (acc, release) => acc + release.total_download_count,
+      0,
+    );
     const avg = Math.round(total / filteredReleases.length);
 
     const stats = filteredReleases.reduce(
       (acc, release, index) => {
-        if (release.total_download_count > acc.max.release.total_download_count) {
+        if (
+          release.total_download_count > acc.max.release.total_download_count
+        ) {
           acc.max = { release, index };
         }
 
-        if (release.total_download_count < acc.min.release.total_download_count) {
+        if (
+          release.total_download_count < acc.min.release.total_download_count
+        ) {
           acc.min = { release, index };
         }
 
@@ -78,9 +108,17 @@ export default function ReleaseList({ releases }: ReleaseListProps) {
     <>
       <div className={styles.filters}>
         <ActionMenu>
-          <ActionMenu.Button leadingVisual={isFiltered ? FilterRemoveIcon : FilterIcon}>Filters</ActionMenu.Button>
+          <ActionMenu.Button
+            leadingVisual={isFiltered ? FilterRemoveIcon : FilterIcon}
+          >
+            Filters
+          </ActionMenu.Button>
           <ActionMenu.Overlay>
-            <ActionList selectionVariant="multiple" role="menu" aria-label="Filter">
+            <ActionList
+              selectionVariant="multiple"
+              role="menu"
+              aria-label="Filter"
+            >
               <ActionList.Item
                 role="menuitemcheckbox"
                 selected={settings.filter.showEmpty}
@@ -104,7 +142,12 @@ export default function ReleaseList({ releases }: ReleaseListProps) {
                 selected={settings.filter.showPrerelease}
                 aria-checked={settings.filter.showPrerelease}
                 onSelect={() =>
-                  saveSettings({ filter: { ...settings.filter, showPrerelease: !settings.filter.showPrerelease } })
+                  saveSettings({
+                    filter: {
+                      ...settings.filter,
+                      showPrerelease: !settings.filter.showPrerelease,
+                    },
+                  })
                 }
               >
                 Show{" "}
@@ -116,7 +159,14 @@ export default function ReleaseList({ releases }: ReleaseListProps) {
                 role="menuitemcheckbox"
                 selected={settings.filter.showDraft}
                 aria-checked={settings.filter.showDraft}
-                onSelect={() => saveSettings({ filter: { ...settings.filter, showDraft: !settings.filter.showDraft } })}
+                onSelect={() =>
+                  saveSettings({
+                    filter: {
+                      ...settings.filter,
+                      showDraft: !settings.filter.showDraft,
+                    },
+                  })
+                }
               >
                 Show{" "}
                 <Text as={"span"} className={commonStyles.textSevere}>
@@ -130,18 +180,26 @@ export default function ReleaseList({ releases }: ReleaseListProps) {
       <div className={styles.grid}>
         <StatTile>
           <StatTileHeading as="h3">Total Downloads</StatTileHeading>
-          <StatTileBody as="p">{prettyNumber(total_downloads, false)}</StatTileBody>
+          <StatTileBody as="p">
+            {prettyNumber(total_downloads, false)}
+          </StatTileBody>
           <StatTileCaption as="p">{`from ${filteredReleases.length} releases`}</StatTileCaption>
         </StatTile>
         <StatTile>
-          <StatTileHeading as="h3">Average Downloads Per Release</StatTileHeading>
-          <StatTileBody as="p">{prettyNumber(average_downloads, false)}</StatTileBody>
+          <StatTileHeading as="h3">
+            Average Downloads Per Release
+          </StatTileHeading>
+          <StatTileBody as="p">
+            {prettyNumber(average_downloads, false)}
+          </StatTileBody>
         </StatTile>
         <StatTile>
           <StatTileHeading as="h3">Most Downloaded Release</StatTileHeading>
           {result.max.release ? (
             <>
-              <StatTileBody as="p">{prettyNumber(result.max.release.total_download_count, false)}</StatTileBody>
+              <StatTileBody as="p">
+                {prettyNumber(result.max.release.total_download_count, false)}
+              </StatTileBody>
               <StatTileCaption as="p">
                 {"in "}
                 <Anchor
@@ -149,7 +207,9 @@ export default function ReleaseList({ releases }: ReleaseListProps) {
                   onClick={(event) => {
                     event.preventDefault();
                     if (virtuosoRef.current) {
-                      const index = releases.findIndex((r) => r.id === result.max.release!.id);
+                      const index = releases.findIndex(
+                        (r) => r.id === result.max.release?.id,
+                      );
                       if (index !== -1) {
                         virtuosoRef.current.scrollToIndex(index);
                       }
@@ -176,7 +236,9 @@ export default function ReleaseList({ releases }: ReleaseListProps) {
           <StatTileHeading as="h3">Least Downloaded Release</StatTileHeading>
           {result.min.release ? (
             <>
-              <StatTileBody as="p">{prettyNumber(result.min.release.total_download_count, false)}</StatTileBody>
+              <StatTileBody as="p">
+                {prettyNumber(result.min.release.total_download_count, false)}
+              </StatTileBody>
               <StatTileCaption as="p">
                 {"in "}
                 <Anchor
@@ -184,7 +246,9 @@ export default function ReleaseList({ releases }: ReleaseListProps) {
                   onClick={(event) => {
                     event.preventDefault();
                     if (virtuosoRef.current) {
-                      const index = releases.findIndex((r) => r.id === result.min.release!.id);
+                      const index = releases.findIndex(
+                        (r) => r.id === result.min.release?.id,
+                      );
                       if (index !== -1) {
                         virtuosoRef.current.scrollToIndex(index);
                       }
@@ -214,11 +278,14 @@ export default function ReleaseList({ releases }: ReleaseListProps) {
           useWindowScroll
           data={releases}
           ref={virtuosoRef}
-          itemContent={(index, release) => {
+          itemContent={(_, release) => {
             const isDraftHidden = !settings.filter.showDraft && release.draft;
-            const isPrereleaseHidden = !settings.filter.showPrerelease && release.prerelease;
-            const isEmptyHidden = !settings.filter.showEmpty && release.assets.length === 0;
-            const isHidden = isDraftHidden || isPrereleaseHidden || isEmptyHidden;
+            const isPrereleaseHidden =
+              !settings.filter.showPrerelease && release.prerelease;
+            const isEmptyHidden =
+              !settings.filter.showEmpty && release.assets.length === 0;
+            const isHidden =
+              isDraftHidden || isPrereleaseHidden || isEmptyHidden;
 
             return (
               <Timeline.Item key={release.id} id={`tag-${release.id}`}>
@@ -227,11 +294,21 @@ export default function ReleaseList({ releases }: ReleaseListProps) {
                 </Timeline.Badge>
                 <Timeline.Body className={styles.item}>
                   <Stack gap="condensed">
-                    {release.published_at && <div>{prettyDate(release.published_at)}</div>}
-                    <Stack gap="condensed" direction={"horizontal"} align={"center"}>
+                    {release.published_at && (
+                      <div>{prettyDate(release.published_at)}</div>
+                    )}
+                    <Stack
+                      gap="condensed"
+                      direction={"horizontal"}
+                      align={"center"}
+                    >
                       {isHidden && <StatLabel variant="done">Hidden</StatLabel>}
-                      {release.prerelease && <StatLabel variant="severe">Pre-release</StatLabel>}
-                      {release.draft && <StatLabel variant="attention">Draft</StatLabel>}
+                      {release.prerelease && (
+                        <StatLabel variant="severe">Pre-release</StatLabel>
+                      )}
+                      {release.draft && (
+                        <StatLabel variant="attention">Draft</StatLabel>
+                      )}
                     </Stack>
                     {!isHidden && (
                       <>
@@ -245,9 +322,15 @@ export default function ReleaseList({ releases }: ReleaseListProps) {
                             <Anchor
                               href={release.author.html_url}
                               isExternal
-                              className={clsx(commonStyles.inlineFlex, commonStyles.alignCenter)}
+                              className={clsx(
+                                commonStyles.inlineFlex,
+                                commonStyles.alignCenter,
+                              )}
                               leadingIcon={
-                                <Avatar src={release.author.avatar_url} alt={`${release.author.login} avatar`} />
+                                <Avatar
+                                  src={release.author.avatar_url}
+                                  alt={`${release.author.login} avatar`}
+                                />
                               }
                             >
                               {release.author.login}
@@ -255,21 +338,37 @@ export default function ReleaseList({ releases }: ReleaseListProps) {
                           </Text>
                         ) : (
                           <Text as={"span"} className={styles.deleted}>
-                            <Avatar className={commonStyles.leadingIcon} src={blankImage.src} alt={"blank avatar"} />
+                            <Avatar
+                              className={commonStyles.leadingIcon}
+                              src={blankImage.src}
+                              alt={"blank avatar"}
+                            />
                             {"Deleted User"}
                           </Text>
                         )}
-                        <Stack direction="horizontal" wrap={"wrap"} gap={"condensed"} align="center">
+                        <Stack
+                          direction="horizontal"
+                          wrap={"wrap"}
+                          gap={"condensed"}
+                          align="center"
+                        >
                           <Stack.Item grow>
                             <StatTile>
                               <StatTileHeading as="h4">Assets</StatTileHeading>
-                              <StatTileBody>{prettyNumber(release.assets.length, false)}</StatTileBody>
+                              <StatTileBody>
+                                {prettyNumber(release.assets.length, false)}
+                              </StatTileBody>
                             </StatTile>
                           </Stack.Item>
                           <Stack.Item grow>
                             <StatTile>
                               <StatTileHeading>Downloads</StatTileHeading>
-                              <StatTileBody as={"p"}>{prettyNumber(release.total_download_count, false)}</StatTileBody>
+                              <StatTileBody as={"p"}>
+                                {prettyNumber(
+                                  release.total_download_count,
+                                  false,
+                                )}
+                              </StatTileBody>
                             </StatTile>
                           </Stack.Item>
                         </Stack>
@@ -314,7 +413,10 @@ export default function ReleaseList({ releases }: ReleaseListProps) {
                                   align: "end",
                                   width: "auto",
                                   renderCell: (row) => {
-                                    return prettyNumber(row.download_count, false);
+                                    return prettyNumber(
+                                      row.download_count,
+                                      false,
+                                    );
                                   },
                                 },
                               ]}

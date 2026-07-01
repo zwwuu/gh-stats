@@ -1,12 +1,14 @@
-import { ReactNode } from "react";
-import { Metadata } from "next";
+import type { Metadata } from "next";
+import type { ReactNode } from "react";
 
 type RepoLayoutProps = {
   params: Promise<{ owner: string }>;
   children: ReactNode;
 };
 
-export async function generateMetadata({ params }: RepoLayoutProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: RepoLayoutProps): Promise<Metadata> {
   const { owner } = await params;
   const description = `View repositories for ${owner}.`;
 

@@ -1,6 +1,6 @@
-import { type ReactNode } from "react";
-import { type Icon } from "@primer/octicons-react";
+import type { Icon } from "@primer/octicons-react";
 import { Label, type LabelProps } from "@primer/react";
+import type { ReactNode } from "react";
 
 import commonStyles from "@/components/Common.module.css";
 
@@ -9,7 +9,12 @@ type StatLabelProps = {
   icon?: Icon;
 } & LabelProps;
 
-export default function StatLabel({ children, size, icon: IconComponent, ...props }: StatLabelProps) {
+export default function StatLabel({
+  children,
+  size,
+  icon: IconComponent,
+  ...props
+}: StatLabelProps) {
   return (
     <Label size={size} {...props}>
       {IconComponent && <IconComponent className={commonStyles.leadingIcon} />}

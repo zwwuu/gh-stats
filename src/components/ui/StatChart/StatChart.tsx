@@ -1,18 +1,27 @@
 "use client";
 
-import { type EChartsOption } from "echarts";
+import type { EChartsOption } from "echarts";
 import ReactECharts from "echarts-for-react";
 
-import { getReleases } from "@/lib/github";
 import { prettyDate, prettyNumber } from "@/lib/pretty-format";
 import { useStatChartData } from "./useStatChartData";
 
+type Release = {
+  id: number;
+  tag_name: string;
+  draft: boolean;
+  prerelease: boolean;
+  published_at: string | null;
+  total_download_count: number;
+};
+
 type StatChartProps = {
-  releases: Awaited<ReturnType<typeof getReleases>>;
+  releases: Release[];
 };
 
 export default function StatChart({ releases }: StatChartProps) {
-  const { sortedReleases, startValue, maxRelease, minRelease } = useStatChartData(releases);
+  const { sortedReleases, startValue, maxRelease, minRelease } =
+    useStatChartData(releases);
 
   const option: EChartsOption = {
     tooltip: {
@@ -60,7 +69,14 @@ export default function StatChart({ releases }: StatChartProps) {
       },
     ],
     dataset: {
-      dimensions: ["id", "published_at", "tag_name", "draft", "prerelease", "total_download_count"],
+      dimensions: [
+        "id",
+        "published_at",
+        "tag_name",
+        "draft",
+        "prerelease",
+        "total_download_count",
+      ],
       source: sortedReleases,
     },
     series: [
@@ -71,7 +87,13 @@ export default function StatChart({ releases }: StatChartProps) {
           x: "published_at",
           y: "total_download_count",
           itemId: "id",
-          tooltip: ["tag_name", "published_at", "total_download_count", "draft", "prerelease"],
+          tooltip: [
+            "tag_name",
+            "published_at",
+            "total_download_count",
+            "draft",
+            "prerelease",
+          ],
         },
         itemStyle: {
           color: (params) => {

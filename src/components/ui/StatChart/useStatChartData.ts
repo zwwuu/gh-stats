@@ -1,14 +1,28 @@
-import { getReleases } from "@/lib/github";
+type Release = {
+  id: number;
+  tag_name: string;
+  draft: boolean;
+  prerelease: boolean;
+  published_at: string | null;
+  total_download_count: number;
+};
 
-type Release = Awaited<ReturnType<typeof getReleases>>[0];
+type ReleaseWithPublishedAt = Release & { published_at: string };
 
 export function useStatChartData(releases: Release[]) {
   const sortedReleases = [...releases]
-    .filter((r) => r.published_at)
-    .sort((a, b) => new Date(a.published_at!).getTime() - new Date(b.published_at!).getTime());
+    .filter(
+      (r): r is ReleaseWithPublishedAt => typeof r.published_at === "string",
+    )
+    .sort(
+      (a, b) =>
+        new Date(a.published_at).getTime() - new Date(b.published_at).getTime(),
+    );
 
   const startValue =
-    sortedReleases.length > 10 ? (sortedReleases[sortedReleases.length - 10].published_at as string) : undefined;
+    sortedReleases.length > 10
+      ? sortedReleases[sortedReleases.length - 10].published_at
+      : undefined;
 
   const maxRelease = sortedReleases.reduce(
     (max, r) => (r.total_download_count > max.total_download_count ? r : max),

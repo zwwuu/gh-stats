@@ -1,7 +1,13 @@
 "use client";
 
 import { MarkGithubIcon, MoonIcon, SunIcon } from "@primer/octicons-react";
-import { Avatar, IconButton, PageHeader, PageLayout, useTheme } from "@primer/react";
+import {
+  Avatar,
+  IconButton,
+  PageHeader,
+  PageLayout,
+  useTheme,
+} from "@primer/react";
 import clsx from "clsx";
 
 import logo from "@/app/icon1.png";
@@ -21,8 +27,19 @@ export default function Navbar() {
           <PageHeader.Title as={"h2"}>
             <Anchor
               href="/"
-              className={clsx(styles.title, commonStyles.inlineFlex, commonStyles.alignCenter)}
-              leadingIcon={<Avatar square size={32} src={logo.src} alt={`${process.env.NEXT_PUBLIC_APP_TITLE} logo`} />}
+              className={clsx(
+                styles.title,
+                commonStyles.inlineFlex,
+                commonStyles.alignCenter,
+              )}
+              leadingIcon={
+                <Avatar
+                  square
+                  size={32}
+                  src={logo.src}
+                  alt={`${process.env.NEXT_PUBLIC_APP_TITLE} logo`}
+                />
+              }
             >
               {process.env.NEXT_PUBLIC_APP_TITLE}
             </Anchor>

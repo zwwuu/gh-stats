@@ -1,7 +1,7 @@
-import { ReactNode } from "react";
-import { Metadata, Viewport } from "next";
 import { GoogleTagManager } from "@next/third-parties/google";
 import { BaseStyles, PageLayout, ThemeProvider } from "@primer/react";
+import type { Metadata, Viewport } from "next";
+import type { ReactNode } from "react";
 
 import { FloatingButton, Footer, Navbar } from "@/components";
 import { colors } from "@/constants/colors";
@@ -43,7 +43,9 @@ export const viewport: Viewport = {
   themeColor: colors.primary,
 };
 
-export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+export default function RootLayout({
+  children,
+}: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -51,10 +53,20 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
       </head>
       <body>
         <ThemeProvider preventSSRMismatch>
-          <BaseStyles style={{ backgroundColor: "var(--bgColor-default)", minHeight: "100vh" }}>
+          <BaseStyles
+            style={{
+              backgroundColor: "var(--bgColor-default)",
+              minHeight: "100svh",
+            }}
+          >
             <SettingProvider>
               <BookmarkProvider>
-                <PageLayout padding="none" containerWidth="full" columnGap="none" rowGap="none">
+                <PageLayout
+                  padding="none"
+                  containerWidth="full"
+                  columnGap="none"
+                  rowGap="none"
+                >
                   <Navbar />
                   {children}
                   <FloatingButton />

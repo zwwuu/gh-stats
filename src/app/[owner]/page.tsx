@@ -1,20 +1,27 @@
 "use client";
 
-import { useParams } from "next/navigation";
 import { Banner, Heading } from "@primer/react";
+import { useParams } from "next/navigation";
 import useSWRImmutable from "swr/immutable";
 
-import { BookmarkList, Content, RepoGrid, SearchBar, Sidebar } from "@/components";
+import { Content, RepoGrid, RepoSidebar, Sidebar } from "@/components";
 import { getUserRepos } from "@/lib/github";
 
-const fetchRepos = async (params: { key: string; username: string; repo: string }) => {
+const fetchRepos = async (params: {
+  key: string;
+  username: string;
+  repo: string;
+}) => {
   const { username } = params;
   return await getUserRepos(username);
 };
 
 export default function OwnerPage() {
   const { owner } = useParams<{ owner: string }>();
-  const { data, error, isLoading } = useSWRImmutable({ key: "listRepos", username: owner }, fetchRepos);
+  const { data, error, isLoading } = useSWRImmutable(
+    { key: "listRepos", username: owner },
+    fetchRepos,
+  );
 
   return (
     <>
@@ -32,8 +39,7 @@ export default function OwnerPage() {
         <RepoGrid isLoading={isLoading} data={data} />
       </Content>
       <Sidebar>
-        <SearchBar />
-        <BookmarkList />
+        <RepoSidebar />
       </Sidebar>
     </>
   );

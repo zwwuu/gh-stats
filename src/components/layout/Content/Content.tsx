@@ -1,9 +1,7 @@
 "use client";
 
-import { ReactNode } from "react";
 import { PageLayout, Stack } from "@primer/react";
-
-import { Ads, Disclosure } from "@/components";
+import type { ReactNode } from "react";
 
 type ContentProps = {
   children: ReactNode;
@@ -12,12 +10,13 @@ type ContentProps = {
 
 export default function Content({ children, className }: ContentProps) {
   return (
-    <PageLayout.Content padding="normal" width={"xlarge"} as={"div"} className={className}>
-      <Stack as={"main"}>
-        <Disclosure />
-        {children}
-        <Ads variant={"rectangle"} />
-      </Stack>
+    <PageLayout.Content
+      padding="normal"
+      width={"xlarge"}
+      as={"div"}
+      className={className}
+    >
+      <Stack as={"main"}>{children}</Stack>
     </PageLayout.Content>
   );
 }

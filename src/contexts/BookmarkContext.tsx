@@ -1,6 +1,13 @@
 "use client";
 
-import { createContext, ReactNode, useCallback, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  type ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 export type Bookmark = {
   fullName: string;
@@ -68,14 +75,17 @@ export function BookmarkProvider({ children }: { children: ReactNode }) {
     return () => window.removeEventListener("storage", onStorage);
   }, []);
 
-  const addBookmark = useCallback((bookmark: Omit<Bookmark, "bookmarkedAt">) => {
-    setBookmarks((prev) => {
-      if (prev.some((b) => b.fullName === bookmark.fullName)) {
-        return prev;
-      }
-      return [{ ...bookmark, bookmarkedAt: Date.now() }, ...prev];
-    });
-  }, []);
+  const addBookmark = useCallback(
+    (bookmark: Omit<Bookmark, "bookmarkedAt">) => {
+      setBookmarks((prev) => {
+        if (prev.some((b) => b.fullName === bookmark.fullName)) {
+          return prev;
+        }
+        return [{ ...bookmark, bookmarkedAt: Date.now() }, ...prev];
+      });
+    },
+    [],
+  );
 
   const removeBookmark = useCallback((fullName: string) => {
     setBookmarks((prev) => prev.filter((b) => b.fullName !== fullName));
@@ -88,18 +98,29 @@ export function BookmarkProvider({ children }: { children: ReactNode }) {
     [bookmarks],
   );
 
-  const toggleBookmark = useCallback((bookmark: Omit<Bookmark, "bookmarkedAt">) => {
-    setBookmarks((prev) => {
-      const exists = prev.some((b) => b.fullName === bookmark.fullName);
+  const toggleBookmark = useCallback(
+    (bookmark: Omit<Bookmark, "bookmarkedAt">) => {
+      setBookmarks((prev) => {
+        const exists = prev.some((b) => b.fullName === bookmark.fullName);
 
-      return exists
-        ? prev.filter((b) => b.fullName !== bookmark.fullName)
-        : [{ ...bookmark, bookmarkedAt: Date.now() }, ...prev];
-    });
-  }, []);
+        return exists
+          ? prev.filter((b) => b.fullName !== bookmark.fullName)
+          : [{ ...bookmark, bookmarkedAt: Date.now() }, ...prev];
+      });
+    },
+    [],
+  );
 
   return (
-    <BookmarkContext.Provider value={{ bookmarks, addBookmark, removeBookmark, isBookmarked, toggleBookmark }}>
+    <BookmarkContext.Provider
+      value={{
+        bookmarks,
+        addBookmark,
+        removeBookmark,
+        isBookmarked,
+        toggleBookmark,
+      }}
+    >
       {children}
     </BookmarkContext.Provider>
   );
