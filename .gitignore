@@ -42,3 +42,11 @@ next-env.d.ts
 
 # IDEs and editors
 .idea/
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
