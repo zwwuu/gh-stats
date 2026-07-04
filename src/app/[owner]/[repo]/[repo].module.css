@@ -4,12 +4,6 @@
   margin-block-end: var(--controlStack-medium-gap-auto);
 }
 
-.title {
+.heading {
   overflow-wrap: anywhere;
-}
-
-.caption {
-  margin-block-end: 0;
-  font: var(--text-caption-shorthand);
-  color: var(--fgColor-neutral);
 }

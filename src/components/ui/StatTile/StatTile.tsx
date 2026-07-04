@@ -1,36 +1,40 @@
 import clsx from "clsx";
 import type { ElementType, HTMLAttributes, ReactNode } from "react";
 
-import commonStyles from "@/components/Common.module.css";
 import styles from "./StatTile.module.css";
 
 type StatTileProps = {
   as?: ElementType;
   children?: ReactNode;
+  className?: string;
 } & HTMLAttributes<HTMLElement>;
 
 type StatTileHeadingProps = {
   as?: ElementType;
   children?: ReactNode;
+  className?: string;
 } & HTMLAttributes<HTMLElement>;
 
 type StatTileBodyProps = {
   as?: ElementType;
   children?: ReactNode;
+  className?: string;
 } & HTMLAttributes<HTMLElement>;
 
 type StatTileCaptionProps = {
   as?: ElementType;
   children?: ReactNode;
+  className?: string;
 } & HTMLAttributes<HTMLElement>;
 
 export default function StatTile({
   as: Component = "div",
   children,
+  className,
   ...props
 }: StatTileProps) {
   return (
-    <Component className={clsx(commonStyles.rounded, styles.tile)} {...props}>
+    <Component className={clsx(styles.tile, className)} {...props}>
       {children}
     </Component>
   );
@@ -39,10 +43,11 @@ export default function StatTile({
 export function StatTileHeading({
   as: Component = "h3",
   children,
+  className,
   ...props
 }: StatTileHeadingProps) {
   return (
-    <Component className={styles.heading} {...props}>
+    <Component className={clsx(styles.heading, className)} {...props}>
       {children}
     </Component>
   );
@@ -51,10 +56,11 @@ export function StatTileHeading({
 export function StatTileBody({
   as: Component = "div",
   children,
+  className,
   ...props
 }: StatTileBodyProps) {
   return (
-    <Component className={styles.body} {...props}>
+    <Component className={clsx(styles.body, className)} {...props}>
       {children}
     </Component>
   );
@@ -63,10 +69,11 @@ export function StatTileBody({
 export function StatTileCaption({
   as: Component = "p",
   children,
+  className,
   ...props
 }: StatTileCaptionProps) {
   return (
-    <Component className={styles.caption} {...props}>
+    <Component className={clsx(styles.caption, className)} {...props}>
       {children}
     </Component>
   );

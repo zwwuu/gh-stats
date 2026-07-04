@@ -1,6 +1,7 @@
 .tile {
   padding: var(--stack-padding-normal);
   background: var(--bgColor-inset);
+  border-radius: var(--borderRadius-default);
 }
 
 .heading {

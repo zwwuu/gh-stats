@@ -16,7 +16,7 @@ export default function CardHeader({
   ...props
 }: CardHeaderProps) {
   return (
-    <Component className={clsx(styles.cardHeader, className)} {...props}>
+    <Component className={clsx(styles.header, className)} {...props}>
       {children}
     </Component>
   );

@@ -8,10 +8,8 @@ import {
   PageLayout,
   useTheme,
 } from "@primer/react";
-import clsx from "clsx";
 
 import logo from "@/app/icon1.png";
-import commonStyles from "@/components/Common.module.css";
 import { Anchor } from "@/components/ui";
 import { useSettings } from "@/contexts";
 import styles from "./Navbar.module.css";
@@ -27,11 +25,7 @@ export default function Navbar() {
           <PageHeader.Title as={"h2"}>
             <Anchor
               href="/"
-              className={clsx(
-                styles.title,
-                commonStyles.inlineFlex,
-                commonStyles.alignCenter,
-              )}
+              className={styles.title}
               leadingIcon={
                 <Avatar
                   square

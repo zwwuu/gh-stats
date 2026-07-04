@@ -1,24 +1,22 @@
 import clsx from "clsx";
 import type { ElementType, HTMLAttributes, ReactNode } from "react";
 
-import commonStyles from "@/components/Common.module.css";
 import styles from "./Card.module.css";
 
 type CardProps = {
   children: ReactNode;
   as?: ElementType;
+  className?: string;
 } & HTMLAttributes<HTMLElement>;
 
 export default function Card({
   children,
   as: Component = "div",
+  className,
   ...props
 }: CardProps) {
   return (
-    <Component
-      className={clsx(commonStyles.border, commonStyles.rounded, styles.card)}
-      {...props}
-    >
+    <Component className={clsx(styles.card, className)} {...props}>
       {children}
     </Component>
   );

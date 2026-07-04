@@ -28,9 +28,9 @@ import {
   StatChart,
   StatLabel,
 } from "@/components";
-import commonStyles from "@/components/Common.module.css";
 import { getReleases, getRepo } from "@/lib/github";
 import { prettyNumber } from "@/lib/pretty-format";
+import styles from "./[repo].module.css";
 
 const fetchRepo = async (params: {
   key: string;
@@ -111,13 +111,13 @@ export default function RepoPage() {
           <>
             <div>
               <BookmarkButton
-                className={commonStyles.floatRight}
+                className={styles.bookmarkButton}
                 bookmark={{
                   fullName: repoData.full_name,
                   avatarUrl: repoData.owner.avatar_url,
                 }}
               />
-              <Heading as={"h1"} className={commonStyles.breakWord}>
+              <Heading as={"h1"} className={styles.heading}>
                 <Anchor
                   href={`/${owner}`}
                   leadingIcon={

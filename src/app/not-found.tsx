@@ -1,11 +1,10 @@
 import { Heading, Stack, Text } from "@primer/react";
-import clsx from "clsx";
 import type { Metadata } from "next";
 import Image from "next/image";
 
 import { Content, RepoSidebar, Sidebar } from "@/components";
-import commonStyles from "@/components/Common.module.css";
 import blankImg from "@/public/images/blank.png";
+import styles from "./not-found.module.css";
 
 export const metadata: Metadata = {
   title: "Not Found",
@@ -22,13 +21,9 @@ export default function NotFoundPage() {
         <Text as="p">
           You just hit a route that does not exist... the sadness.
         </Text>
-        <Stack as={"figure"} gap={"condensed"} className={commonStyles.m0}>
+        <Stack as={"figure"} gap={"condensed"} className={styles.figure}>
           <Image
-            className={clsx(
-              commonStyles.rounded,
-              commonStyles.border,
-              commonStyles.image,
-            )}
+            className={styles.image}
             src={blankImg}
             alt={"image of nothing"}
           />

@@ -9,7 +9,7 @@ type CardBodyProps = {
 
 export default function CardBody({ children, ...props }: CardBodyProps) {
   return (
-    <Stack padding={"normal"} className={styles.cardBody} {...props}>
+    <Stack padding="normal" className={styles.body} {...props}>
       {children}
     </Stack>
   );

@@ -1,7 +1,6 @@
 import { GitBranchIcon, StarFillIcon } from "@primer/octicons-react";
 import { Avatar, RelativeTime, Stack, Text } from "@primer/react";
 import { SkeletonText } from "@primer/react/experimental";
-import clsx from "clsx";
 
 import {
   Anchor,
@@ -11,7 +10,6 @@ import {
   CardHeader,
   StatLabel,
 } from "@/components";
-import commonStyles from "@/components/Common.module.css";
 import { prettyNumber } from "@/lib/pretty-format";
 import blankImg from "@/public/images/blank.png";
 import styles from "./RepoCard.module.css";
@@ -75,12 +73,12 @@ function RepoCardItem({
     <Card as="article">
       <CardHeader>
         <BookmarkButton
-          className={clsx(commonStyles.floatRight)}
+          className={styles.bookmarkButton}
           bookmark={{ fullName, avatarUrl }}
         />
         <Anchor
-          className={clsx(commonStyles.breakWord)}
           href={`/${fullName}`}
+          className={styles.title}
           leadingIcon={
             <Avatar
               src={avatarUrl ?? blankImg.src}
@@ -91,7 +89,7 @@ function RepoCardItem({
           {fullName}
         </Anchor>
         {pushedAt && (
-          <Text as={"p"} className={clsx(commonStyles.mb0, styles.caption)}>
+          <Text as={"p"} className={styles.caption}>
             Last update{" "}
             <RelativeTime
               second="numeric"
