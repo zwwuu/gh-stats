@@ -13,7 +13,7 @@
     "check": "npm run lint && npm run typecheck"
   },
   "dependencies": {
-    "@next/third-parties": "^16.2.9",
+    "@next/third-parties": "16.2.10",
     "@octokit/plugin-throttling": "^11.0.3",
     "@octokit/rest": "^22.0.1",
     "@primer/octicons-react": "^19.29.1",
@@ -22,7 +22,7 @@
     "clsx": "^2.1.1",
     "echarts": "^6.1.0",
     "echarts-for-react": "^3.0.6",
-    "next": "^16.2.9",
+    "next": "^16.2.10",
     "pretty-bytes": "^7.1.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
