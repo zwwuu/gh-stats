@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.5.2/schema.json",
+  "$schema": "node_modules/@biomejs/biome/configuration-schema.json",
   "vcs": {
     "enabled": true,
     "clientKind": "git",
@@ -13,8 +13,7 @@
       "!.next",
       "!dist",
       "!build",
-      "!mock",
-      "!**/icon*.svg"
+      "!**/*.svg"
     ]
   },
   "formatter": {
@@ -28,6 +27,12 @@
       "preset": "recommended",
       "suspicious": {
         "noUnknownAtRules": "off"
+      },
+      "nursery": {
+        "useSortedClasses": {
+          "level": "warn",
+          "fix": "safe"
+        }
       }
     },
     "domains": {
@@ -40,6 +45,17 @@
       "source": {
         "organizeImports": "on"
       }
+    }
+  },
+  "css": {
+    "assist": {
+      "enabled": true
+    },
+    "formatter": {
+      "enabled": true
+    },
+    "linter": {
+      "enabled": true
     }
   }
 }

@@ -98,9 +98,7 @@
       "web_commit_signoff_required": false,
       "has_pull_requests": true,
       "pull_request_creation_policy": "all",
-      "topics": [
-
-      ],
+      "topics": [],
       "visibility": "public",
       "forks": 219,
       "open_issues": 2,
@@ -210,12 +208,7 @@
       "web_commit_signoff_required": false,
       "has_pull_requests": true,
       "pull_request_creation_policy": "all",
-      "topics": [
-        "agent-skill",
-        "chinese-funds",
-        "funds",
-        "investing"
-      ],
+      "topics": ["agent-skill", "chinese-funds", "funds", "investing"],
       "visibility": "public",
       "forks": 125,
       "open_issues": 0,
@@ -319,9 +312,7 @@
       "web_commit_signoff_required": false,
       "has_pull_requests": true,
       "pull_request_creation_policy": "all",
-      "topics": [
-
-      ],
+      "topics": [],
       "visibility": "public",
       "forks": 2,
       "open_issues": 0,
@@ -431,9 +422,7 @@
       "web_commit_signoff_required": false,
       "has_pull_requests": false,
       "pull_request_creation_policy": "all",
-      "topics": [
-
-      ],
+      "topics": [],
       "visibility": "public",
       "forks": 71,
       "open_issues": 4,
@@ -543,9 +532,7 @@
       "web_commit_signoff_required": false,
       "has_pull_requests": true,
       "pull_request_creation_policy": "all",
-      "topics": [
-
-      ],
+      "topics": [],
       "visibility": "public",
       "forks": 51,
       "open_issues": 1,
@@ -655,9 +642,7 @@
       "web_commit_signoff_required": false,
       "has_pull_requests": true,
       "pull_request_creation_policy": "all",
-      "topics": [
-
-      ],
+      "topics": [],
       "visibility": "public",
       "forks": 171,
       "open_issues": 5,
@@ -761,9 +746,7 @@
       "web_commit_signoff_required": false,
       "has_pull_requests": true,
       "pull_request_creation_policy": "all",
-      "topics": [
-
-      ],
+      "topics": [],
       "visibility": "public",
       "forks": 78,
       "open_issues": 8,
@@ -1121,9 +1104,7 @@
       "web_commit_signoff_required": false,
       "has_pull_requests": true,
       "pull_request_creation_policy": "all",
-      "topics": [
-
-      ],
+      "topics": [],
       "visibility": "public",
       "forks": 50,
       "open_issues": 6,
@@ -1233,12 +1214,7 @@
       "web_commit_signoff_required": false,
       "has_pull_requests": true,
       "pull_request_creation_policy": "all",
-      "topics": [
-        "go",
-        "pdf",
-        "scan",
-        "wasm"
-      ],
+      "topics": ["go", "pdf", "scan", "wasm"],
       "visibility": "public",
       "forks": 21,
       "open_issues": 0,
@@ -1348,9 +1324,7 @@
       "web_commit_signoff_required": false,
       "has_pull_requests": true,
       "pull_request_creation_policy": "all",
-      "topics": [
-
-      ],
+      "topics": [],
       "visibility": "public",
       "forks": 25,
       "open_issues": 3,
@@ -1454,9 +1428,7 @@
       "web_commit_signoff_required": false,
       "has_pull_requests": true,
       "pull_request_creation_policy": "all",
-      "topics": [
-
-      ],
+      "topics": [],
       "visibility": "public",
       "forks": 51,
       "open_issues": 3,
@@ -1560,9 +1532,7 @@
       "web_commit_signoff_required": false,
       "has_pull_requests": true,
       "pull_request_creation_policy": "all",
-      "topics": [
-
-      ],
+      "topics": [],
       "visibility": "public",
       "forks": 736,
       "open_issues": 0,
@@ -1672,9 +1642,7 @@
       "web_commit_signoff_required": false,
       "has_pull_requests": true,
       "pull_request_creation_policy": "all",
-      "topics": [
-
-      ],
+      "topics": [],
       "visibility": "public",
       "forks": 24,
       "open_issues": 1,
@@ -1778,9 +1746,7 @@
       "web_commit_signoff_required": false,
       "has_pull_requests": true,
       "pull_request_creation_policy": "all",
-      "topics": [
-
-      ],
+      "topics": [],
       "visibility": "public",
       "forks": 67,
       "open_issues": 1,

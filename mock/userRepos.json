@@ -101,9 +101,7 @@
     "web_commit_signoff_required": false,
     "has_pull_requests": true,
     "pull_request_creation_policy": "all",
-    "topics": [
-
-    ],
+    "topics": [],
     "visibility": "public",
     "forks": 70,
     "open_issues": 139,
@@ -212,9 +210,7 @@
     "web_commit_signoff_required": false,
     "has_pull_requests": true,
     "pull_request_creation_policy": "all",
-    "topics": [
-
-    ],
+    "topics": [],
     "visibility": "public",
     "forks": 373,
     "open_issues": 328,
@@ -683,9 +679,7 @@
     "web_commit_signoff_required": false,
     "has_pull_requests": true,
     "pull_request_creation_policy": "all",
-    "topics": [
-
-    ],
+    "topics": [],
     "visibility": "public",
     "forks": 190,
     "open_issues": 219,
@@ -794,9 +788,7 @@
     "web_commit_signoff_required": false,
     "has_pull_requests": true,
     "pull_request_creation_policy": "all",
-    "topics": [
-
-    ],
+    "topics": [],
     "visibility": "public",
     "forks": 430,
     "open_issues": 188,
@@ -905,9 +897,7 @@
     "web_commit_signoff_required": false,
     "has_pull_requests": true,
     "pull_request_creation_policy": "all",
-    "topics": [
-
-    ],
+    "topics": [],
     "visibility": "public",
     "forks": 109,
     "open_issues": 22,
@@ -1139,9 +1129,7 @@
     "web_commit_signoff_required": false,
     "has_pull_requests": true,
     "pull_request_creation_policy": "all",
-    "topics": [
-
-    ],
+    "topics": [],
     "visibility": "public",
     "forks": 2189,
     "open_issues": 393,
@@ -1250,9 +1238,7 @@
     "web_commit_signoff_required": false,
     "has_pull_requests": true,
     "pull_request_creation_policy": "all",
-    "topics": [
-
-    ],
+    "topics": [],
     "visibility": "public",
     "forks": 813,
     "open_issues": 223,
@@ -1361,9 +1347,7 @@
     "web_commit_signoff_required": false,
     "has_pull_requests": true,
     "pull_request_creation_policy": "all",
-    "topics": [
-
-    ],
+    "topics": [],
     "visibility": "public",
     "forks": 1890,
     "open_issues": 855,
@@ -1472,9 +1456,7 @@
     "web_commit_signoff_required": false,
     "has_pull_requests": true,
     "pull_request_creation_policy": "all",
-    "topics": [
-
-    ],
+    "topics": [],
     "visibility": "public",
     "forks": 2515,
     "open_issues": 316,
@@ -1583,9 +1565,7 @@
     "web_commit_signoff_required": false,
     "has_pull_requests": true,
     "pull_request_creation_policy": "all",
-    "topics": [
-
-    ],
+    "topics": [],
     "visibility": "public",
     "forks": 497,
     "open_issues": 172,
@@ -1694,9 +1674,7 @@
     "web_commit_signoff_required": false,
     "has_pull_requests": true,
     "pull_request_creation_policy": "all",
-    "topics": [
-
-    ],
+    "topics": [],
     "visibility": "public",
     "forks": 5861,
     "open_issues": 453,
@@ -1805,9 +1783,7 @@
     "web_commit_signoff_required": false,
     "has_pull_requests": true,
     "pull_request_creation_policy": "all",
-    "topics": [
-
-    ],
+    "topics": [],
     "visibility": "public",
     "forks": 605,
     "open_issues": 43,
@@ -1916,9 +1892,7 @@
     "web_commit_signoff_required": false,
     "has_pull_requests": true,
     "pull_request_creation_policy": "all",
-    "topics": [
-
-    ],
+    "topics": [],
     "visibility": "public",
     "forks": 1134,
     "open_issues": 81,
@@ -2027,9 +2001,7 @@
     "web_commit_signoff_required": false,
     "has_pull_requests": true,
     "pull_request_creation_policy": "all",
-    "topics": [
-
-    ],
+    "topics": [],
     "visibility": "public",
     "forks": 62,
     "open_issues": 30,
@@ -2138,10 +2110,7 @@
     "web_commit_signoff_required": false,
     "has_pull_requests": true,
     "pull_request_creation_policy": "all",
-    "topics": [
-      "database",
-      "storage-engine"
-    ],
+    "topics": ["database", "storage-engine"],
     "visibility": "public",
     "forks": 6860,
     "open_issues": 1546,
@@ -2250,11 +2219,7 @@
     "web_commit_signoff_required": false,
     "has_pull_requests": true,
     "pull_request_creation_policy": "all",
-    "topics": [
-      "forecasting",
-      "python",
-      "r"
-    ],
+    "topics": ["forecasting", "python", "r"],
     "visibility": "public",
     "forks": 4631,
     "open_issues": 464,
@@ -2363,9 +2328,7 @@
     "web_commit_signoff_required": false,
     "has_pull_requests": true,
     "pull_request_creation_policy": "all",
-    "topics": [
-
-    ],
+    "topics": [],
     "visibility": "public",
     "forks": 48,
     "open_issues": 23,
@@ -2474,9 +2437,7 @@
     "web_commit_signoff_required": false,
     "has_pull_requests": true,
     "pull_request_creation_policy": "all",
-    "topics": [
-
-    ],
+    "topics": [],
     "visibility": "public",
     "forks": 3739,
     "open_issues": 260,
@@ -2585,9 +2546,7 @@
     "web_commit_signoff_required": false,
     "has_pull_requests": true,
     "pull_request_creation_policy": "all",
-    "topics": [
-
-    ],
+    "topics": [],
     "visibility": "public",
     "forks": 214,
     "open_issues": 0,
@@ -2696,9 +2655,7 @@
     "web_commit_signoff_required": false,
     "has_pull_requests": true,
     "pull_request_creation_policy": "all",
-    "topics": [
-
-    ],
+    "topics": [],
     "visibility": "public",
     "forks": 3,
     "open_issues": 0,
@@ -2807,9 +2764,7 @@
     "web_commit_signoff_required": false,
     "has_pull_requests": true,
     "pull_request_creation_policy": "all",
-    "topics": [
-
-    ],
+    "topics": [],
     "visibility": "public",
     "forks": 399,
     "open_issues": 165,
@@ -2918,9 +2873,7 @@
     "web_commit_signoff_required": false,
     "has_pull_requests": true,
     "pull_request_creation_policy": "all",
-    "topics": [
-
-    ],
+    "topics": [],
     "visibility": "public",
     "forks": 153,
     "open_issues": 64,
@@ -3029,9 +2982,7 @@
     "web_commit_signoff_required": false,
     "has_pull_requests": true,
     "pull_request_creation_policy": "all",
-    "topics": [
-
-    ],
+    "topics": [],
     "visibility": "public",
     "forks": 368,
     "open_issues": 377,
@@ -3140,9 +3091,7 @@
     "web_commit_signoff_required": false,
     "has_pull_requests": true,
     "pull_request_creation_policy": "all",
-    "topics": [
-
-    ],
+    "topics": [],
     "visibility": "public",
     "forks": 65,
     "open_issues": 2,
@@ -3251,9 +3200,7 @@
     "web_commit_signoff_required": false,
     "has_pull_requests": true,
     "pull_request_creation_policy": "all",
-    "topics": [
-
-    ],
+    "topics": [],
     "visibility": "public",
     "forks": 231,
     "open_issues": 67,
@@ -3362,9 +3309,7 @@
     "web_commit_signoff_required": false,
     "has_pull_requests": true,
     "pull_request_creation_policy": "all",
-    "topics": [
-
-    ],
+    "topics": [],
     "visibility": "public",
     "forks": 65,
     "open_issues": 7,

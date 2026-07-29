@@ -100,18 +100,14 @@
   "web_commit_signoff_required": false,
   "has_pull_requests": true,
   "pull_request_creation_policy": "all",
-  "topics": [
-
-  ],
+  "topics": [],
   "visibility": "public",
   "forks": 813,
   "open_issues": 223,
   "watchers": 11183,
   "default_branch": "static_h",
   "temp_clone_token": null,
-  "custom_properties": {
-
-  },
+  "custom_properties": {},
   "organization": {
     "login": "facebook",
     "id": 69631,
