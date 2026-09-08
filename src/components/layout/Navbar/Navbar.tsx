@@ -6,13 +6,13 @@ import {
   IconButton,
   PageHeader,
   PageLayout,
+  Stack,
   useTheme,
 } from "@primer/react";
 
 import logo from "@/app/icon1.png";
-import { Anchor } from "@/components/ui";
+import { Anchor, RateLimitStatus } from "@/components/ui";
 import { useSettings } from "@/contexts";
-import styles from "./Navbar.module.css";
 
 export default function Navbar() {
   const { toggleTheme } = useSettings();
@@ -23,10 +23,12 @@ export default function Navbar() {
       <PageHeader role="banner" aria-label="Title">
         <PageHeader.TitleArea>
           <PageHeader.Title as={"h2"}>
-            <Anchor
-              href="/"
-              className={styles.title}
-              leadingIcon={
+            <Stack as={Anchor}  align="center"
+               direction="horizontal"
+        gap="none"
+              href="/" 
+              className="text-inherit decoration-none"
+                          leadingIcon={
                 <Avatar
                   square
                   size={32}
@@ -36,10 +38,11 @@ export default function Navbar() {
               }
             >
               {process.env.NEXT_PUBLIC_APP_TITLE}
-            </Anchor>
+            </Stack>
           </PageHeader.Title>
         </PageHeader.TitleArea>
         <PageHeader.Actions>
+          <RateLimitStatus />
           <IconButton
             aria-label={"Toggle theme"}
             onClick={(event) => {

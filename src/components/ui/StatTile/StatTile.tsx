@@ -47,7 +47,7 @@ export function StatTileHeading({
   ...props
 }: StatTileHeadingProps) {
   return (
-    <Component className={clsx(styles.heading, className)} {...props}>
+    <Component className={clsx(styles.heading,"my-0", className)} {...props}>
       {children}
     </Component>
   );
@@ -60,7 +60,7 @@ export function StatTileBody({
   ...props
 }: StatTileBodyProps) {
   return (
-    <Component className={clsx(styles.body, className)} {...props}>
+    <Component className={clsx(styles.body,"my-0", className)} {...props}>
       {children}
     </Component>
   );
@@ -73,7 +73,7 @@ export function StatTileCaption({
   ...props
 }: StatTileCaptionProps) {
   return (
-    <Component className={clsx(styles.caption, className)} {...props}>
+    <Component className={clsx(styles.caption, "my-0",className)} {...props}>
       {children}
     </Component>
   );

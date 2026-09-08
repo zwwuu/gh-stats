@@ -1,5 +1,6 @@
 import { GoogleTagManager } from "@next/third-parties/google";
-import { BaseStyles, PageLayout, ThemeProvider } from "@primer/react";
+import { BaseStyles, PageLayout } from "@primer/react";
+import { ThemeProvider } from "@primer/react/next";
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 
@@ -52,7 +53,7 @@ export default function RootLayout({
         <link rel={"preconnect"} href={"avatars.githubusercontent.com"} />
       </head>
       <body>
-        <ThemeProvider preventSSRMismatch>
+        <ThemeProvider>
           <BaseStyles
             style={{
               backgroundColor: "var(--bgColor-default)",

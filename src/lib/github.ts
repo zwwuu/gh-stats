@@ -7,29 +7,55 @@ import mockTrending from "../../mock/trending.json";
 import mockUserRepos from "../../mock/userRepos.json";
 
 const useMock = process.env.NEXT_PUBLIC_USE_MOCK === "true";
+
 export const TRENDING_PER_PAGE = 16;
+export const RATE_LIMIT = 60;
+export const RATE_REMAINNING = 60;
+export const RATE_RESET = Date.now() + 3600000;
+export const RATE_USED = 0;
 
 const MyOctokit = Octokit.plugin(throttling);
-const octokit = new MyOctokit({
-  throttle: {
-    onRateLimit: (_retryAfter, _options, _octokit, _retryCount) => {
-      return _retryCount < 1;
-    },
-    onSecondaryRateLimit: (_retryAfter, options, octokit) => {
-      // does not retry, only logs a warning
-      octokit.log.warn(
-        `SecondaryRateLimit detected for request ${options.method} ${options.url}`,
-      );
-    },
-  },
-});
 
-export async function getTrending(date: string) {
+export function getOctokit(token?: string) {
+  return new MyOctokit({
+    auth: token || undefined,
+    throttle: {
+      onRateLimit: (_retryAfter, _options, _octokit, _retryCount) => {
+        return _retryCount < 1;
+      },
+      onSecondaryRateLimit: (_retryAfter, options, octokit) => {
+        octokit.log.warn(
+          `SecondaryRateLimit detected for request ${options.method} ${options.url}`,
+        );
+      },
+    },
+  });
+}
+
+const defaultOctokit = getOctokit();
+
+export async function getRateLimit(token?: string) {
+  if (useMock) {
+    return Promise.resolve({
+      limit: RATE_LIMIT,
+      remaining: RATE_REMAINNING,
+      reset: RATE_RESET,
+      used: RATE_USED,
+    });
+  }
+
+  const client = token ? getOctokit(token) : defaultOctokit;
+  const res = await client.rest.rateLimit.get();
+  return res.data.rate;
+}
+
+export async function getTrending(date: string, token?: string) {
   if (useMock) {
     return Promise.resolve(mockTrending.items);
   }
 
-  return await octokit.rest.search
+  const client = token ? getOctokit(token) : defaultOctokit;
+  return await client.rest.search
     .repos({
       q: `created:>${date}`,
       sort: "stars",
@@ -41,28 +67,30 @@ export async function getTrending(date: string) {
     });
 }
 
-export async function getRepo(owner: string, repo: string) {
+export async function getRepo(owner: string, repo: string, token?: string) {
   if (useMock) {
     return Promise.resolve(mockRepo);
   }
 
-  return await octokit.rest.repos.get({ owner, repo }).then((res) => {
+  const client = token ? getOctokit(token) : defaultOctokit;
+  return await client.rest.repos.get({ owner, repo }).then((res) => {
     return res.data;
   });
 }
 
-export async function getUserRepos(username: string) {
+export async function getUserRepos(username: string, token?: string) {
   if (useMock) {
     return Promise.resolve(mockUserRepos);
   }
 
-  return await octokit.paginate(octokit.rest.repos.listForUser, {
+  const client = token ? getOctokit(token) : defaultOctokit;
+  return await client.paginate(client.rest.repos.listForUser, {
     username,
     sort: "updated",
   });
 }
 
-export async function getReleases(owner: string, repo: string) {
+export async function getReleases(owner: string, repo: string, token?: string) {
   if (useMock) {
     return Promise.resolve(
       mockReleases.map((json) => {
@@ -100,8 +128,9 @@ export async function getReleases(owner: string, repo: string) {
     );
   }
 
-  return await octokit.paginate(
-    octokit.rest.repos.listReleases,
+  const client = token ? getOctokit(token) : defaultOctokit;
+  return await client.paginate(
+    client.rest.repos.listReleases,
     {
       owner,
       repo,

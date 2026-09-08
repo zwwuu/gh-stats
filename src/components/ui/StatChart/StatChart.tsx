@@ -3,17 +3,11 @@
 import type { EChartsOption } from "echarts";
 import ReactECharts from "echarts-for-react";
 
+import type { getReleases } from "@/lib/github";
 import { prettyDate, prettyNumber } from "@/lib/pretty-format";
 import { useStatChartData } from "./useStatChartData";
 
-type Release = {
-  id: number;
-  tag_name: string;
-  draft: boolean;
-  prerelease: boolean;
-  published_at: string | null;
-  total_download_count: number;
-};
+type Release = Awaited<ReturnType<typeof getReleases>>[number];
 
 type StatChartProps = {
   releases: Release[];
@@ -30,9 +24,9 @@ export default function StatChart({ releases }: StatChartProps) {
         const param = Array.isArray(params) ? params[0] : params;
         const data = param.data as StatChartProps["releases"][0];
         return `
-          <div style="font-weight: bold; margin-bottom: 4px;">Tag: ${data.tag_name} ${data.draft ? "Draft" : ""}${data.prerelease ? " (Pre-release)" : ""}</div>
-          <div >${data.published_at ? `Published At: ${prettyDate(data.published_at)}` : ""}</div>
-          <div >Downloads: ${prettyNumber(data.total_download_count, false)}</div>
+          <div style="font-weight: bold; margin-bottom: 4px;">${data.tag_name} ${data.draft ? "Draft" : ""} ${data.prerelease ? "(Pre-release)" : ""}</div>
+          ${data.published_at ? `<div>Published At: ${prettyDate(data.published_at)}</div>` : ""}
+          <div>Downloads: ${prettyNumber(data.total_download_count, false)}</div>
         `;
       },
     },
@@ -100,6 +94,7 @@ export default function StatChart({ releases }: StatChartProps) {
             const data = params.data as StatChartProps["releases"][0];
             if (data.id === maxRelease.id) return "#ef4444";
             if (data.id === minRelease.id) return "#3b82f6";
+
             return "#94a3b8";
           },
         },

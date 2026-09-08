@@ -1,0 +1,9 @@
+.bookmarkButton {
+  float: right;
+  margin-inline-start: var(--controlStack-medium-gap-auto);
+  margin-block-end: var(--controlStack-medium-gap-auto);
+}
+
+.heading {
+  overflow-wrap: anywhere;
+}

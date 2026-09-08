@@ -4,7 +4,6 @@ import {
   type getUserRepos,
   TRENDING_PER_PAGE,
 } from "@/lib/github";
-import styles from "./RepoGrid.module.css";
 
 type RepoGridProps = {
   isLoading: boolean;
@@ -13,7 +12,7 @@ type RepoGridProps = {
 
 export default function RepoGrid({ isLoading, data }: RepoGridProps) {
   return (
-    <div className={styles.grid}>
+    <div className={'grid grid-cols-1 gap-4 lg:grid-cols-2'}>
       {isLoading &&
         Array.from({ length: TRENDING_PER_PAGE }, (_, i) => {
           const key = `loading-${i}`;

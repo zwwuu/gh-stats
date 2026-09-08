@@ -12,11 +12,6 @@
   }
 }
 
-.filters {
-  display: flex;
-  justify-content: flex-end;
-}
-
 .item {
   margin-block-end: var(--stack-gap-spacious);
 }

@@ -1,9 +1,11 @@
 "use client";
 
 import {
+  DownloadIcon,
   FilterIcon,
   FilterRemoveIcon,
   GitCommitIcon,
+  SearchIcon,
 } from "@primer/octicons-react";
 import {
   ActionList,
@@ -12,11 +14,12 @@ import {
   Heading,
   Stack,
   Text,
+  TextInput,
   Timeline,
 } from "@primer/react";
 import { DataTable, Table } from "@primer/react/experimental";
 import clsx from "clsx";
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import { Virtuoso, type VirtuosoHandle } from "react-virtuoso";
 
 import {
@@ -36,10 +39,18 @@ import styles from "./ReleaseList.module.css";
 
 type ReleaseListProps = {
   releases: Awaited<ReturnType<typeof getReleases>>;
+  owner?: string;
+  repo?: string;
 };
 
-export default function ReleaseList({ releases }: ReleaseListProps) {
+export default function ReleaseList({
+  releases,
+  owner,
+  repo,
+}: ReleaseListProps) {
   const { settings, saveSettings } = useSettings();
+  const [searchQuery, setSearchQuery] = useState("");
+  const virtuosoRef = useRef<VirtuosoHandle>(null);
 
   const isFiltered =
     !settings.filter.showDraft ||
@@ -47,14 +58,17 @@ export default function ReleaseList({ releases }: ReleaseListProps) {
     !settings.filter.showEmpty;
 
   const filteredReleases = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
     return releases.filter((release) => {
       if (!settings.filter.showDraft && release.draft) return false;
       if (!settings.filter.showPrerelease && release.prerelease) return false;
       if (!settings.filter.showEmpty && release.assets.length === 0)
         return false;
+      if (query && !release.tag_name.toLowerCase().includes(query))
+        return false;
       return true;
     });
-  }, [releases, settings.filter]);
+  }, [releases, settings.filter, searchQuery]);
 
   const { total_downloads, average_downloads, result } = useMemo(() => {
     if (filteredReleases.length === 0) {
@@ -102,81 +116,169 @@ export default function ReleaseList({ releases }: ReleaseListProps) {
       result: stats,
     };
   }, [filteredReleases]);
-  const virtuosoRef = useRef<VirtuosoHandle>(null);
+
+  const handleExportCSV = () => {
+    const rows = [
+      [
+        "Release Tag",
+        "Published At",
+        "Draft",
+        "Prerelease",
+        "Total Downloads",
+        "Asset Name",
+        "Asset Size (Bytes)",
+        "Asset Downloads",
+      ],
+    ];
+    filteredReleases.forEach((rel) => {
+      rel.assets.forEach((ast) => {
+        rows.push([
+          rel.tag_name,
+          rel.published_at || "",
+          String(rel.draft),
+          String(rel.prerelease),
+          String(rel.total_download_count),
+          ast.name,
+          String(ast.size),
+          String(ast.download_count),
+        ]);
+      });
+    });
+
+    const csvContent =
+      "data:text/csv;charset=utf-8," +
+      rows
+        .map((e) => e.map((val) => `"${val.replace(/"/g, '""')}"`).join(","))
+        .join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute(
+      "download",
+      `${owner || "repo"}-${repo || "stats"}-releases.csv`,
+    );
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleExportJSON = () => {
+    const jsonString = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(filteredReleases, null, 2))}`;
+    const downloadAnchor = document.createElement("a");
+    downloadAnchor.setAttribute("href", jsonString);
+    downloadAnchor.setAttribute(
+      "download",
+      `${owner || "repo"}-${repo || "stats"}-releases.json`,
+    );
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+  };
 
   return (
     <>
-      <div className={styles.filters}>
+      <Stack
+        align="center"
+        wrap="wrap"
+        justify="space-between"
+        direction="horizontal"
+        gap="condensed"
+      >
+        <Stack align="center" direction="horizontal">
+          <TextInput
+            leadingVisual={SearchIcon}
+            placeholder="Search tags..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            aria-label="Search release tags"
+          />
+          <ActionMenu>
+            <ActionMenu.Button
+              leadingVisual={isFiltered ? FilterRemoveIcon : FilterIcon}
+            >
+              Filters
+            </ActionMenu.Button>
+            <ActionMenu.Overlay>
+              <ActionList
+                selectionVariant="multiple"
+                role="menu"
+                aria-label="Filter"
+              >
+                <ActionList.Item
+                  role="menuitemcheckbox"
+                  selected={settings.filter.showEmpty}
+                  aria-checked={settings.filter.showEmpty}
+                  onSelect={() =>
+                    saveSettings({
+                      filter: {
+                        ...settings.filter,
+                        showEmpty: !settings.filter.showEmpty,
+                      },
+                    })
+                  }
+                >
+                  Show{" "}
+                  <Text as={"span"} className={commonStyles.textMuted}>
+                    Empty
+                  </Text>
+                </ActionList.Item>
+                <ActionList.Item
+                  role="menuitemcheckbox"
+                  selected={settings.filter.showPrerelease}
+                  aria-checked={settings.filter.showPrerelease}
+                  onSelect={() =>
+                    saveSettings({
+                      filter: {
+                        ...settings.filter,
+                        showPrerelease: !settings.filter.showPrerelease,
+                      },
+                    })
+                  }
+                >
+                  Show{" "}
+                  <Text as={"span"} className={commonStyles.textAttention}>
+                    Prerelease
+                  </Text>
+                </ActionList.Item>
+                <ActionList.Item
+                  role="menuitemcheckbox"
+                  selected={settings.filter.showDraft}
+                  aria-checked={settings.filter.showDraft}
+                  onSelect={() =>
+                    saveSettings({
+                      filter: {
+                        ...settings.filter,
+                        showDraft: !settings.filter.showDraft,
+                      },
+                    })
+                  }
+                >
+                  Show{" "}
+                  <Text as={"span"} className={commonStyles.textSevere}>
+                    Draft
+                  </Text>
+                </ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </Stack>
         <ActionMenu>
-          <ActionMenu.Button
-            leadingVisual={isFiltered ? FilterRemoveIcon : FilterIcon}
-          >
-            Filters
+          <ActionMenu.Button leadingVisual={DownloadIcon}>
+            Export
           </ActionMenu.Button>
           <ActionMenu.Overlay>
-            <ActionList
-              selectionVariant="multiple"
-              role="menu"
-              aria-label="Filter"
-            >
-              <ActionList.Item
-                role="menuitemcheckbox"
-                selected={settings.filter.showEmpty}
-                aria-checked={settings.filter.showEmpty}
-                onSelect={() =>
-                  saveSettings({
-                    filter: {
-                      ...settings.filter,
-                      showEmpty: !settings.filter.showEmpty,
-                    },
-                  })
-                }
-              >
-                Show{" "}
-                <Text as={"span"} className={commonStyles.textMuted}>
-                  Empty
-                </Text>
+            <ActionList>
+              <ActionList.Item onSelect={handleExportCSV}>
+                Export as CSV
               </ActionList.Item>
-              <ActionList.Item
-                role="menuitemcheckbox"
-                selected={settings.filter.showPrerelease}
-                aria-checked={settings.filter.showPrerelease}
-                onSelect={() =>
-                  saveSettings({
-                    filter: {
-                      ...settings.filter,
-                      showPrerelease: !settings.filter.showPrerelease,
-                    },
-                  })
-                }
-              >
-                Show{" "}
-                <Text as={"span"} className={commonStyles.textAttention}>
-                  Prerelease
-                </Text>
-              </ActionList.Item>
-              <ActionList.Item
-                role="menuitemcheckbox"
-                selected={settings.filter.showDraft}
-                aria-checked={settings.filter.showDraft}
-                onSelect={() =>
-                  saveSettings({
-                    filter: {
-                      ...settings.filter,
-                      showDraft: !settings.filter.showDraft,
-                    },
-                  })
-                }
-              >
-                Show{" "}
-                <Text as={"span"} className={commonStyles.textSevere}>
-                  Draft
-                </Text>
+              <ActionList.Item onSelect={handleExportJSON}>
+                Export as JSON
               </ActionList.Item>
             </ActionList>
           </ActionMenu.Overlay>
         </ActionMenu>
-      </div>
+      </Stack>
+
       <div className={styles.grid}>
         <StatTile>
           <StatTileHeading as="h3">Total Downloads</StatTileHeading>
@@ -272,21 +374,14 @@ export default function ReleaseList({ releases }: ReleaseListProps) {
           )}
         </StatTile>
       </div>
+
       <Timeline clipSidebar>
         <Virtuoso
           increaseViewportBy={500}
           useWindowScroll
-          data={releases}
+          data={filteredReleases}
           ref={virtuosoRef}
           itemContent={(_, release) => {
-            const isDraftHidden = !settings.filter.showDraft && release.draft;
-            const isPrereleaseHidden =
-              !settings.filter.showPrerelease && release.prerelease;
-            const isEmptyHidden =
-              !settings.filter.showEmpty && release.assets.length === 0;
-            const isHidden =
-              isDraftHidden || isPrereleaseHidden || isEmptyHidden;
-
             return (
               <Timeline.Item key={release.id} id={`tag-${release.id}`}>
                 <Timeline.Badge>
@@ -302,7 +397,6 @@ export default function ReleaseList({ releases }: ReleaseListProps) {
                       direction={"horizontal"}
                       align={"center"}
                     >
-                      {isHidden && <StatLabel variant="done">Hidden</StatLabel>}
                       {release.prerelease && (
                         <StatLabel variant="severe">Pre-release</StatLabel>
                       )}
@@ -310,120 +404,109 @@ export default function ReleaseList({ releases }: ReleaseListProps) {
                         <StatLabel variant="attention">Draft</StatLabel>
                       )}
                     </Stack>
-                    {!isHidden && (
-                      <>
-                        <Heading as="h3">
-                          <Anchor href={release.html_url} isExternal>
-                            {release.tag_name}
-                          </Anchor>
-                        </Heading>
-                        {release.author ? (
-                          <Text as={"span"}>
-                            <Anchor
-                              href={release.author.html_url}
-                              isExternal
-                              className={clsx(
-                                commonStyles.inlineFlex,
-                                commonStyles.alignCenter,
-                              )}
-                              leadingIcon={
-                                <Avatar
-                                  src={release.author.avatar_url}
-                                  alt={`${release.author.login} avatar`}
-                                />
-                              }
-                            >
-                              {release.author.login}
-                            </Anchor>
-                          </Text>
-                        ) : (
-                          <Text as={"span"} className={styles.deleted}>
+                    <Heading as="h3">
+                      <Anchor href={release.html_url} isExternal>
+                        {release.tag_name}
+                      </Anchor>
+                    </Heading>
+                    {release.author ? (
+                      <Text as={"span"}>
+                        <Stack as={Anchor}
+                          href={release.author.html_url}
+                          isExternal
+                        align="center"
+               direction="horizontal"
+        gap="none"   className="text-inherit decoration-none hover:decoration-underline"
+                          leadingIcon={
                             <Avatar
-                              className={commonStyles.leadingIcon}
-                              src={blankImage.src}
-                              alt={"blank avatar"}
+                              src={release.author.avatar_url}
+                              alt={`${release.author.login} avatar`}
                             />
-                            {"Deleted User"}
-                          </Text>
-                        )}
-                        <Stack
-                          direction="horizontal"
-                          wrap={"wrap"}
-                          gap={"condensed"}
-                          align="center"
+                          }
                         >
-                          <Stack.Item grow>
-                            <StatTile>
-                              <StatTileHeading as="h4">Assets</StatTileHeading>
-                              <StatTileBody>
-                                {prettyNumber(release.assets.length, false)}
-                              </StatTileBody>
-                            </StatTile>
-                          </Stack.Item>
-                          <Stack.Item grow>
-                            <StatTile>
-                              <StatTileHeading>Downloads</StatTileHeading>
-                              <StatTileBody as={"p"}>
-                                {prettyNumber(
-                                  release.total_download_count,
-                                  false,
-                                )}
-                              </StatTileBody>
-                            </StatTile>
-                          </Stack.Item>
+                          {release.author.login}
                         </Stack>
-                        {release.assets.length > 0 && (
-                          <Table.Container>
-                            <DataTable
-                              cellPadding={"normal"}
-                              data={release.assets}
-                              columns={[
-                                {
-                                  field: "name",
-                                  header: "Name",
-                                  rowHeader: true,
-                                  sortBy: "alphanumeric",
-                                  width: "growCollapse",
-                                  renderCell: (row) => {
-                                    return (
-                                      <Anchor
-                                        isExternal
-                                        showExternalIcon={false}
-                                        href={row.browser_download_url}
-                                        className={commonStyles.breakWord}
-                                      >
-                                        {row.name}
-                                      </Anchor>
-                                    );
-                                  },
-                                },
-                                {
-                                  header: "Size",
-                                  field: "size",
-                                  sortBy: "alphanumeric",
-                                  width: "auto",
-                                  renderCell: (row) => {
-                                    return prettySize(row.size);
-                                  },
-                                },
-                                {
-                                  header: "Downloads",
-                                  field: "download_count",
-                                  sortBy: "basic",
-                                  align: "end",
-                                  width: "auto",
-                                  renderCell: (row) => {
-                                    return prettyNumber(
-                                      row.download_count,
-                                      false,
-                                    );
-                                  },
-                                },
-                              ]}
-                            />
-                          </Table.Container>
-                        )}
-                      </>
+                      </Text>
+                    ) : (
+                      <Text as={"span"} className={styles.deleted}>
+                        <Avatar
+                          className={commonStyles.leadingIcon}
+                          src={blankImage.src}
+                          alt={"blank avatar"}
+                        />
+                        {"Deleted User"}
+                      </Text>
+                    )}
+                    <Stack
+                      direction="horizontal"
+                      wrap={"wrap"}
+                      gap={"condensed"}
+                      align="center"
+                    >
+                      <Stack.Item grow>
+                        <StatTile>
+                          <StatTileHeading as="h4">Assets</StatTileHeading>
+                          <StatTileBody>
+                            {prettyNumber(release.assets.length, false)}
+                          </StatTileBody>
+                        </StatTile>
+                      </Stack.Item>
+                      <Stack.Item grow>
+                        <StatTile>
+                          <StatTileHeading>Downloads</StatTileHeading>
+                          <StatTileBody as={"p"}>
+                            {prettyNumber(release.total_download_count, false)}
+                          </StatTileBody>
+                        </StatTile>
+                      </Stack.Item>
+                    </Stack>
+                    {release.assets.length > 0 && (
+                      <Table.Container>
+                        <DataTable
+                          cellPadding={"normal"}
+                          data={release.assets}
+                          columns={[
+                            {
+                              field: "name",
+                              header: "Name",
+                              rowHeader: true,
+                              sortBy: "alphanumeric",
+                              width: "growCollapse",
+                              renderCell: (row) => {
+                                return (
+                                  <Anchor
+                                    isExternal
+                                    showExternalIcon={false}
+                                    href={row.browser_download_url}
+                                    className={commonStyles.breakWord}
+                                  >
+                                    {row.name}
+                                  </Anchor>
+                                );
+                              },
+                            },
+                            {
+                              header: "Size",
+                              field: "size",
+                              sortBy: "alphanumeric",
+                              width: "auto",
+                              renderCell: (row) => {
+                                return prettySize(row.size);
+                              },
+                            },
+                            {
+                              header: "Downloads",
+                              field: "download_count",
+                              sortBy: "basic",
+                              align: "end",
+                              width: "auto",
+                              renderCell: (row) => {
+                                return prettyNumber(row.download_count, false);
+                              },
+                            },
+                          ]}
+                        />
+                      </Table.Container>
                     )}
                   </Stack>
                 </Timeline.Body>

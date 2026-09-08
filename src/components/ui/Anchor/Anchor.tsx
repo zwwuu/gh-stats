@@ -32,7 +32,7 @@ export default function Anchor({
       {leadingIcon &&
         cloneElement(leadingIcon, {
           className: clsx(
-            commonStyles.leadingIcon,
+            "m-ie-2" ,"flex-shrink-0","vertical-align-middle",
             leadingIcon.props.className,
           ),
         })}
@@ -40,7 +40,7 @@ export default function Anchor({
       {isExternal && showExternalIcon && (
         <LinkExternalIcon
           verticalAlign={"middle"}
-          className={commonStyles.trailingIcon}
+          className={clsx(  "m-is-2" ,"flex-shrink-0","vertical-align-middle")}
         />
       )}
     </Link>

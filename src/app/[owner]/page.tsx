@@ -1,42 +1,32 @@
-"use client";
+import { Heading } from "@primer/react";
+import type { Metadata } from "next";
 
-import { Banner, Heading } from "@primer/react";
-import { useParams } from "next/navigation";
-import useSWRImmutable from "swr/immutable";
+import { Content, OwnerReposClient, RepoSidebar, Sidebar } from "@/components";
 
-import { Content, RepoGrid, RepoSidebar, Sidebar } from "@/components";
-import { getUserRepos } from "@/lib/github";
-
-const fetchRepos = async (params: {
-  key: string;
-  username: string;
-  repo: string;
-}) => {
-  const { username } = params;
-  return await getUserRepos(username);
+type Props = {
+  params: Promise<{ owner: string }>;
 };
 
-export default function OwnerPage() {
-  const { owner } = useParams<{ owner: string }>();
-  const { data, error, isLoading } = useSWRImmutable(
-    { key: "listRepos", username: owner },
-    fetchRepos,
-  );
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { owner } = await params;
+  return {
+    title: `${owner}'s Repositories | GH Stats`,
+    description: `Browse public repositories and release statistics for GitHub user/organization ${owner}.`,
+    openGraph: {
+      title: `${owner} - GitHub Repositories Analytics`,
+      description: `Explore public repositories and release statistics for ${owner}`,
+    },
+  };
+}
+
+export default async function OwnerPage({ params }: Props) {
+  const { owner } = await params;
 
   return (
     <>
       <Content>
         <Heading as="h1">{owner}</Heading>
-        {error && (
-          <Banner
-            aria-label="No respositories found"
-            title="Not Respositories Found"
-            hideTitle
-            description={error.message}
-            variant="warning"
-          />
-        )}
-        <RepoGrid isLoading={isLoading} data={data} />
+        <OwnerReposClient owner={owner} />
       </Content>
       <Sidebar>
         <RepoSidebar />
