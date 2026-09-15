@@ -1,17 +1,19 @@
-import { LinkExternalIcon } from "@primer/octicons-react";
-import clsx from "clsx";
-import Link, { type LinkProps } from "next/link";
-import { cloneElement, type ReactElement, type ReactNode } from "react";
+"use client";
 
-import commonStyles from "@/components/Common.module.css";
+import { LinkExternalIcon } from "@primer/octicons-react";
+import { Link, type LinkProps } from "@primer/react";
+import clsx from "clsx";
+import NextLink, { type LinkProps as NextLinkProps } from "next/link";
+import { cloneElement, type ReactElement } from "react";
+import styles from "./Anchor.module.css";
 
 type AnchorProps = {
   isExternal?: boolean;
   showExternalIcon?: boolean;
   leadingIcon?: ReactElement<{ className?: string }>;
-  className?: string;
-  children?: ReactNode;
-} & LinkProps;
+  trailingIcon?: ReactElement<{ className?: string }>;
+} & NextLinkProps &
+  LinkProps;
 
 export default function Anchor({
   children,
@@ -19,28 +21,31 @@ export default function Anchor({
   isExternal = false,
   showExternalIcon = true,
   leadingIcon,
+  trailingIcon,
   ...props
 }: AnchorProps) {
   return (
     <Link
+      as={NextLink}
+      className={className}
       prefetch={!isExternal}
       rel={isExternal ? "noopener noreferrer" : undefined}
       target={isExternal ? "_blank" : undefined}
-      className={className}
       {...props}
     >
       {leadingIcon &&
         cloneElement(leadingIcon, {
-          className: clsx(
-            commonStyles.leadingIcon,
-            leadingIcon.props.className,
-          ),
+          className: clsx(styles.leadingIcon),
         })}
       {children}
+      {trailingIcon &&
+        cloneElement(trailingIcon, {
+          className: clsx(styles.trailingIcon),
+        })}
       {isExternal && showExternalIcon && (
         <LinkExternalIcon
+          className={styles.trailingIcon}
           verticalAlign={"middle"}
-          className={commonStyles.trailingIcon}
         />
       )}
     </Link>

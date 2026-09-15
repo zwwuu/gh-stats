@@ -1,19 +1,18 @@
 "use client";
 
 import { Stack, Text } from "@primer/react";
-
 import { Anchor } from "@/components";
 import styles from "./Footer.module.css";
 
 export default function Footer() {
   return (
     <Stack
-      as={"footer"}
-      width={"xlarge"}
-      direction={"vertical"}
       align={"center"}
-      padding={"normal"}
+      as={"footer"}
       className={styles.footer}
+      direction={"vertical"}
+      padding={"normal"}
+      width={"xlarge"}
     >
       <Stack direction={"horizontal"} justify={"center"} wrap={"wrap"}>
         <Anchor href="/about">About</Anchor>

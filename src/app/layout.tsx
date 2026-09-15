@@ -1,11 +1,11 @@
 import { GoogleTagManager } from "@next/third-parties/google";
-import { BaseStyles, PageLayout, ThemeProvider } from "@primer/react";
+import { BaseStyles, PageLayout } from "@primer/react";
+import { ThemeProvider } from "@primer/react/next";
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
-
 import { FloatingButton, Footer, Navbar } from "@/components";
-import { colors } from "@/constants/colors";
 import { BookmarkProvider, SettingProvider } from "@/contexts";
+import { colors } from "@/lib/constants";
 
 import "./globals.css";
 
@@ -49,10 +49,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel={"preconnect"} href={"avatars.githubusercontent.com"} />
+        <link href={"avatars.githubusercontent.com"} rel={"preconnect"} />
       </head>
       <body>
-        <ThemeProvider preventSSRMismatch>
+        <ThemeProvider>
           <BaseStyles
             style={{
               backgroundColor: "var(--bgColor-default)",
@@ -62,9 +62,9 @@ export default function RootLayout({
             <SettingProvider>
               <BookmarkProvider>
                 <PageLayout
-                  padding="none"
-                  containerWidth="full"
                   columnGap="none"
+                  containerWidth="full"
+                  padding="none"
                   rowGap="none"
                 >
                   <Navbar />

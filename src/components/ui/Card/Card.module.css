@@ -1,17 +1,17 @@
 .card {
+  overflow: hidden;
   border: 1px solid var(--borderColor-default);
   border-radius: var(--borderRadius-default);
-  overflow: hidden;
 }
 
 .header {
+  padding: var(--base-size-16);
   border-block-end: var(--borderWidth-default) solid var(--borderColor-default);
-  padding: var(--stack-padding-normal);
 }
 
 .body {
-  padding: var(--stack-padding-normal);
   width: 100%;
+  padding: var(--base-size-16);
 
   > * {
     margin-block: 0;

@@ -1,6 +1,5 @@
 import { Heading, Text } from "@primer/react";
 import type { Metadata } from "next";
-
 import { Anchor, Content, RepoSidebar, Sidebar } from "@/components";
 
 export function generateMetadata(): Metadata {
@@ -160,7 +159,7 @@ export default function TermsPage() {
           If you have any questions about these Terms of Service, please contact
           us through our <Anchor href="/contact-us">Contact page</Anchor> or via
           our{" "}
-          <Anchor isExternal href={`${process.env.NEXT_PUBLIC_GITHUB_URL}`}>
+          <Anchor href={`${process.env.NEXT_PUBLIC_GITHUB_URL}`} isExternal>
             GitHub repository
           </Anchor>
           .

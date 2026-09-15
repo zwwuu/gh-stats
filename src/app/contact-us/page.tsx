@@ -1,6 +1,5 @@
 import { Heading, Text } from "@primer/react";
 import type { Metadata } from "next";
-
 import { Anchor, Content, RepoSidebar, Sidebar } from "@/components";
 
 export function generateMetadata(): Metadata {

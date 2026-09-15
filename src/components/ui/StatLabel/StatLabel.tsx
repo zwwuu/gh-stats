@@ -1,8 +1,7 @@
 import type { Icon } from "@primer/octicons-react";
 import { Label, type LabelProps } from "@primer/react";
 import type { ReactNode } from "react";
-
-import commonStyles from "@/components/Common.module.css";
+import styles from "./StatLabel.module.css";
 
 type StatLabelProps = {
   children: ReactNode;
@@ -17,7 +16,7 @@ export default function StatLabel({
 }: StatLabelProps) {
   return (
     <Label size={size} {...props}>
-      {IconComponent && <IconComponent className={commonStyles.leadingIcon} />}
+      {IconComponent && <IconComponent className={styles.leadingIcon} />}
       {children}
     </Label>
   );

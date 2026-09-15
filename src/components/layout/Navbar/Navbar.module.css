@@ -1,5 +1,6 @@
 .title {
-  color: var(--fgColor-default);
-  display: inline-flex;
-  align-items: center;
+  display: none;
+  @media screen and (min-width: 34rem) {
+    display: block;
+  }
 }

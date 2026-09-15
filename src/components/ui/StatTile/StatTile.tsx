@@ -1,6 +1,5 @@
 import clsx from "clsx";
 import type { ElementType, HTMLAttributes, ReactNode } from "react";
-
 import styles from "./StatTile.module.css";
 
 type StatTileProps = {

@@ -1,0 +1,17 @@
+.bookmarkButton {
+  float: right;
+  margin-block-end: var(--base-size-16);
+  margin-inline-start: var(--base-size-16);
+}
+
+.title {
+  display: block;
+  margin-block-end: var(--base-size-8);
+  overflow-wrap: anywhere;
+}
+
+.caption {
+  margin: 0;
+  font: var(--text-caption-shorthand);
+  color: var(--fgColor-neutral);
+}

@@ -4,7 +4,6 @@ import { MoveToTopIcon } from "@primer/octicons-react";
 import { IconButton } from "@primer/react";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
-
 import styles from "./FloatingButton.module.css";
 
 export default function FloatingButton() {
@@ -21,14 +20,14 @@ export default function FloatingButton() {
 
   return (
     <IconButton
-      className={clsx(styles.floatingButton, showButton && styles.show)}
       aria-label={"Scroll to top"}
+      className={clsx(styles.floatingButton, showButton && styles.show)}
+      icon={MoveToTopIcon}
       onClick={(event) => {
         event.preventDefault();
         window.scrollTo(0, 0);
       }}
       tooltipDirection={"n"}
-      icon={MoveToTopIcon}
     />
   );
 }

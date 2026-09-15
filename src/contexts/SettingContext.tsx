@@ -1,6 +1,6 @@
 "use client";
 
-import { type ThemeProviderProps, useTheme } from "@primer/react";
+import { type ThemeProviderProps, useTheme } from "@primer/react/next";
 import {
   createContext,
   type ReactNode,
@@ -12,6 +12,7 @@ import {
 
 export type Setting = {
   colorMode: ThemeProviderProps["colorMode"];
+  githubToken?: string;
   filter: {
     showEmpty: boolean;
     showPrerelease: boolean;
@@ -27,6 +28,7 @@ type SettingContextType = {
 
 const DEFAULT_SETTING: Setting = {
   colorMode: "auto",
+  githubToken: "",
   filter: {
     showEmpty: true,
     showPrerelease: true,

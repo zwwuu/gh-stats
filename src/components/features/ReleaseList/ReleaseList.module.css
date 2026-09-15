@@ -1,0 +1,17 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--base-size-16);
+
+  @media screen and (min-width: 48rem) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (min-width: 63.25rem) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.timelineBody {
+  margin-block-end: var(--base-size-20);
+}

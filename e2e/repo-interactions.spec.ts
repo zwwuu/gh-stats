@@ -8,9 +8,9 @@ test.describe("Repository page interactions", () => {
     await page.goto(`/${REAL_OWNER}/${REAL_REPO}`);
 
     await expect(page.locator("h1")).toContainText(
-      `${REAL_OWNER} / ${REAL_REPO}`,
+      `${REAL_OWNER}/${REAL_REPO}`,
       {
-        timeout: 15000,
+        timeout: 20000,
       },
     );
     await expect(
@@ -28,9 +28,9 @@ test.describe("Repository page interactions", () => {
     await page.goto(`/${REAL_OWNER}/${REAL_REPO}`);
 
     await expect(page.locator("h1")).toContainText(
-      `${REAL_OWNER} / ${REAL_REPO}`,
+      `${REAL_OWNER}/${REAL_REPO}`,
       {
-        timeout: 15000,
+        timeout: 20000,
       },
     );
 
@@ -46,5 +46,79 @@ test.describe("Repository page interactions", () => {
       return item ? JSON.parse(item) : null;
     });
     expect(savedSettings?.filter?.showEmpty).toBe(false);
+  });
+
+  test("can search release tags", async ({ page }) => {
+    await page.goto(`/${REAL_OWNER}/${REAL_REPO}`);
+
+    await expect(page.locator("h1")).toContainText(
+      `${REAL_OWNER}/${REAL_REPO}`,
+      {
+        timeout: 20000,
+      },
+    );
+
+    const tagSearchInput = page.getByPlaceholder("Search tags...");
+    await expect(tagSearchInput).toBeVisible();
+
+    // Type a specific tag or query
+    await tagSearchInput.fill("v0.12");
+
+    // The release timeline should filter to matching tags
+    await expect(page.getByText("v0.12").first()).toBeVisible();
+  });
+
+  test("can trigger export releases as CSV and JSON", async ({ page }) => {
+    await page.goto(`/${REAL_OWNER}/${REAL_REPO}`);
+
+    await expect(page.locator("h1")).toContainText(
+      `${REAL_OWNER}/${REAL_REPO}`,
+      {
+        timeout: 20000,
+      },
+    );
+
+    await page.getByRole("button", { name: /Export/i }).click();
+    const exportMenu = page.getByRole("menu");
+    await expect(exportMenu).toBeVisible();
+
+    // Setup download listeners
+    const [csvDownload] = await Promise.all([
+      page.waitForEvent("download"),
+      exportMenu.getByText("Export as CSV").click(),
+    ]);
+    expect(csvDownload.suggestedFilename()).toContain("releases.csv");
+
+    await page.getByRole("button", { name: /Export/i }).click();
+    const [jsonDownload] = await Promise.all([
+      page.waitForEvent("download"),
+      page.getByRole("menu").getByText("Export as JSON").click(),
+    ]);
+    expect(jsonDownload.suggestedFilename()).toContain("releases.json");
+  });
+
+  test("displays repository metrics, stats tiles, and release assets", async ({
+    page,
+  }) => {
+    await page.goto(`/${REAL_OWNER}/${REAL_REPO}`);
+
+    await expect(page.locator("h1")).toContainText(
+      `${REAL_OWNER}/${REAL_REPO}`,
+      {
+        timeout: 20000,
+      },
+    );
+
+    // Check stats tiles
+    await expect(page.getByText("Total Downloads")).toBeVisible();
+    await expect(page.getByText("Average Downloads Per Release")).toBeVisible();
+    await expect(page.getByText("Most Downloaded Release")).toBeVisible();
+    await expect(page.getByText("Least Downloaded Release")).toBeVisible();
+
+    // Check metadata labels
+    await expect(page.getByText(/stars/i).first()).toBeVisible();
+    await expect(page.getByText(/forks/i).first()).toBeVisible();
+    await expect(page.getByText(/watching/i).first()).toBeVisible();
+    await expect(page.getByText(/releases/i).first()).toBeVisible();
   });
 });

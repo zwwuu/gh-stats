@@ -1,0 +1,9 @@
+.leadingIcon {
+  margin-inline-end: var(--base-size-8);
+  vertical-align: middle;
+}
+
+.trailingIcon {
+  margin-inline-start: var(--base-size-8);
+  vertical-align: middle;
+}

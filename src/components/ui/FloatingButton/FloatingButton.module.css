@@ -1,8 +1,8 @@
 .floatingButton {
   position: fixed;
-  z-index: 9999;
-  bottom: var(--overlay-padding-normal);
-  right: var(--overlay-padding-normal);
+  right: var(--base-size-16);
+  bottom: var(--base-size-16);
+  z-index: var(--zIndex-popover);
   box-shadow: var(--shadow-floating-medium);
   opacity: 0;
   transform: translateY(1rem);
