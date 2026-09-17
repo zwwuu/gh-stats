@@ -98,6 +98,8 @@ export async function getReleases(owner: string, repo: string, token?: string) {
         return {
           html_url: json.html_url,
           id: json.id,
+          name: json.name ?? null,
+          body: json.body ?? null,
           author: json.author
             ? {
                 login: json.author.login,
@@ -141,6 +143,8 @@ export async function getReleases(owner: string, repo: string, token?: string) {
         return {
           html_url: json.html_url,
           id: json.id,
+          name: json.name ?? null,
+          body: json.body ?? null,
           author: json.author
             ? {
                 login: json.author.login,
