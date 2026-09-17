@@ -469,6 +469,7 @@ export default function ReleaseList({
                               renderCell: (row) => {
                                 return (
                                   <Anchor
+                                    className={styles.releaseName}
                                     href={row.browser_download_url}
                                     showExternalIcon={false}
                                   >
@@ -481,7 +482,7 @@ export default function ReleaseList({
                               header: "Size",
                               field: "size",
                               sortBy: "alphanumeric",
-                              width: "auto",
+                              width: "growCollapse",
                               renderCell: (row) => {
                                 return prettySize(row.size);
                               },
@@ -491,7 +492,7 @@ export default function ReleaseList({
                               field: "download_count",
                               sortBy: "basic",
                               align: "end",
-                              width: "auto",
+                              width: "growCollapse",
                               renderCell: (row) => {
                                 return prettyNumber(row.download_count, false);
                               },

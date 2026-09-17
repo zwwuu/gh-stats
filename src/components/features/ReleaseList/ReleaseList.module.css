@@ -15,3 +15,11 @@
 .timelineBody {
   margin-block-end: var(--base-size-20);
 }
+
+.releaseName {
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
