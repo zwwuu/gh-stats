@@ -8,11 +8,20 @@ export function generateMetadata(): Metadata {
     "Let's get in touch. We value your feedback and suggestions.";
 
   return {
-    title: title,
-    description: description,
+    title,
+    description,
+    alternates: {
+      canonical: "/contact-us",
+    },
     openGraph: {
       title: `${title} | ${process.env.NEXT_PUBLIC_APP_TITLE}`,
-      description: description,
+      description,
+      url: "/contact-us",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} | ${process.env.NEXT_PUBLIC_APP_TITLE}`,
+      description,
     },
   };
 }

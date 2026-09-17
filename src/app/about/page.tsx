@@ -7,11 +7,20 @@ export function generateMetadata(): Metadata {
   const description = `Learn more about ${process.env.NEXT_PUBLIC_APP_TITLE}.`;
 
   return {
-    title: title,
-    description: description,
+    title,
+    description,
+    alternates: {
+      canonical: "/about",
+    },
     openGraph: {
       title: `${title} | ${process.env.NEXT_PUBLIC_APP_TITLE}`,
-      description: description,
+      description,
+      url: "/about",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} | ${process.env.NEXT_PUBLIC_APP_TITLE}`,
+      description,
     },
   };
 }

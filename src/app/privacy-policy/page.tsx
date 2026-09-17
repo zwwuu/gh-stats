@@ -7,12 +7,20 @@ export function generateMetadata(): Metadata {
   const description = "Learn how we handle your data.";
 
   return {
-    title: title,
-    description: description,
-
+    title,
+    description,
+    alternates: {
+      canonical: "/privacy-policy",
+    },
     openGraph: {
       title: `${title} | ${process.env.NEXT_PUBLIC_APP_TITLE}`,
-      description: description,
+      description,
+      url: "/privacy-policy",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} | ${process.env.NEXT_PUBLIC_APP_TITLE}`,
+      description,
     },
   };
 }

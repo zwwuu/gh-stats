@@ -7,11 +7,20 @@ export function generateMetadata(): Metadata {
   const description = "Guidelines for using our platform.";
 
   return {
-    title: title,
-    description: description,
+    title,
+    description,
+    alternates: {
+      canonical: "/terms-of-service",
+    },
     openGraph: {
       title: `${title} | ${process.env.NEXT_PUBLIC_APP_TITLE}`,
-      description: description,
+      description,
+      url: "/terms-of-service",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} | ${process.env.NEXT_PUBLIC_APP_TITLE}`,
+      description,
     },
   };
 }

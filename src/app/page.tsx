@@ -10,8 +10,25 @@ import {
 } from "@/components";
 
 export default function HomePage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: process.env.NEXT_PUBLIC_APP_TITLE,
+    url: process.env.NEXT_PUBLIC_APP_URL,
+    description: process.env.NEXT_PUBLIC_APP_DESCRIPTION,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${process.env.NEXT_PUBLIC_APP_URL}/{search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
+  };
+
   return (
     <>
+      <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       <Content>
         <Card>
           <CardBody>

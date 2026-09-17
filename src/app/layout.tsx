@@ -12,18 +12,38 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: {
     template: `%s | ${process.env.NEXT_PUBLIC_APP_TITLE}`,
-    default: `${process.env.NEXT_PUBLIC_APP_TITLE}`,
+    default: `${process.env.NEXT_PUBLIC_APP_TITLE} | GitHub Release Download Stats & Analytics`,
   },
   description: process.env.NEXT_PUBLIC_APP_DESCRIPTION,
   metadataBase: new URL(`${process.env.NEXT_PUBLIC_APP_URL}`),
+  keywords: [
+    "GitHub release stats",
+    "GitHub download counter",
+    "GitHub release analytics",
+    "track GitHub downloads",
+    "GitHub repo statistics",
+    "GitHub asset downloads",
+    "GitHub release tracker",
+  ],
+  authors: [{ name: "GH Stats" }],
+  creator: process.env.NEXT_PUBLIC_APP_TITLE,
+  publisher: process.env.NEXT_PUBLIC_APP_TITLE,
+  category: "technology",
   alternates: {
     canonical: "/",
   },
   openGraph: {
+    title: `${process.env.NEXT_PUBLIC_APP_TITLE} | GitHub Release Download Stats & Analytics`,
+    description: process.env.NEXT_PUBLIC_APP_DESCRIPTION,
     url: process.env.NEXT_PUBLIC_APP_URL,
     siteName: process.env.NEXT_PUBLIC_APP_TITLE,
     type: "website",
     locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${process.env.NEXT_PUBLIC_APP_TITLE} | GitHub Release Download Stats & Analytics`,
+    description: process.env.NEXT_PUBLIC_APP_DESCRIPTION,
   },
   robots: {
     index: true,
@@ -33,9 +53,6 @@ export const metadata: Metadata = {
     "max-video-preview": -1,
     "max-image-preview": "large",
     "max-snippet": -1,
-  },
-  twitter: {
-    card: "summary_large_image",
   },
 };
 
@@ -49,7 +66,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link href={"avatars.githubusercontent.com"} rel={"preconnect"} />
+        <link href="https://avatars.githubusercontent.com" rel="preconnect" />
+        <link href="https://avatars.githubusercontent.com" rel="dns-prefetch" />
       </head>
       <body>
         <ThemeProvider>
