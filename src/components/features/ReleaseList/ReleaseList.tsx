@@ -5,13 +5,16 @@ import {
   FilterIcon,
   FilterRemoveIcon,
   GitCommitIcon,
+  NoteIcon,
   SearchIcon,
+  TagIcon,
   XCircleFillIcon,
 } from "@primer/octicons-react";
 import {
   ActionList,
   ActionMenu,
   Avatar,
+  Button,
   CounterLabel,
   Heading,
   Stack,
@@ -25,6 +28,7 @@ import { useMemo, useRef, useState } from "react";
 import { Virtuoso, type VirtuosoHandle } from "react-virtuoso";
 import {
   Anchor,
+  ReleaseChangelogModal,
   StatLabel,
   StatTile,
   StatTileBody,
@@ -51,6 +55,9 @@ export default function ReleaseList({
 }: ReleaseListProps) {
   const { settings, saveSettings } = useSettings();
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedRelease, setSelectedRelease] = useState<
+    Awaited<ReturnType<typeof getReleases>>[number] | null
+  >(null);
   const virtuosoRef = useRef<VirtuosoHandle>(null);
 
   const isFiltered =
@@ -86,8 +93,10 @@ export default function ReleaseList({
   const displayedReleases = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
     if (!query) return filteredReleases;
-    return filteredReleases.filter((release) =>
-      release.tag_name.toLowerCase().includes(query),
+    return filteredReleases.filter(
+      (release) =>
+        release.name?.toLowerCase().includes(query) ||
+        release.tag_name.toLowerCase().includes(query),
     );
   }, [filteredReleases, searchQuery]);
 
@@ -457,6 +466,7 @@ export default function ReleaseList({
                       direction={"horizontal"}
                       gap="condensed"
                     >
+                      <StatLabel icon={TagIcon}>{release.tag_name}</StatLabel>
                       {release.prerelease && (
                         <StatLabel variant="severe">Pre-release</StatLabel>
                       )}
@@ -464,11 +474,24 @@ export default function ReleaseList({
                         <StatLabel variant="attention">Draft</StatLabel>
                       )}
                     </Stack>
-                    <Heading as="h3">
-                      <Anchor href={release.html_url} isExternal>
-                        {release.tag_name}
-                      </Anchor>
-                    </Heading>
+                    <Stack
+                      align="center"
+                      direction="horizontal"
+                      justify="space-between"
+                      wrap="wrap"
+                    >
+                      <Heading as="h3">
+                        <Anchor href={release.html_url} isExternal>
+                          {release.name || release.tag_name}
+                        </Anchor>
+                      </Heading>
+                      <Button
+                        leadingVisual={NoteIcon}
+                        onClick={() => setSelectedRelease(release)}
+                      >
+                        Changelog
+                      </Button>
+                    </Stack>
                     {release.author ? (
                       <Text as={"span"}>
                         <Anchor
@@ -568,6 +591,12 @@ export default function ReleaseList({
           useWindowScroll
         />
       </Timeline>
+
+      <ReleaseChangelogModal
+        isOpen={Boolean(selectedRelease)}
+        onClose={() => setSelectedRelease(null)}
+        release={selectedRelease}
+      />
     </>
   );
 }

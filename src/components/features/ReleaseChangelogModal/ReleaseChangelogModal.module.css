@@ -1,0 +1,7 @@
+.changelogBody {
+  padding: 0;
+}
+
+.metaBar {
+  border-bottom: var(--borderWidth-default) solid var(--borderColor-default);
+}
