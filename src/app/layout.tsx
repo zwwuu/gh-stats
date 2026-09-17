@@ -56,7 +56,7 @@ export default function RootLayout({
           <BaseStyles
             style={{
               backgroundColor: "var(--bgColor-default)",
-              minHeight: "100svh",
+              minHeight: "100dvh",
             }}
           >
             <SettingProvider>
