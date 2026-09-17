@@ -6,11 +6,13 @@ import {
   FilterRemoveIcon,
   GitCommitIcon,
   SearchIcon,
+  XCircleFillIcon,
 } from "@primer/octicons-react";
 import {
   ActionList,
   ActionMenu,
   Avatar,
+  CounterLabel,
   Heading,
   Stack,
   Text,
@@ -56,18 +58,38 @@ export default function ReleaseList({
     !settings.filter.showPrerelease ||
     !settings.filter.showEmpty;
 
+  const activeFilterCount =
+    (settings.filter.showEmpty ? 1 : 0) +
+    (settings.filter.showPrerelease ? 1 : 0) +
+    (settings.filter.showDraft ? 1 : 0);
+
+  const resetFilters = () => {
+    saveSettings({
+      filter: {
+        showEmpty: true,
+        showPrerelease: true,
+        showDraft: true,
+      },
+    });
+  };
+
   const filteredReleases = useMemo(() => {
-    const query = searchQuery.trim().toLowerCase();
     return releases.filter((release) => {
       if (!settings.filter.showDraft && release.draft) return false;
       if (!settings.filter.showPrerelease && release.prerelease) return false;
       if (!settings.filter.showEmpty && release.assets.length === 0)
         return false;
-      if (query && !release.tag_name.toLowerCase().includes(query))
-        return false;
       return true;
     });
-  }, [releases, settings.filter, searchQuery]);
+  }, [releases, settings.filter]);
+
+  const displayedReleases = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
+    if (!query) return filteredReleases;
+    return filteredReleases.filter((release) =>
+      release.tag_name.toLowerCase().includes(query),
+    );
+  }, [filteredReleases, searchQuery]);
 
   const { total_downloads, average_downloads, result } = useMemo(() => {
     if (filteredReleases.length === 0) {
@@ -129,7 +151,7 @@ export default function ReleaseList({
         "Asset Downloads",
       ],
     ];
-    filteredReleases.forEach((rel) => {
+    displayedReleases.forEach((rel) => {
       rel.assets.forEach((ast) => {
         rows.push([
           rel.tag_name,
@@ -162,7 +184,7 @@ export default function ReleaseList({
   };
 
   const handleExportJSON = () => {
-    const jsonString = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(filteredReleases, null, 2))}`;
+    const jsonString = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(displayedReleases, null, 2))}`;
     const downloadAnchor = document.createElement("a");
     downloadAnchor.setAttribute("href", jsonString);
     downloadAnchor.setAttribute(
@@ -183,19 +205,32 @@ export default function ReleaseList({
         justify="space-between"
         wrap="wrap"
       >
-        <Stack align="center" direction="horizontal">
+        <Stack align="center" direction="horizontal" wrap="wrap">
           <TextInput
             aria-label="Search release tags"
             leadingVisual={SearchIcon}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search tags..."
+            trailingAction={
+              <TextInput.Action
+                aria-label="Clear query"
+                icon={XCircleFillIcon}
+                onClick={() => {
+                  setSearchQuery("");
+                }}
+              />
+            }
             value={searchQuery}
           />
+
           <ActionMenu>
             <ActionMenu.Button
               leadingVisual={isFiltered ? FilterRemoveIcon : FilterIcon}
             >
-              Filters
+              <Stack align="center" direction="horizontal" gap="tight">
+                Filters
+                <CounterLabel>{activeFilterCount}/3</CounterLabel>
+              </Stack>
             </ActionMenu.Button>
             <ActionMenu.Overlay>
               <ActionList
@@ -257,10 +292,23 @@ export default function ReleaseList({
                     Draft
                   </Text>
                 </ActionList.Item>
+                {isFiltered && (
+                  <>
+                    <ActionList.Divider />
+                    <ActionList.Item
+                      onSelect={resetFilters}
+                      role="menuitemcheckbox"
+                      variant="danger"
+                    >
+                      Reset filters
+                    </ActionList.Item>
+                  </>
+                )}
               </ActionList>
             </ActionMenu.Overlay>
           </ActionMenu>
         </Stack>
+
         <ActionMenu>
           <ActionMenu.Button leadingVisual={DownloadIcon}>
             Export
@@ -284,7 +332,11 @@ export default function ReleaseList({
           <StatTileBody as="p">
             {prettyNumber(total_downloads, false)}
           </StatTileBody>
-          <StatTileCaption as="p">{`from ${filteredReleases.length} releases`}</StatTileCaption>
+          <StatTileCaption as="p">
+            {isFiltered
+              ? `from ${filteredReleases.length} of ${releases.length} releases`
+              : `from ${releases.length} releases`}
+          </StatTileCaption>
         </StatTile>
         <StatTile>
           <StatTileHeading as="h3">
@@ -293,6 +345,11 @@ export default function ReleaseList({
           <StatTileBody as="p">
             {prettyNumber(average_downloads, false)}
           </StatTileBody>
+          <StatTileCaption as="p">
+            {isFiltered
+              ? `across ${filteredReleases.length} of ${releases.length} releases`
+              : `across ${releases.length} releases`}
+          </StatTileCaption>
         </StatTile>
         <StatTile>
           <StatTileHeading as="h3">Most Downloaded Release</StatTileHeading>
@@ -308,7 +365,7 @@ export default function ReleaseList({
                   onClick={(event) => {
                     event.preventDefault();
                     if (virtuosoRef.current) {
-                      const index = releases.findIndex(
+                      const index = displayedReleases.findIndex(
                         (r) => r.id === result.max.release?.id,
                       );
                       if (index !== -1) {
@@ -353,7 +410,7 @@ export default function ReleaseList({
                   onClick={(event) => {
                     event.preventDefault();
                     if (virtuosoRef.current) {
-                      const index = releases.findIndex(
+                      const index = displayedReleases.findIndex(
                         (r) => r.id === result.min.release?.id,
                       );
                       if (index !== -1) {
@@ -382,7 +439,7 @@ export default function ReleaseList({
 
       <Timeline clipSidebar>
         <Virtuoso
-          data={filteredReleases}
+          data={displayedReleases}
           increaseViewportBy={500}
           itemContent={(_, release) => {
             return (

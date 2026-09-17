@@ -48,7 +48,9 @@ test.describe("Repository page interactions", () => {
     expect(savedSettings?.filter?.showEmpty).toBe(false);
   });
 
-  test("can search release tags", async ({ page }) => {
+  test("can search release tags without changing overall stats", async ({
+    page,
+  }) => {
     await page.goto(`/${REAL_OWNER}/${REAL_REPO}`);
 
     await expect(page.locator("h1")).toContainText(
@@ -58,6 +60,12 @@ test.describe("Repository page interactions", () => {
       },
     );
 
+    const totalDownloadsStat = page
+      .getByRole("heading", { name: "Total Downloads" })
+      .locator("..");
+    await expect(totalDownloadsStat).toBeVisible();
+    const initialStatsText = await totalDownloadsStat.innerText();
+
     const tagSearchInput = page.getByPlaceholder("Search tags...");
     await expect(tagSearchInput).toBeVisible();
 
@@ -66,6 +74,10 @@ test.describe("Repository page interactions", () => {
 
     // The release timeline should filter to matching tags
     await expect(page.getByText("v0.12").first()).toBeVisible();
+
+    // Overall stats should remain unchanged
+    const afterSearchStatsText = await totalDownloadsStat.innerText();
+    expect(afterSearchStatsText).toBe(initialStatsText);
   });
 
   test("can trigger export releases as CSV and JSON", async ({ page }) => {
