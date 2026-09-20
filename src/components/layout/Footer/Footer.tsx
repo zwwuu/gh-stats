@@ -1,5 +1,3 @@
-"use client";
-
 import { Stack, Text } from "@primer/react";
 import { Anchor } from "@/components";
 import styles from "./Footer.module.css";
