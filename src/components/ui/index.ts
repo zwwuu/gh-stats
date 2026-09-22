@@ -2,7 +2,9 @@ export { default as Anchor } from "./Anchor/Anchor";
 export { default as Card } from "./Card/Card";
 export { default as CardBody } from "./Card/CardBody";
 export { default as CardHeader } from "./Card/CardHeader";
+export { default as ErrorFallback } from "./ErrorFallback/ErrorFallback";
 export { default as FloatingButton } from "./FloatingButton/FloatingButton";
+export { default as QueryBoundary } from "./QueryBoundary/QueryBoundary";
 export { default as StatLabel } from "./StatLabel/StatLabel";
 export {
   default as StatTile,

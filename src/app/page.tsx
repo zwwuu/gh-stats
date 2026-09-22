@@ -1,8 +1,11 @@
+import { GraphIcon } from "@primer/octicons-react";
 import { Heading, Text } from "@primer/react";
 import {
   Card,
   CardBody,
   Content,
+  QueryBoundary,
+  RepoGridSkeleton,
   RepoSearchBar,
   RepoSidebar,
   Sidebar,
@@ -37,7 +40,16 @@ export default function HomePage() {
             <RepoSearchBar />
           </CardBody>
         </Card>
-        <TrendingGrid />
+        <Card>
+          <CardBody>
+            <GraphIcon />
+            <Heading as="h2">Trending</Heading>
+            <Text as="p">Here is what is popular on GitHub today...</Text>
+          </CardBody>
+        </Card>
+        <QueryBoundary fallback={<RepoGridSkeleton />}>
+          <TrendingGrid />
+        </QueryBoundary>
       </Content>
       <Sidebar>
         <RepoSidebar showSearch={false} />

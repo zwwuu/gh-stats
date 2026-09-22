@@ -1,6 +1,13 @@
 import { Heading } from "@primer/react";
 import type { Metadata } from "next";
-import { Content, OwnerReposClient, RepoSidebar, Sidebar } from "@/components";
+import {
+  Content,
+  OwnerReposClient,
+  QueryBoundary,
+  RepoGridSkeleton,
+  RepoSidebar,
+  Sidebar,
+} from "@/components";
 
 type Props = {
   params: Promise<{ owner: string }>;
@@ -33,7 +40,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function OwnerPage({ params }: Props) {
   const { owner } = await params;
-
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ProfilePage",
@@ -51,7 +57,9 @@ export default async function OwnerPage({ params }: Props) {
       <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       <Content>
         <Heading as="h1">{owner}</Heading>
-        <OwnerReposClient owner={owner} />
+        <QueryBoundary fallback={<RepoGridSkeleton />}>
+          <OwnerReposClient owner={owner} />
+        </QueryBoundary>
       </Content>
       <Sidebar>
         <RepoSidebar />

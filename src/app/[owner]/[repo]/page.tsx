@@ -1,5 +1,12 @@
+import { Spinner, Stack, Text } from "@primer/react";
 import type { Metadata } from "next";
-import { Content, RepoDetailsClient, RepoSidebar, Sidebar } from "@/components";
+import {
+  Content,
+  QueryBoundary,
+  RepoDetailsClient,
+  RepoSidebar,
+  Sidebar,
+} from "@/components";
 
 type Props = {
   params: Promise<{ owner: string; repo: string }>;
@@ -40,7 +47,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function RepoPage({ params }: Props) {
   const { owner, repo } = await params;
-
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareSourceCode",
@@ -58,7 +64,22 @@ export default async function RepoPage({ params }: Props) {
     <>
       <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       <Content>
-        <RepoDetailsClient owner={owner} repo={repo} />
+        <QueryBoundary
+          fallback={
+            <Stack align="center" direction="horizontal">
+              <Spinner size="medium" />
+              <Text as="p">
+                Generating stats for{" "}
+                <Text as="span" weight="semibold">
+                  {owner}/{repo}
+                </Text>
+                ...
+              </Text>
+            </Stack>
+          }
+        >
+          <RepoDetailsClient owner={owner} repo={repo} />
+        </QueryBoundary>
       </Content>
       <Sidebar>
         <RepoSidebar />
