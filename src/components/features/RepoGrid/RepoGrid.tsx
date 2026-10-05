@@ -1,26 +1,15 @@
 import { RepoCard } from "@/components";
-import {
-  type getTrending,
-  type getUserRepos,
-  TRENDING_PER_PAGE,
-} from "@/lib/github";
+import type { getTrending, getUserRepos } from "@/lib/github";
 import styles from "./RepoGrid.module.css";
 
 type RepoGridProps = {
-  isLoading: boolean;
-  data?: Awaited<ReturnType<typeof getUserRepos | typeof getTrending>>;
+  data: Awaited<ReturnType<typeof getUserRepos | typeof getTrending>>;
 };
 
-export default function RepoGrid({ isLoading, data }: RepoGridProps) {
+export default function RepoGrid({ data }: RepoGridProps) {
   return (
     <div className={styles.grid}>
-      {isLoading &&
-        Array.from({ length: TRENDING_PER_PAGE }, (_, i) => {
-          const key = `loading-${i}`;
-          return <RepoCard isLoading key={key} />;
-        })}
-
-      {data?.map((item) => (
+      {data.map((item) => (
         <RepoCard
           avatarUrl={item.owner?.avatar_url}
           description={item.description}

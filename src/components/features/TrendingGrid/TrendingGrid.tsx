@@ -4,7 +4,7 @@ import { GraphIcon } from "@primer/octicons-react";
 import { Banner } from "@primer/react";
 import { Blankslate } from "@primer/react/experimental";
 import useSWRImmutable from "swr";
-import { RepoGrid } from "@/components";
+import { RepoGrid, RepoGridSkeleton } from "@/components";
 import { getTrending } from "@/lib/github";
 
 const fetchTrending = async (params: { key: string; isoDate: string }) => {
@@ -28,7 +28,7 @@ export default function TrendingGrid() {
 
   return (
     <>
-      <Blankslate border>
+      <Blankslate>
         <Blankslate.Visual>
           <GraphIcon />
         </Blankslate.Visual>
@@ -47,7 +47,10 @@ export default function TrendingGrid() {
           variant="critical"
         />
       )}
-      <RepoGrid data={data} isLoading={isLoading} />
+
+      {isLoading && <RepoGridSkeleton />}
+
+      {data && <RepoGrid data={data} />}
     </>
   );
 }

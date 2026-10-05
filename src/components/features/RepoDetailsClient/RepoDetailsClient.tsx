@@ -18,25 +18,17 @@ export default function RepoDetailsClient({
 }: RepoDetailsClientProps) {
   const { settings } = useSettings();
 
-  const {
-    data: repoData,
-    error: repoError,
-    isLoading: isLoadingRepo,
-  } = useSWRImmutable(
+  const { data: repoData, isLoading: isRepoLoading } = useSWRImmutable(
     { key: "repo", owner, repo, token: settings.githubToken },
     (params) => getRepo(params.owner, params.repo, params.token),
   );
 
-  const {
-    data: releasesData,
-    error: releasesError,
-    isLoading: isLoadingReleases,
-  } = useSWRImmutable(
+  const { data: releasesData, isLoading: isReleasesLoading } = useSWRImmutable(
     { key: "release", owner, repo, token: settings.githubToken },
     (params) => getReleases(params.owner, params.repo, params.token),
   );
 
-  if (isLoadingRepo || isLoadingReleases) {
+  if (isRepoLoading || isReleasesLoading || !repoData || !releasesData) {
     return (
       <Stack align="center" direction="horizontal">
         <Spinner size="medium" />
@@ -51,62 +43,37 @@ export default function RepoDetailsClient({
     );
   }
 
-  if (repoError) {
-    return (
-      <Banner
-        aria-label="Repository not found"
-        description={repoError.message}
-        hideTitle
-        title="Repository Not Found"
-        variant="critical"
-      />
-    );
-  }
-
   return (
     <>
-      {repoData && (
-        <RepoHeader
-          description={repoData.description}
-          forksCount={repoData.forks_count}
-          fullName={repoData.full_name}
-          htmlUrl={repoData.html_url}
-          language={repoData.language}
-          owner={owner}
-          ownerAvatarUrl={repoData.owner.avatar_url}
-          ownerLogin={repoData.owner.login}
-          releaseCount={releasesData?.length ?? 0}
-          repo={repoData.name}
-          stargazersCount={repoData.stargazers_count}
-          subscribersCount={repoData.subscribers_count}
-        />
-      )}
+      <RepoHeader
+        description={repoData.description}
+        forksCount={repoData.forks_count}
+        fullName={repoData.full_name}
+        htmlUrl={repoData.html_url}
+        language={repoData.language}
+        owner={owner}
+        ownerAvatarUrl={repoData.owner.avatar_url}
+        ownerLogin={repoData.owner.login}
+        releaseCount={releasesData.length}
+        repo={repoData.name}
+        stargazersCount={repoData.stargazers_count}
+        subscribersCount={repoData.subscribers_count}
+      />
 
-      {releasesError && (
+      {releasesData.length > 0 ? (
+        <>
+          <StatChart releases={releasesData} />
+          <ReleaseList owner={owner} releases={releasesData} repo={repo} />
+        </>
+      ) : (
         <Banner
           aria-label="No releases found"
-          description={releasesError.message}
+          description="No releases found for this repository."
           hideTitle
           title="Not Found"
-          variant="critical"
+          variant="warning"
         />
       )}
-
-      {releasesData &&
-        (releasesData.length > 0 ? (
-          <>
-            <StatChart releases={releasesData} />
-            <ReleaseList owner={owner} releases={releasesData} repo={repo} />
-          </>
-        ) : (
-          <Banner
-            aria-label="No releases found"
-            description="No releases found for this repository."
-            hideTitle
-            title="Not Found"
-            variant="warning"
-          />
-        ))}
     </>
   );
 }

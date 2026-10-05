@@ -33,7 +33,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function OwnerPage({ params }: Props) {
   const { owner } = await params;
-
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ProfilePage",

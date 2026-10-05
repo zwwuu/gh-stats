@@ -40,7 +40,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function RepoPage({ params }: Props) {
   const { owner, repo } = await params;
-
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareSourceCode",
