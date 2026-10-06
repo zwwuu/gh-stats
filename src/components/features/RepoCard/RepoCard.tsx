@@ -1,6 +1,5 @@
 import { GitBranchIcon, StarFillIcon } from "@primer/octicons-react";
 import { Avatar, RelativeTime, Stack, Text } from "@primer/react";
-import { SkeletonText } from "@primer/react/experimental";
 import {
   Anchor,
   BookmarkButton,
@@ -24,41 +23,7 @@ type RepoCardProps = {
   pushedAt?: string | null;
 };
 
-type LoadingRepoCardProps = {
-  isLoading: true;
-};
-
-type LoadedRepoCardProps = {
-  isLoading?: false;
-} & RepoCardProps;
-
-type RepoCardPropsWithLoading = LoadedRepoCardProps | LoadingRepoCardProps;
-
-function RepoCardSkeleton() {
-  return (
-    <Card>
-      <CardHeader>
-        <SkeletonText size="titleLarge" />
-      </CardHeader>
-      <CardBody>
-        <SkeletonText lines={3} size="bodyMedium" />
-        <Stack
-          align="center"
-          direction="horizontal"
-          gap={"condensed"}
-          wrap="wrap"
-        >
-          <SkeletonText maxWidth={"8ch"} size="bodyMedium" />
-          <SkeletonText maxWidth={"8ch"} size="bodyMedium" />
-          <SkeletonText maxWidth={"8ch"} size="bodyMedium" />
-          <SkeletonText maxWidth={"8ch"} size="bodyMedium" />
-        </Stack>
-      </CardBody>
-    </Card>
-  );
-}
-
-function RepoCardItem({
+export default function RepoCard({
   fullName,
   avatarUrl,
   htmlUrl,
@@ -123,12 +88,4 @@ function RepoCardItem({
       </CardBody>
     </Card>
   );
-}
-
-export default function RepoCard(props: RepoCardPropsWithLoading) {
-  if (props.isLoading) {
-    return <RepoCardSkeleton />;
-  }
-
-  return <RepoCardItem {...props} />;
 }
