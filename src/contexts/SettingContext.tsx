@@ -7,6 +7,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from "react";
 
@@ -96,14 +97,19 @@ export function SettingProvider({ children }: { children: ReactNode }) {
     setSettings((prev) => ({ ...prev, ...partial }));
   }, []);
 
-  const toggleTheme = () => {
+  const toggleTheme = useCallback(() => {
     const nextMode = resolvedColorMode === "day" ? "night" : "day";
     setSettings((prev) => ({ ...prev, colorMode: nextMode }));
     setColorMode(nextMode);
-  };
+  }, [resolvedColorMode, setColorMode]);
+
+  const contextValue = useMemo(
+    () => ({ settings, toggleTheme, saveSettings }),
+    [settings, toggleTheme, saveSettings],
+  );
 
   return (
-    <SettingContext.Provider value={{ settings, toggleTheme, saveSettings }}>
+    <SettingContext.Provider value={contextValue}>
       {children}
     </SettingContext.Provider>
   );

@@ -6,6 +6,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from "react";
 
@@ -111,16 +112,19 @@ export function BookmarkProvider({ children }: { children: ReactNode }) {
     [],
   );
 
+  const contextValue = useMemo(
+    () => ({
+      bookmarks,
+      addBookmark,
+      removeBookmark,
+      isBookmarked,
+      toggleBookmark,
+    }),
+    [bookmarks, addBookmark, removeBookmark, isBookmarked, toggleBookmark],
+  );
+
   return (
-    <BookmarkContext.Provider
-      value={{
-        bookmarks,
-        addBookmark,
-        removeBookmark,
-        isBookmarked,
-        toggleBookmark,
-      }}
-    >
+    <BookmarkContext.Provider value={contextValue}>
       {children}
     </BookmarkContext.Provider>
   );
