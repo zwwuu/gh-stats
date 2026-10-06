@@ -31,7 +31,7 @@ export default function TermsPage() {
 
   return (
     <>
-      <Content>
+      <Content gap={"none"}>
         <Heading as="h1">Terms of Service</Heading>
         <Text as="p">Last updated: {new Date().toUTCString()}</Text>
 

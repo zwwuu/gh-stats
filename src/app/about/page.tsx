@@ -28,7 +28,7 @@ export function generateMetadata(): Metadata {
 export default function AboutPage() {
   return (
     <>
-      <Content>
+      <Content gap={"none"}>
         <Heading as="h1">About {process.env.NEXT_PUBLIC_APP_TITLE}</Heading>
 
         <Heading as="h2">Our Mission</Heading>

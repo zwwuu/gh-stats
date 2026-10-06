@@ -29,7 +29,7 @@ export function generateMetadata(): Metadata {
 export default function ContactPage() {
   return (
     <>
-      <Content>
+      <Content gap={"none"}>
         <Heading as="h1">Contact Us</Heading>
         <Text as="p">
           Have questions, suggestions, or need support? We&apos;d love to hear

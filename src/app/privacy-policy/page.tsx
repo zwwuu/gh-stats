@@ -31,7 +31,7 @@ export default function PrivacyPage() {
 
   return (
     <>
-      <Content>
+      <Content gap={"none"}>
         <Heading as="h1">Privacy Policy</Heading>
         <Text as="p">Last updated: {new Date().toUTCString()}</Text>
         <Text as="p">
