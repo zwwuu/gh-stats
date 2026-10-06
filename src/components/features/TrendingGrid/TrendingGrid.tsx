@@ -48,7 +48,7 @@ export default function TrendingGrid() {
         />
       )}
 
-      {isLoading && <RepoGridSkeleton />}
+      {(isLoading || !data) && <RepoGridSkeleton />}
 
       {data && <RepoGrid data={data} />}
     </>
