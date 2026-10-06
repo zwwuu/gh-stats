@@ -5,9 +5,7 @@ import { FormControl, TextInput } from "@primer/react";
 import { useRouter } from "next/navigation";
 import { type SubmitEvent, useId, useState } from "react";
 
-export function parseRepoInput(
-  raw: string,
-): { owner: string; repo: string } | null {
+function parseRepoInput(raw: string): { owner: string; repo: string } | null {
   const clean = raw
     .trim()
     .replace(/^https?:\/\//i, "")
