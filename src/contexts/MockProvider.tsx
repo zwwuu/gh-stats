@@ -1,13 +1,13 @@
 "use client";
 
-import { type ReactNode, useEffect, useState } from "react";
+import { type ReactNode, useLayoutEffect, useState } from "react";
 
 const mockEnabled = process.env.NEXT_PUBLIC_USE_MOCK === "true";
 
 export function MockProvider({ children }: { children: ReactNode }) {
   const [workerReady, setWorkerReady] = useState(!mockEnabled);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!mockEnabled) {
       return;
     }
