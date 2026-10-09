@@ -4,7 +4,7 @@ import { ThemeProvider } from "@primer/react/next";
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { FloatingButton, Footer, Navbar } from "@/components";
-import { BookmarkProvider, SettingProvider } from "@/contexts";
+import { BookmarkProvider, MockProvider, SettingProvider } from "@/contexts";
 import { colors } from "@/lib/constants";
 
 import "./globals.css";
@@ -70,30 +70,32 @@ export default function RootLayout({
         <link href="https://avatars.githubusercontent.com" rel="dns-prefetch" />
       </head>
       <body>
-        <ThemeProvider>
-          <BaseStyles
-            style={{
-              backgroundColor: "var(--bgColor-default)",
-              minHeight: "100dvh",
-            }}
-          >
-            <SettingProvider>
-              <BookmarkProvider>
-                <PageLayout
-                  columnGap="none"
-                  containerWidth="full"
-                  padding="none"
-                  rowGap="none"
-                >
-                  <Navbar />
-                  {children}
-                  <FloatingButton />
-                </PageLayout>
-                <Footer />
-              </BookmarkProvider>
-            </SettingProvider>
-          </BaseStyles>
-        </ThemeProvider>
+        <MockProvider>
+          <ThemeProvider>
+            <BaseStyles
+              style={{
+                backgroundColor: "var(--bgColor-default)",
+                minHeight: "100dvh",
+              }}
+            >
+              <SettingProvider>
+                <BookmarkProvider>
+                  <PageLayout
+                    columnGap="none"
+                    containerWidth="full"
+                    padding="none"
+                    rowGap="none"
+                  >
+                    <Navbar />
+                    {children}
+                    <FloatingButton />
+                  </PageLayout>
+                  <Footer />
+                </BookmarkProvider>
+              </SettingProvider>
+            </BaseStyles>
+          </ThemeProvider>
+        </MockProvider>
         <GoogleTagManager gtmId={`${process.env.NEXT_PUBLIC_GTM_ID}`} />
       </body>
     </html>

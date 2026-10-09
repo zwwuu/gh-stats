@@ -131,6 +131,8 @@ Create a `.env` file in the root directory with the following variables:
 
 > [!TIP]
 > When developing locally or running automated tests, set `NEXT_PUBLIC_USE_MOCK=true` to prevent hitting GitHub unauthenticated rate limits.
+>
+> Mock mode is powered by [Mock Service Worker](https://mswjs.io/) (`mock/handlers.ts`), which intercepts GitHub API requests at the network layer. The app code runs unchanged — no mock branches — so mocks exercise the real data-fetching path. Handlers personalize responses from URL params (e.g. any `/repos/:owner/:repo` renders its own identity), paginate releases with `Link` headers like the real API, and visiting `/notfound/anything` simulates a 404. After `npm install`, run `npx msw init public/` once to (re)generate the service worker file.
 
 ---
 

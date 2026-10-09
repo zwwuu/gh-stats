@@ -1,11 +1,5 @@
 import { throttling } from "@octokit/plugin-throttling";
 import { Octokit } from "@octokit/rest";
-import mockReleases from "../../mock/releases.json";
-import mockRepo from "../../mock/repo.json";
-import mockTrending from "../../mock/trending.json";
-import mockUserRepos from "../../mock/userRepos.json";
-
-const useMock = process.env.NEXT_PUBLIC_USE_MOCK === "true";
 
 export const TRENDING_PER_PAGE = 16;
 export const RATE_LIMIT = 60;
@@ -34,25 +28,12 @@ export function getOctokit(token?: string) {
 const defaultOctokit = getOctokit();
 
 export async function getRateLimit(token?: string) {
-  if (useMock) {
-    return Promise.resolve({
-      limit: RATE_LIMIT,
-      remaining: RATE_REMAINNING,
-      reset: RATE_RESET,
-      used: RATE_USED,
-    });
-  }
-
   const client = token ? getOctokit(token) : defaultOctokit;
   const res = await client.rest.rateLimit.get();
   return res.data.rate;
 }
 
 export async function getTrending(date: string, token?: string) {
-  if (useMock) {
-    return Promise.resolve(mockTrending.items);
-  }
-
   const client = token ? getOctokit(token) : defaultOctokit;
   return await client.rest.search
     .repos({
@@ -67,10 +48,6 @@ export async function getTrending(date: string, token?: string) {
 }
 
 export async function getRepo(owner: string, repo: string, token?: string) {
-  if (useMock) {
-    return Promise.resolve(mockRepo);
-  }
-
   const client = token ? getOctokit(token) : defaultOctokit;
   return await client.rest.repos.get({ owner, repo }).then((res) => {
     return res.data;
@@ -78,10 +55,6 @@ export async function getRepo(owner: string, repo: string, token?: string) {
 }
 
 export async function getUserRepos(username: string, token?: string) {
-  if (useMock) {
-    return Promise.resolve(mockUserRepos);
-  }
-
   const client = token ? getOctokit(token) : defaultOctokit;
   return await client.paginate(client.rest.repos.listForUser, {
     username,
@@ -90,45 +63,6 @@ export async function getUserRepos(username: string, token?: string) {
 }
 
 export async function getReleases(owner: string, repo: string, token?: string) {
-  if (useMock) {
-    return Promise.resolve(
-      mockReleases.map((json) => {
-        const assets = json.assets ?? [];
-
-        return {
-          html_url: json.html_url,
-          id: json.id,
-          name: json.name ?? null,
-          body: json.body ?? null,
-          author: json.author
-            ? {
-                login: json.author.login,
-                id: json.author.id,
-                avatar_url: json.author.avatar_url,
-                html_url: json.author.html_url,
-              }
-            : null,
-          tag_name: json.tag_name,
-          draft: json.draft,
-          prerelease: json.prerelease,
-          published_at: json.published_at,
-          assets: assets.map((asset) => ({
-            id: asset.id,
-            name: asset.name,
-            size: asset.size,
-            download_count: asset.download_count,
-            browser_download_url: asset.browser_download_url,
-          })),
-          total_download_count: assets.reduce(
-            (total: number, asset: { download_count: number }) =>
-              total + asset.download_count,
-            0,
-          ),
-        };
-      }),
-    );
-  }
-
   const client = token ? getOctokit(token) : defaultOctokit;
   return await client.paginate(
     client.rest.repos.listReleases,

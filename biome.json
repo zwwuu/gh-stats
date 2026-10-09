@@ -13,7 +13,8 @@
       "!.next",
       "!dist",
       "!build",
-      "!**/*.svg"
+      "!**/*.svg",
+      "!public/**/*.js"
     ]
   },
   "formatter": {
