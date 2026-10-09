@@ -3,7 +3,7 @@ import { Octokit } from "@octokit/rest";
 
 export const TRENDING_PER_PAGE = 16;
 export const RATE_LIMIT = 60;
-export const RATE_REMAINNING = 60;
+export const RATE_REMAINING = 60;
 export const RATE_RESET = Date.now() + 3600000;
 export const RATE_USED = 0;
 

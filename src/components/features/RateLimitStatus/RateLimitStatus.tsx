@@ -16,7 +16,7 @@ import { useSettings } from "@/contexts";
 import {
   getRateLimit,
   RATE_LIMIT,
-  RATE_REMAINNING,
+  RATE_REMAINING,
   RATE_RESET,
   RATE_USED,
 } from "@/lib/github";
@@ -38,7 +38,7 @@ export default function RateLimitStatus() {
       refreshInterval: 60000,
       fallbackData: {
         limit: RATE_LIMIT,
-        remaining: RATE_REMAINNING,
+        remaining: RATE_REMAINING,
         reset: RATE_RESET,
         used: RATE_USED,
       },
