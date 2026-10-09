@@ -14,7 +14,7 @@ import {
   TextInput,
 } from "@primer/react";
 import commonStyles from "@/components/Common.module.css";
-import type { Setting } from "@/contexts/SettingContext";
+import type { Setting } from "@/contexts/SettingProvider";
 
 type ReleaseToolbarProps = {
   filter: Setting["filter"];

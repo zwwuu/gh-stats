@@ -2,6 +2,6 @@ export {
   type Bookmark,
   BookmarkProvider,
   useBookmarks,
-} from "./BookmarkContext";
+} from "./BookmarkProvider";
 export { MockProvider } from "./MockProvider";
-export { type Setting, SettingProvider, useSettings } from "./SettingContext";
+export { type Setting, SettingProvider, useSettings } from "./SettingProvider";
