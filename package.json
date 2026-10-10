@@ -5,11 +5,19 @@
   "scripts": {
     "build": "next build",
     "check": "npm run lint && npm run typecheck",
+    "clean": "rm -rf .next",
     "dev": "next dev",
     "e2e": "playwright test",
-    "lint": "biome check --write",
+    "e2e:install": "playwright install",
+    "e2e:ui": "playwright test --ui",
+    "env:init": "cp -n .env.example .env",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "msw:init": "msw init public/",
     "preview": "next build && next start",
+    "setup": "npm run env:init && npm run msw:init && npm run e2e:install",
     "start": "next start",
+    "test": "npm run e2e",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -34,10 +42,10 @@
   "devDependencies": {
     "@biomejs/biome": "^2.5.15",
     "@playwright/test": "^1.64.0",
-    "@types/node": "^26.6.4",
+    "@types/node": "^26.6.5",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "msw": "^3.0.2",
+    "msw": "^3.0.3",
     "typescript": "^7.0.2"
   },
   "msw": {

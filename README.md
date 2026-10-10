@@ -94,14 +94,17 @@ cd gh-stats
 
 # Install dependencies
 npm install
+
+# One-time setup: env file, MSW service worker, Playwright browsers
+npm run setup
 ```
 
 ### 3. Configure Environment
 
-Copy the example environment configuration:
+Copy the example environment configuration (already done by `npm run setup`, safe to re-run — it never overwrites an existing `.env`):
 
 ```bash
-cp .env.example .env
+npm run env:init
 ```
 
 Edit `.env` to configure application settings (see [Environment Variables](#-environment-variables)).
@@ -125,14 +128,14 @@ Create a `.env` file in the root directory with the following variables:
 | `NEXT_PUBLIC_APP_TITLE` | Application title displayed in header and metadata | `"GH Stats"` |
 | `NEXT_PUBLIC_APP_DESCRIPTION` | App description for SEO and banner headers | `"Track download counts..."` |
 | `NEXT_PUBLIC_APP_URL` | Canonical base URL of the site | `https://ghstats.xyz` |
+| `NEXT_PUBLIC_GTM_ID` | Optional Google Tag Manager Container ID | `G-XXXXXXXXXX` |
 | `NEXT_PUBLIC_GITHUB_URL` | Link to the project's source repository | `https://github.com/zwwuu/gh-stats` |
 | `NEXT_PUBLIC_USE_MOCK` | Enable local mock data instead of calling live GitHub API | `true` or `false` |
-| `NEXT_PUBLIC_GTM_ID` | Optional Google Tag Manager Container ID | `G-XXXXXXXXXX` |
 
 > [!TIP]
 > When developing locally or running automated tests, set `NEXT_PUBLIC_USE_MOCK=true` to prevent hitting GitHub unauthenticated rate limits.
 >
-> Mock mode is powered by [Mock Service Worker](https://mswjs.io/) (`mock/handlers.ts`), which intercepts GitHub API requests at the network layer. The app code runs unchanged — no mock branches — so mocks exercise the real data-fetching path. Handlers personalize responses from URL params (e.g. any `/repos/:owner/:repo` renders its own identity), paginate releases with `Link` headers like the real API, and visiting `/notfound/anything` simulates a 404. After `npm install`, run `npx msw init public/` once to (re)generate the service worker file.
+> Mock mode is powered by [Mock Service Worker](https://mswjs.io/) (`mock/handlers.ts`), which intercepts GitHub API requests at the network layer. The app code runs unchanged — no mock branches — so mocks exercise the real data-fetching path. Handlers personalize responses from URL params (e.g. any `/repos/:owner/:repo` renders its own identity), paginate releases with `Link` headers like the real API, and visiting `/notfound/anything` simulates a 404. After `npm install`, run `npm run msw:init` once to (re)generate the service worker file.
 
 ---
 
@@ -140,44 +143,22 @@ Create a `.env` file in the root directory with the following variables:
 
 | Command | Description |
 | --- | --- |
-| `npm run dev` | Starts the Next.js development server on `http://localhost:3000` |
 | `npm run build` | Compiles and builds the production bundle |
-| `npm run start` | Runs the built production server |
+| `npm run check` | Runs Biome lint (check-only) and TypeScript checks — CI-safe |
+| `npm run clean` | Removes the `.next` build cache |
+| `npm run dev` | Starts the Next.js development server on `http://localhost:3000` |
+| `npm run e2e` | Runs Playwright end-to-end suite against MSW mocks |
+| `npm run e2e:install` | One-time download of Playwright browsers |
+| `npm run e2e:ui` | Runs Playwright with the interactive UI for debugging tests |
+| `npm run env:init` | One-time copy of `.env.example` to `.env` (never overwrites) |
+| `npm run msw:init` | One-time (re)generation of the MSW service worker in `public/` |
+| `npm run setup` | One-time project setup: `env:init` + `msw:init` + `e2e:install` |
+| `npm run lint` | Checks formatting and lint with Biome (no writes) |
+| `npm run lint:fix` | Formats and lints code with Biome, applying safe fixes |
 | `npm run preview` | Builds and immediately runs the production server |
-| `npm run lint` | Formats and lints code using Biome |
+| `npm run start` | Runs the built production server |
+| `npm run test` | Alias for `npm run e2e` |
 | `npm run typecheck` | Validates TypeScript types across the project (`tsc --noEmit`) |
-| `npm run check` | Runs both Biome linting and TypeScript checks |
-| `npm run e2e` | Runs Playwright end-to-end test suite |
-
----
-
-## 📂 Project Structure
-
-```text
-gh-stats/
-├── e2e/                     # Playwright end-to-end tests
-├── mock/                    # Mock responses for offline development
-├── public/                  # Static assets and favicons
-├── src/
-│   ├── app/                 # Next.js App Router pages and metadata routes
-│   │   ├── [owner]/         # Owner/organization repository listing
-│   │   │   └── [repo]/      # Repository stats and release analytics
-│   │   ├── about/           # About page
-│   │   ├── contact-us/      # Contact information page
-│   │   ├── privacy-policy/  # Privacy policy
-│   │   ├── terms-of-service/# Terms of service
-│   │   ├── layout.tsx       # Root layout with Primer theme provider
-│   │   └── page.tsx         # Home page with search and trending grid
-│   ├── components/          # Reusable UI & feature components
-│   │   ├── features/        # Business logic components (StatChart, ReleaseList, etc.)
-│   │   ├── layout/          # Navbar, Footer, Page layout containers
-│   │   └── ui/              # Atom-level UI primitives & buttons
-│   ├── contexts/            # React contexts (Theme, Settings, Bookmarks)
-│   └── lib/                 # Octokit client, formatters, and utilities
-├── biome.json               # Biome linter and formatter configuration
-├── playwright.config.ts     # Playwright configuration
-└── tsconfig.json            # TypeScript configuration
-```
 
 ---
 
